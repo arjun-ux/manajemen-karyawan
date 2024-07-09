@@ -38,7 +38,7 @@ class RegisterController extends Controller
         if ($request) {
             $sabaUser = User::create([
                 'username'=> Saba::generateNis(),
-                'email'=>$request->no_wa,
+                'no_wa'=>$request->no_wa,
                 'password'=>$request->password,
                 'role' => 'saba'
             ]);
