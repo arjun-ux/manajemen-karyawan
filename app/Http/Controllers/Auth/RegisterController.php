@@ -6,12 +6,18 @@ use App\Http\Controllers\Controller;
 use App\Jobs\MailJobs;
 use App\Models\User;
 use App\Models\Saba;
+use App\Providers\Service\WhatsAppService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 class RegisterController extends Controller
 {
+    protected $whatsAppService;
+    public function __construct(WhatsAppService $whatsAppService)
+    {
+        $this->whatsAppService = $whatsAppService;
+    }
     // index register
     public function register()
     {
@@ -22,20 +28,17 @@ class RegisterController extends Controller
     {
         $request->validate([
             'nama_lengkap' => 'required',
-            'email' => 'required|email|unique:users,email',
+            'no_wa' => 'required',
             'password' => 'required|min:6',
         ],[
             'nama_lengkap.required' => 'Nama Lengkap Wajib Di Isi',
-            'email.required' => 'Email Wajib Di Isi',
-            'email.email' => 'Harus Berupa Email',
-            'email.unique' => 'Email Sudah Terdaftar',
             'password.required' => 'Password Wajib Di Isi',
             'password.min' => 'Password Minimal 6 Karakter',
         ]);
         if ($request) {
             $sabaUser = User::create([
                 'username'=> Saba::generateNis(),
-                'email'=>$request->email,
+                'email'=>$request->no_wa,
                 'password'=>$request->password,
                 'role' => 'saba'
             ]);
@@ -45,7 +48,10 @@ class RegisterController extends Controller
                 'nama_lengkap' => $request->nama_lengkap,
                 // 'status' => 'Register',
             ]);
-            MailJobs::dispatch($sabaUser, $saba);
+            // Notif Wa
+            $numberTarget = $request->no_wa;
+            $message = 'Berikut Username Untuk Login Anda '.$saba->nis.'';
+            $this->whatsAppService->sendNotif($numberTarget, $message);
             return redirect()->route("login")->with('success','Registrasi Berhasil');
         }
         return back();

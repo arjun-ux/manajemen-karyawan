@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Dashboard\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\OrangTua;
 use App\Models\Pekerjaan;
 use App\Models\Pendidikan;
 use App\Models\Saba;
@@ -11,10 +10,7 @@ use Illuminate\Http\Request;
 use App\Providers\RouteParamService as routeParam;
 use App\Providers\Service\IndoRegionService;
 use App\Providers\Service\SantriService;
-use App\Providers\Service\UserService;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
+use App\Providers\Service\WhatsAppService;
 use Yajra\DataTables\Facades\DataTables;
 
 
@@ -22,10 +18,13 @@ class AdminSabaController extends Controller
 {
     protected $santri;
     protected $indo;
-    public function __construct(SantriService $santri, IndoRegionService $indo)
+    protected $whatsApp;
+
+    public function __construct(SantriService $santri, IndoRegionService $indo, WhatsAppService $whatsApp)
     {
         $this->santri = $santri;
         $this->indo = $indo;
+        $this->whatsApp = $whatsApp;
     }
     // index
     public function index()

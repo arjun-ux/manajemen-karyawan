@@ -2,22 +2,21 @@
 
 namespace App\Providers\Service;
 
-use App\Jobs\MailJobs;
 use App\Models\Berkas;
 use App\Models\OrangTua;
 use App\Models\Saba;
 use App\Models\User;
 use App\Models\WaliSaba;
 use App\Providers\RouteParamService as routeParam;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\ServiceProvider;
-
+use App\Providers\Service\WhatsAppService;
+use Illuminate\Support\Facades\Hash;
 
 class SantriService extends ServiceProvider
 {
     protected $request;
+
     // getAllData
     public static function getAll(){
         $data = DB::table('sabas')->get();
@@ -37,7 +36,7 @@ class SantriService extends ServiceProvider
     // create saba
     public static function StoreSantri($request){
         $request->validate([
-            'email' => 'required|unique:users,email',
+            'no_wa' => 'required',
             'nik' => 'required|min:16|max:16',
             'nokk' => 'required|min:16|max:16',
             'nama_lengkap' => 'required',
@@ -54,8 +53,7 @@ class SantriService extends ServiceProvider
             'nama_ibu' => 'required',
             'pekerjaan_ibu' => 'required',
         ],[
-            'email.required' => 'Email Wajib Di Isi',
-            'email.unique' => 'Email Sudah Terdaftar',
+            'no_wa.required' => 'No WA Wajib Di Isi',
             'nik.required' => 'Nik Wajib Di Isi',
             'nik.min' => 'Nik Harus 16 Karakter',
             'nik.max' => 'Nik Harus 16 Karakter',
@@ -78,8 +76,8 @@ class SantriService extends ServiceProvider
         ]);
         $user = User::create([
             'username' => Saba::generateNis(),
-            'email' => $request->email,
-            'password' => 'santribaru',
+            'no_wa' => $request->no_wa,
+            'password' => Hash::make($request->tanggal_lahir),
             'role' => 'saba'
         ]);
         $santri = Saba::create([
@@ -137,11 +135,10 @@ class SantriService extends ServiceProvider
                 'no_hp_wali' => $request->no_hp_wali,
             ]);
         }
-        // kirim email
-        MailJobs::dispatch($user, $santri);
-        // $santri = [
-        //     'id' => '2',
-        // ];
+        // send notif by wa
+        $numberTarget = $request->no_wa;
+        $message = 'Berikut Username Untuk Login Anda '.$santri->nis.', atas nama '.$santri->nama_lengkap.'';
+        WhatsAppService::sendNotif($numberTarget, $message);
         return response()->json([
             'status' => 200,
             'message' => 'Berhasil Input Data',

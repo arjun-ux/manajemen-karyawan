@@ -27,9 +27,9 @@
                                     @enderror
                                 </div>
                                 <div class="mt-2">
-                                    <input type="text" class="form-control @error('email') is-invalid @enderror" name="email" placeholder="Email Aktif"
-                                    value="{{ old('email') }}">
-                                    @error('email')
+                                    <input type="text" class="form-control @error('no_wa') is-invalid @enderror" name="no_wa" placeholder="Nomor WhatsApp"
+                                    value="{{ old('no_wa') }}">
+                                    @error('no_wa')
                                         {{ $message }}
                                     @enderror
                                 </div>

@@ -35,11 +35,11 @@
                     <hr>
                     <div class="row g-3 align-items-center mb-2">
                         <div class="col-md-4">
-                            <label for="inputEmail" class="col-form-label">Email</label>
+                            <label for="inputWa" class="col-form-label">NO WhatsApp</label>
                         </div>
                         <div class="col-md-8">
-                            <input type="text" id="inputEmail" class="form-control"
-                            name="email" placeholder="Email Untuk Kirim Notifikasi">
+                            <input type="text" id="inputWa" class="form-control"
+                            name="no_wa" placeholder="No Wa Untuk Kirim Notifikasi">
                         </div>
                     </div>
                     <div class="row g-3 align-items-center mb-2">
