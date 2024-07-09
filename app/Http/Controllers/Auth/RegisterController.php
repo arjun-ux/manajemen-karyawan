@@ -50,7 +50,7 @@ class RegisterController extends Controller
             ]);
             // Notif Wa
             $numberTarget = $request->no_wa;
-            $message = 'Berikut Username Untuk Login Anda '.$saba->nis.'';
+            $message = 'Berikut Username Untuk Login Anda '.$saba->nis.', atas nama '.$saba->nama_lengkap.'';
             $this->whatsAppService->sendNotif($numberTarget, $message);
             return redirect()->route("login")->with('success','Registrasi Berhasil');
         }
