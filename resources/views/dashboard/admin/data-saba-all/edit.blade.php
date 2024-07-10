@@ -7,7 +7,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Edit {{ $data->nama_lengkap }}</h1>
+            <h1 class="m-0">Edit {{ $results['data']->nama_lengkap }}</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -34,7 +34,7 @@
                         </div>
                         <div class="col-md-8">
                           <input type="text" id="inputnik" class="form-control" name="nik"
-                          value="{{ $data->nik }}">
+                          value="{{ $results['data']->nik }}">
                         </div>
                     </div>
                     <div class="row g-3 align-items-center mb-2">
@@ -43,7 +43,7 @@
                         </div>
                         <div class="col-md-8">
                           <input type="text" id="inputnokk" class="form-control" name="nokk"
-                          value="{{ $data->nokk }}">
+                          value="{{ $results['data']->nokk }}">
                         </div>
                     </div>
                     <div class="row g-3 align-items-center mb-2">
@@ -52,7 +52,7 @@
                         </div>
                         <div class="col-md-8">
                           <input type="text" id="inputname" class="form-control" name="nama_lengkap"
-                          value="{{ $data->nama_lengkap }}">
+                          value="{{ $results['data']->nama_lengkap }}">
                         </div>
                     </div>
                     <div class="row g-3 align-items-center mb-2">
@@ -61,7 +61,7 @@
                         </div>
                         <div class="col-md-8">
                           <input type="text" id="inputlahir" class="form-control" name="tempat_lahir"
-                          value="{{ $data->tempat_lahir }}">
+                          value="{{ $results['data']->tempat_lahir }}">
                         </div>
                     </div>
                     <div class="row g-3 align-items-center mb-2">
@@ -70,7 +70,7 @@
                         </div>
                         <div class="col-md-8">
                           <input type="date" id="inputdateL" class="form-control" name="tanggal_lahir"
-                          value="{{ $data->tanggal_lahir }}">
+                          value="{{ $results['data']->tanggal_lahir }}">
                         </div>
                     </div>
                     <div class="row g-3 align-items-center mb-2">
@@ -80,8 +80,8 @@
                         <div class="col-md-8">
                           <select name="jenis_kelamin" id="inputJK" class="form-control">
                             <option value="">Pilih Jenis Kelamin</option>
-                            <option value="laki-laki" {{ $data->jenis_kelamin == 'laki-laki' ? 'selected' : '' }}>Laki-Laki</option>
-                            <option value="perempuan" {{ $data->jenis_kelamin == 'perempuan' ? 'selected' : '' }}>Perempuan</option>
+                            <option value="laki-laki" {{ $results['data']->jenis_kelamin == 'laki-laki' ? 'selected' : '' }}>Laki-Laki</option>
+                            <option value="perempuan" {{ $results['data']->jenis_kelamin == 'perempuan' ? 'selected' : '' }}>Perempuan</option>
                           </select>
                         </div>
                     </div>
@@ -91,8 +91,8 @@
                         </div>
                         <div class="col-md-8">
                             <select class="form-control" id="province-dd" name="provinsi">
-                                @if ($data->provinsi)
-                                <option value="{{ old('provinsi', $data->provinsi) }}">{{ $data->Provinsi->name }}</option>
+                                @if ($results['data']->provinsi)
+                                <option value="{{ old('provinsi', $results['data']->provinsi) }}">{{ $results['data']->Provinsi->name }}</option>
                                 @endif
                                 <option value="">Pilih Provinsi</option>
                                 @foreach ($provinsi as $item)
@@ -135,7 +135,7 @@
                         </div>
                         <div class="col-md-8">
                           <input type="text" id="inputdus" class="form-control" name="dusun"
-                          value="{{ $data->dusun }}">
+                          value="{{ $results['data']->dusun }}">
                         </div>
                     </div>
                     <div class="row g-3 align-items-center mb-2">
@@ -144,7 +144,7 @@
                         </div>
                         <div class="col-md-8">
                           <input type="text" id="inputrt" class="form-control" name="rt_rw"
-                          value="{{ $data->rt_rw }}">
+                          value="{{ $results['data']->rt_rw }}">
                         </div>
                     </div>
                     <div class="row g-3 align-items-center mb-2">
@@ -153,7 +153,7 @@
                         </div>
                         <div class="col-md-8">
                           <input type="text" id="inputalam" class="form-control" name="alamat"
-                          value="{{ $data->alamat }}">
+                          value="{{ $results['data']->alamat }}">
                         </div>
                     </div>
 
@@ -176,7 +176,7 @@
 
         $('#postUpdate').submit(function(e){
             e.preventDefault();
-            var id = '{{ routeParam::encode($data->id) }}'
+            var id = '{{ routeParam::encode($results['data']->id) }}'
             $.ajax({
                 url: '/saba/'+id+'/update',
                 type: 'POST',
@@ -268,10 +268,10 @@
                 });
             });
 
-            var prov = '{{ $data->provinsi }}'
-            var desa = '{{ $data->desa }}'
-            var kab = '{{ $data->kabupaten }}'
-            var kec = '{{ $data->kecamatan }}'
+            var prov = '{{ $results['data']->provinsi }}'
+            var desa = '{{ $results['data']->desa }}'
+            var kab = '{{ $results['data']->kabupaten }}'
+            var kec = '{{ $results['data']->kecamatan }}'
 
             var idProvince = this.value;
             if (prov) {

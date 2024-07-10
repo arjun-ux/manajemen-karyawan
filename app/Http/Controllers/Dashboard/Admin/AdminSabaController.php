@@ -36,9 +36,8 @@ class AdminSabaController extends Controller
         $data = $this->santri->getAll();
         return DataTables::of($data)
             ->addColumn('action', function($row){
-                $btn = '<a href="/show-saba/'.routeParam::encode($row->id).'" class="btn_edit btn btn-primary btn-sm mt-1"><i class="lni lni-pencil-alt"></i></a>';
-                $btn .= ' <a href="/lihat-santri/'.routeParam::encode($row->id).' " class="btn_pembayaran btn btn-warning btn-sm mt-1"><i class="lni lni-empty-file"></i></a>';
-                $btn .= ' <a href="#" class="btn_delete btn btn-danger btn-sm mt-1"><i class="lni lni-trash-can "></i></a>';
+                $btn = '<a href="/show-saba/'.routeParam::encode($row->id).'" class="btn_edit btn btn-outline-primary btn-sm mt-1"><i class="lni lni-pencil-alt"></i></a>';
+                $btn .= ' <a href="/lihat-santri/'.routeParam::encode($row->id).' " class="btn_pembayaran btn btn-outline-warning btn-sm mt-1"><i class="lni lni-empty-file"></i></a>';
                 return $btn;
             })
             ->rawColumns(['action'])
@@ -91,9 +90,10 @@ class AdminSabaController extends Controller
     // detail Saba
     public function showSaba($id){
         $id = routeParam::decode($id);
-        $data = $this->santri->getById($id);
+        $results = $this->santri->getById($id);
+        // dd($results);
         $provinsi = $this->indo->Provinsi();
-        return view('dashboard.admin.data-saba-all.edit', compact('provinsi', 'data'));
+        return view('dashboard.admin.data-saba-all.edit', compact('provinsi', 'results'));
     }
     // update saba
     public function updateSaba(Request $request, $id){

@@ -32,6 +32,10 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(WhatsAppService::class, function($app){
             return new WhatsAppService($app);
         });
+        // user service
+        $this->app->singleton(UserService::class, function($app){
+            return new UserService($app);
+        });
     }
 
     /**

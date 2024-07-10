@@ -23,19 +23,19 @@
         <li class="sidebar-item">
             <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
                 data-bs-target="#pembayaran" aria-expanded="false" aria-controls="pembayaran">
-                <i class="lni lni-files"></i>
+                <i class="lni lni-credit-cards"></i>
                 <span>Pembayaran</span>
             </a>
             <ul id="pembayaran" class="sidebar-dropdown collapse" data-bs-parent="#sidebar">
                 <li class="sidebar-item">
                     <a href="#" class="sidebar-link">
-                        <i class="lni lni-files"></i>
+                        <i class="lni lni-checkmark-circle"></i>
                         Lunas
                     </a>
                 </li>
                 <li class="sidebar-item">
                     <a href="#" class="sidebar-link">
-                        <i class="lni lni-files"></i>
+                        <i class="lni lni-circle-minus"></i>
                         Belum Lunas
                     </a>
                 </li>

@@ -70,6 +70,7 @@ Route::middleware('role:admin')->group(function(){
     Route::post('/berkas', [AdminSabaController::class, 'store_berkas'])->name('store.berkas');
     // user
     Route::get('/user', [UserController::class, 'santri'])->name('user.index');
+    Route::get('/getUserSantri', [UserController::class, 'userSantri']);
     Route::get('/admin', [UserController::class, 'admin'])->name('admin.index');
     // lihat data diri santri
     Route::get('/lihat-santri/{id}', [AdminSabaController::class, 'lihatSantri']);
