@@ -12,7 +12,7 @@ class UserService extends ServiceProvider
     // get all user santri
     public static function getUserSantri(){
         $datas = DB::table('users as user')
-                    ->join('sabas as saba', 'saba.user_id', '=', 'user.id')
+                    ->leftJoin('sabas as saba', 'saba.user_id', '=', 'user.id')
                     ->where('user.role', 'saba')
                     ->get(['user.*', 'saba.nama_lengkap']);
         return $datas;
@@ -43,7 +43,9 @@ class UserService extends ServiceProvider
 
     // user admin
     public static function getUserAdmin(){
-        $datas = User::where('role', 'admin')->get();
+        $datas = User::where('role', 'admin')
+                    ->whereNot('id', 1)
+                    ->get();
         return $datas;
     }
     // store admin
@@ -96,5 +98,11 @@ class UserService extends ServiceProvider
             'password' => $request->password,
         ]);
         return response()->json(['message'=>'Berhasil Update Data']);
+    }
+    // delete admin
+    public static function deleteAdmin($uid){
+        $data = User::where('id', $uid)->first();
+        $data->delete();
+        return response()->json(['message'=>'Data Berhasil Di Hapus']);
     }
 }

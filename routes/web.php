@@ -78,6 +78,7 @@ Route::middleware('role:admin')->group(function(){
     Route::post('/store-admin', [UserController::class, 'store_admin']);
     Route::get('/get-id-admin/{uid}', [UserController::class, 'getIdAdmin']);
     Route::post('/update-admin', [UserController::class, 'update_admin']);
+    Route::delete('/delete-admin/{uid}', [UserController::class, 'delete_admin']);
     // lihat data diri santri
     Route::get('/lihat-santri/{id}', [AdminSabaController::class, 'lihatSantri']);
 

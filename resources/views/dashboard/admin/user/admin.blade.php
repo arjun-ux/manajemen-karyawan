@@ -7,18 +7,21 @@
             <h4>User Admin</h4>
             <hr>
             <a href="#" id="btn-add" class="btn btn-outline-success btn-sm"><i class="lni lni-user"></i></a>
-            <table class="table table-bordered table-stripped" id="tableUserAdmin" style="width: 100%; height: 50%">
-                <thead>
-                    <tr>
-                        <th class="text-center">NO</th>
-                        <th class="text-center">USERNAME</th>
-                        <th class="text-center">NAMA</th>
-                        <th class="text-center">ACTION</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <table class="table table-bordered table-stripped" id="tableUserAdmin" style="width: 100%; height: 50%">
+                    <thead>
+                        <tr>
+                            <th class="text-center">NO</th>
+                            <th class="text-center">USERNAME</th>
+                            <th class="text-center">NAMA</th>
+                            <th class="text-center">NO WHATSAPP</th>
+                            <th class="text-center">ACTION</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
@@ -55,7 +58,7 @@
                                 <label for="AddWa" class="col-form-label">No WA</label>
                                 </div>
                                 <div class="col-md-8">
-                                <input type="text" id="AddWa" class="form-control" name="no_wa">
+                                <input type="text" id="addWa" class="form-control" name="no_wa">
                             </div>
                         </div>
                         <div class="row mb-2">
@@ -139,6 +142,7 @@
                 {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
                 {data: 'username', name: 'username'},
                 {data: 'name', name: 'name'},
+                {data: 'no_wa', name: 'no_wa'},
                 {data: 'action', orderable: false, searchable: false}
 
             ],
@@ -169,6 +173,11 @@
                         showConfirmButton: false,
                         timerProgressBar: true,
                     }).then(()=>{
+                        $('#DataId').val(null);
+                        $('#addUsername').val(null);
+                        $('#addName').val(null);
+                        $('#addWa').val(null);
+                        $('#addPass').val(null);
                         $('#modalAddUser').modal('hide');
                         $('#tableUserAdmin').DataTable().ajax.reload();
                     });
@@ -248,6 +257,51 @@
             $('#inputName').val(null);
             $('#inputNo').val(null);
         });
+    });
+
+    $('body').on('click','.btn_delete',function(){
+        var id = $(this).data('id');
+        Swal.fire({
+            icon: "question",
+            title: 'Anda Yakin Menghapus Data Ini?',
+            toast: true,
+            position: "top",
+            showConfirmButton: true,
+            showCancelButton: true,
+        }).then((value)=>{
+            if(value.isConfirmed){
+                deleteAdmin();
+            }
+        });
+        function deleteAdmin(){
+            $('#loader').show();
+            $.ajax({
+                url: '/delete-admin/'+id,
+                type: 'DELETE',
+                data: {
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(res){
+                    $('#loader').hide();
+                    Swal.fire({
+                        icon: "success",
+                        title: res.message,
+                        toast: true,
+                        position: "top-end",
+                        timer: 1500,
+                        showConfirmButton: false,
+                        timerProgressBar: true,
+                    }).then(()=>{
+                        $('#tableUserAdmin').DataTable().ajax.reload();
+                    });
+                },
+                error: function(xhr, error){
+                    $('#loader').hide();
+                    console.log(xhr)
+                    console.log(error)
+                }
+            });
+        }
     });
   </script>
 @endpush

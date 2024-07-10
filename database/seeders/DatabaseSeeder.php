@@ -7,6 +7,7 @@ namespace Database\Seeders;
 use App\Models\Role;
 use App\Models\Saba;
 use App\Models\User;
+use Faker\Factory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -18,41 +19,22 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call(IndoRegionProvinceSeeder::class);
-        $this->call(IndoRegionRegencySeeder::class);
-        $this->call(IndoRegionDistrictSeeder::class);
-        $this->call(IndoRegionVillageSeeder::class);
-        $this->call(PekerjaanSeeder::class);
-        $this->call(PendidikanSeeder::class);
+
         $roles = [
             [
                 'name' => 'admin',
             ],
             [
                 'name' => 'saba',
-            ]
-        ];
-        DB::table('roles')->insert($roles);
-        // table user admin
-        DB::table('users')->insert([
-            'username' => 'admin',
-            'name' => 'Admin',
-            'no_wa' => '082336659202',
-            'password'=> Hash::make('123123'),
-            'role' => 'admin'
-        ]);
-        // // table user saba
-        // DB::table('users')->insert([
-        //     'username' => Saba::generateNis(),
-        //     'email' => 'saba@gmail.com',
-        //     'password'=> Hash::make('123123'),
-        //     'role' => 'saba'
-        // ]);
-        // // table saba
-        // DB::table('sabas')->insert([
-        //     'user_id' => 2,
-        //     'nis' => Saba::generateNis(),
-        //     'nama_lengkap' => 'santri baru'
-        // ]);
+                ]
+            ];
+            DB::table('roles')->insert($roles);
+            $this->call(UserSeeder::class);
+            $this->call(IndoRegionProvinceSeeder::class);
+            $this->call(IndoRegionRegencySeeder::class);
+            $this->call(IndoRegionDistrictSeeder::class);
+            $this->call(IndoRegionVillageSeeder::class);
+            $this->call(PekerjaanSeeder::class);
+            $this->call(PendidikanSeeder::class);
     }
 }

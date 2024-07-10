@@ -52,6 +52,7 @@ class UserController extends Controller
         return DataTables::of($results)
                 ->addColumn('action', function($row){
                     $btn = '<a href="#" data-id="'.$row->id.'" class="btn_edit btn btn-outline-primary btn-sm mt-1"><i class="lni lni-pencil-alt"></i></a>';
+                    $btn .= ' <a href="#" data-id="'.$row->id.'" class="btn_delete btn btn-outline-danger btn-sm mt-1"><i class="lni lni-trash-can"></i></a>';
                     return $btn;
                 })
                 ->rawColumns(['action'])
@@ -71,6 +72,11 @@ class UserController extends Controller
     // update admin
     public function update_admin(Request $request){
         $results = $this->userService->UpdateAdmin($request);
+        return $results;
+    }
+    // delete admin
+    public function delete_admin($uid){
+        $results = $this->userService->deleteAdmin($uid);
         return $results;
     }
 }

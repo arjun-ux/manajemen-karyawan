@@ -6,18 +6,20 @@
         <div class="container-fluid">
             <h4>User Santri</h4>
             <hr>
-            <table class="table table-bordered table-stripped" id="tableUserSantri" style="width: 100%; height: 50%">
-                <thead>
-                    <tr>
-                        <th class="text-center">NO</th>
-                        <th class="text-center">NIS</th>
-                        <th class="text-center">NAMA</th>
-                        <th class="text-center">ACTION</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <table class="table table-bordered table-stripped" id="tableUserSantri" style="width: 100%; height: 50%">
+                    <thead>
+                        <tr>
+                            <th class="text-center">NO</th>
+                            <th class="text-center">NIS</th>
+                            <th class="text-center">NAMA</th>
+                            <th class="text-center">ACTION</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
