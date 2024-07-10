@@ -6,7 +6,9 @@
     <section class="content">
       <div class="container-fluid">
           <div class="row">
-
+            <div class="alert alert-warning fw-bold">
+                Aplikasi Dalam Pengembangan
+            </div>
             <div class="col-xl-3 col-md-6 mb-4 ">
                 <div class="card shadow py-2" style="background-color: rgba(8, 137, 8, 0.417)">
                     <div class="card-body">
