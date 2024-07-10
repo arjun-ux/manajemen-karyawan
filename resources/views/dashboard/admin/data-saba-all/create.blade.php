@@ -441,7 +441,6 @@
             type: "POST",
             data: $('#postCreate').serialize(),
             success: function(res){
-                console.log(res);
                 $('#loader').hide();
                 Swal.fire({
                     icon: "success",

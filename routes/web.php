@@ -71,7 +71,13 @@ Route::middleware('role:admin')->group(function(){
     // user
     Route::get('/user', [UserController::class, 'santri'])->name('user.index');
     Route::get('/getUserSantri', [UserController::class, 'userSantri']);
+    Route::get('/getUserSantriById/{id}', [UserController::class, 'get_santri_by_id']);
+    Route::post('/update-password/{uid}', [UserController::class, 'update_password_santri']);
     Route::get('/admin', [UserController::class, 'admin'])->name('admin.index');
+    Route::get('/getUserAdmin', [UserController::class, 'userAdmin']);
+    Route::post('/store-admin', [UserController::class, 'store_admin']);
+    Route::get('/get-id-admin/{uid}', [UserController::class, 'getIdAdmin']);
+    Route::post('/update-admin', [UserController::class, 'update_admin']);
     // lihat data diri santri
     Route::get('/lihat-santri/{id}', [AdminSabaController::class, 'lihatSantri']);
 

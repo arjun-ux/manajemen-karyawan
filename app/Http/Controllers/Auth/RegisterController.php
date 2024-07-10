@@ -3,13 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Jobs\MailJobs;
 use App\Models\User;
 use App\Models\Saba;
 use App\Providers\Service\WhatsAppService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
 
 class RegisterController extends Controller
 {
@@ -50,7 +47,7 @@ class RegisterController extends Controller
             ]);
             // Notif Wa
             $numberTarget = $request->no_wa;
-            $message = 'Berikut Username Untuk Login Anda '.$saba->nis.', atas nama '.$saba->nama_lengkap.'';
+            $message = 'Registrasi Berhasil. Berikut Username Untuk Login Anda '.$saba->nis.', atas nama '.$saba->nama_lengkap.'.';
             $this->whatsAppService->sendNotif($numberTarget, $message);
             return redirect()->route("login")->with('success','Registrasi Berhasil');
         }

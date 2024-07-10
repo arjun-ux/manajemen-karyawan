@@ -137,7 +137,7 @@ class SantriService extends ServiceProvider
         }
         // send notif by wa
         $numberTarget = $request->no_wa;
-        $message = 'Berikut Username Untuk Login Anda '.$santri->nis.', atas nama '.$santri->nama_lengkap.'';
+        $message = 'Berikut Username Untuk Login Anda '.$santri->nis.', atas nama '.$santri->nama_lengkap.'.';
         WhatsAppService::sendNotif($numberTarget, $message);
         return response()->json([
             'status' => 200,
