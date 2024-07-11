@@ -134,22 +134,22 @@
                                                     <tr>
                                                         <td style="width: 300px">DESA</td>
                                                         <td style="width: 20px">=</td>
-                                                        <td style="width: 500px">{{ $datas['desa']->name }}</td>
+                                                        <td style="width: 500px">{{ isset($datas['desa']->name) ? $datas['desa']->name : '' }}</td>
                                                     </tr>
                                                     <tr>
                                                         <td style="width: 300px">KECAMATAN</td>
                                                         <td style="width: 20px">=</td>
-                                                        <td style="width: 500px">{{ $datas['kecamatan']->name }}</td>
+                                                        <td style="width: 500px">{{ isset($datas['kecamatan']->name) ? $datas['kecamatan']->name : '' }}</td>
                                                     </tr>
                                                     <tr>
                                                         <td style="width: 300px">KABUPATEN</td>
                                                         <td style="width: 20px">=</td>
-                                                        <td style="width: 500px">{{ $datas['kabupaten']->name }}</td>
+                                                        <td style="width: 500px">{{ isset($datas['kabupaten']->name) ? $datas['kabupaten']->name : '' }}</td>
                                                     </tr>
                                                     <tr>
                                                         <td style="width: 300px">PROVINSI</td>
                                                         <td style="width: 20px">=</td>
-                                                        <td style="width: 500px">{{ $datas['provinsi']->name }}</td>
+                                                        <td style="width: 500px">{{ isset($datas['provinsi']->name) ? $datas['provinsi']->name : '' }}</td>
                                                     </tr>
                                                 </table>
                                             </div>
