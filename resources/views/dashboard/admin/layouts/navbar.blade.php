@@ -29,20 +29,47 @@
                     <li class="li_pro">
                         <a class="pro" href="#" class="collapsed has-dropdown" data-bs-toggle="collapse"
                             data-bs-target="#pembayaran" aria-expanded="false" aria-controls="pembayaran">
-                            <i class="lni lni-files"></i>
+                            <i class="lni lni-credit-cards"></i>
                             <span>Pembayaran</span>
                         </a>
                         <ul id="pembayaran" class="sidebar-dropdown collapse" data-bs-parent="#sidebar">
                             <li class="li_pro">
                                 <a class="pro" href="#">
-                                    <i class="lni lni-files"></i>
+                                    <i class="lni lni-checkmark-circle"></i>
+                                    Jenis Pembayaran
+                                </a>
+                            </li>
+                            <li class="li_pro">
+                                <a class="pro" href="#">
+                                    <i class="lni lni-checkmark-circle"></i>
                                     Lunas
                                 </a>
                             </li>
                             <li class="li_pro">
                                 <a class="pro" href="#">
-                                    <i class="lni lni-files"></i>
+                                    <i class="lni lni-checkmark-circle"></i>
                                     Belum Lunas
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="li_pro">
+                        <a class="pro" href="#" class="collapsed has-dropdown" data-bs-toggle="collapse"
+                            data-bs-target="#report" aria-expanded="false" aria-controls="report">
+                            <i class="lni lni-files"></i>
+                            <span>Report</span>
+                        </a>
+                        <ul id="report" class="sidebar-dropdown collapse" data-bs-parent="#sidebar">
+                            <li class="li_pro">
+                                <a class="pro" href="#">
+                                    <i class="lni lni-calendar"></i>
+                                    Report Bulanan
+                                </a>
+                            </li>
+                            <li class="li_pro">
+                                <a class="pro" href="#">
+                                    <i class="lni lni-calendar"></i>
+                                    Report Tahunan
                                 </a>
                             </li>
                         </ul>

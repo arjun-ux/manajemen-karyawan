@@ -30,7 +30,7 @@
                 <li class="sidebar-item">
                     <a href="#" class="sidebar-link">
                         <i class="lni lni-checkmark-circle"></i>
-                        CMS PEMBAYARAN
+                        Jenis Pembayaran
                     </a>
                 </li>
                 <li class="sidebar-item">

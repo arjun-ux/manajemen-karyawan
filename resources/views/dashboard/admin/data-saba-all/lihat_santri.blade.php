@@ -40,22 +40,22 @@
                                                     <tr>
                                                         <td class="fw-medium" style="width: 300px">NIS</td>
                                                         <td style="width: 20px">=</td>
-                                                        <td style="width: 500px">{{ $datas['data']->nis }}</td>
+                                                        <td style="width: 500px">{{ isset($datas['data']->nis) ? $datas['data']->nis : '' }}</td>
                                                     </tr>
                                                     <tr>
                                                         <td class="fw-medium" style="width: 300px">NAMA</td>
                                                         <td style="width: 20px">=</td>
-                                                        <td style="width: 500px">{{ $datas['data']->nama_lengkap }}</td>
+                                                        <td style="width: 500px">{{ isset($datas['data']->nama_lengkap) ? $datas['data']->nama_lengkap : '' }}</td>
                                                     </tr>
                                                     <tr>
                                                         <td class="fw-medium" style="width: 300px">NIK</td>
                                                         <td style="width: 20px">=</td>
-                                                        <td style="width: 500px">{{ $datas['data']->nik }}</td>
+                                                        <td style="width: 500px">{{ isset($datas['data']->nik) ? $datas['data']->nik : '' }}</td>
                                                     </tr>
                                                     <tr>
                                                         <td class="fw-medium" style="width: 300px">NO KK</td>
                                                         <td style="width: 20px">=</td>
-                                                        <td style="width: 500px">{{ $datas['data']->nokk }}</td>
+                                                        <td style="width: 500px">{{ isset($datas['data']->nokk) ? $datas['data']->nokk : '' }}</td>
                                                     </tr>
                                                     <tr>
                                                         <td class="fw-medium" style="width: 300px">Tempat Tanggal Lahir</td>
@@ -80,22 +80,22 @@
                                                     <tr>
                                                         <td class="fw-medium" style="width: 300px">JENIS KELAMIN</td>
                                                         <td style="width: 20px">=</td>
-                                                        <td style="width: 500px">{{ $datas['data']->jenis_kelamin }}</td>
+                                                        <td style="width: 500px">{{ isset($datas['data']->jenis_kelamin) ? $datas['data']->jenis_kelamin : '' }}</td>
                                                     </tr>
                                                     <tr>
                                                         <td class="fw-medium" style="width: 300px">ANAK KE</td>
                                                         <td style="width: 20px">=</td>
-                                                        <td style="width: 500px">{{ $datas['data']->anak_ke }}</td>
+                                                        <td style="width: 500px">{{ isset($datas['data']->anak_ke) ? $datas['data']->anak_ke : '' }}</td>
                                                     </tr>
                                                     <tr>
                                                         <td class="fw-medium" style="width: 300px">JUMLAH SAUDARA</td>
                                                         <td style="width: 20px">=</td>
-                                                        <td style="width: 500px">{{ $datas['data']->jumlah_saudara }}</td>
+                                                        <td style="width: 500px">{{ isset($datas['data']->jumlah_saudara) ? $datas['data']->jumlah_saudara : '' }}</td>
                                                     </tr>
                                                     <tr>
                                                         <td class="fw-medium" style="width: 300px">SAUDARA KANDUNG</td>
                                                         <td style="width: 20px">=</td>
-                                                        <td style="width: 500px">{{ $datas['data']->saudara_kandung }}</td>
+                                                        <td style="width: 500px">{{ isset($datas['data']->saudara_kandung) ? $datas['data']->saudara_kandung : '' }}</td>
                                                     </tr>
                                                 </table>
                                             </div>
@@ -113,17 +113,17 @@
                                                     <tr>
                                                         <td class="fw-medium" style="width: 300px">ALAMAT</td>
                                                         <td style="width: 20px">=</td>
-                                                        <td style="width: 500px">{{ $datas['data']->alamat }}</td>
+                                                        <td style="width: 500px">{{ isset($datas['data']->alamat) ? $datas['data']->alamat : '' }}</td>
                                                     </tr>
                                                     <tr>
                                                         <td class="fw-medium" style="width: 300px">RT/RW</td>
                                                         <td style="width: 20px">=</td>
-                                                        <td style="width: 500px">{{ $datas['data']->rt_rw }}</td>
+                                                        <td style="width: 500px">{{ isset($datas['data']->rt_rw) ? $datas['data']->rt_rw : '' }}</td>
                                                     </tr>
                                                     <tr>
                                                         <td class="fw-medium" style="width: 300px">DUSUN</td>
                                                         <td style="width: 20px">=</td>
-                                                        <td style="width: 500px">{{ $datas['data']->dusun }}</td>
+                                                        <td style="width: 500px">{{ isset($datas['data']->dusun) ? $datas['data']->dusun : '' }}</td>
                                                     </tr>
                                                     <tr>
                                                         <td class="fw-medium" style="width: 300px">DESA</td>
@@ -163,7 +163,7 @@
                                                     <tr>
                                                         <td class="fw-medium" style="width: 300px">Nama</td>
                                                         <td style="width: 20px">=</td>
-                                                        <td style="width: 500px">{{ $datas['ortu']->nama_ayah }}</td>
+                                                        <td style="width: 500px">{{ isset($datas['ortu']->nama_ayah) ? $datas['ortu']->nama_ayah : '' }}</td>
                                                     </tr>
                                                     <tr>
                                                         <td class="fw-medium" style="width: 300px">Pekerjaan</td>
@@ -178,7 +178,7 @@
                                                     <tr>
                                                         <td class="fw-medium" style="width: 300px">No HP</td>
                                                         <td style="width: 20px">=</td>
-                                                        <td style="width: 500px">{{ $datas['ortu']->no_hp_ayah }}</td>
+                                                        <td style="width: 500px">{{ isset($datas['ortu']->no_hp_ayah) ? $datas['ortu']->no_hp_ayah : '' }}</td>
                                                     </tr>
                                                 </table>
                                             </div>
@@ -196,7 +196,7 @@
                                                     <tr>
                                                         <td class="fw-medium" style="width: 300px">Nama</td>
                                                         <td style="width: 20px">=</td>
-                                                        <td style="width: 500px">{{ $datas['ortu']->nama_ibu }}</td>
+                                                        <td style="width: 500px">{{ isset($datas['ortu']->nama_ibu) ? $datas['ortu']->nama_ibu : '' }}</td>
                                                     </tr>
                                                     <tr>
                                                         <td class="fw-medium" style="width: 300px">Pekerjaan</td>
@@ -211,7 +211,7 @@
                                                     <tr>
                                                         <td class="fw-medium" style="width: 300px">No HP</td>
                                                         <td style="width: 20px">=</td>
-                                                        <td style="width: 500px">{{ $datas['ortu']->no_hp_ibu }}</td>
+                                                        <td style="width: 500px">{{ isset($datas['ortu']->no_hp_ibu) ? $datas['ortu']->no_hp_ibu : '' }}</td>
                                                     </tr>
                                                 </table>
                                             </div>
@@ -261,6 +261,9 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="row">
+
                             </div>
                         </div>
                     </div>
