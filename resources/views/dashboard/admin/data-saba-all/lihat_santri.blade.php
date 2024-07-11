@@ -31,108 +31,129 @@
                                     @endif
                                 </div>
                                 <div class="col-md-9">
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <tr>
-                                                <td style="width: 300px">NIS</td>
-                                                <td style="width: 20px">=</td>
-                                                <td style="width: 500px">{{ $datas['data']->nis }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td style="width: 300px">NAMA</td>
-                                                <td style="width: 20px">=</td>
-                                                <td style="width: 500px">{{ $datas['data']->nama_lengkap }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td style="width: 300px">NIK</td>
-                                                <td style="width: 20px">=</td>
-                                                <td style="width: 500px">{{ $datas['data']->nik }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td style="width: 300px">NO KK</td>
-                                                <td style="width: 20px">=</td>
-                                                <td style="width: 500px">{{ $datas['data']->nokk }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td style="width: 300px">Tempat Lahir</td>
-                                                <td style="width: 20px">=</td>
-                                                <td style="width: 500px">{{ $datas['data']->tempat_lahir }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td style="width: 300px">Tanggal Lahir</td>
-                                                <td style="width: 20px">=</td>
-                                                <td style="width: 500px">{{ $datas['data']->tanggal_lahir }}</td>
-                                            </tr>
-                                        </table>
+                                    <div class="card mb-2">
+                                        <div class="card-header">
+                                            <div class="card-title fw-bold">Data Diri</div>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="table-responsive">
+                                                <table class="table">
+                                                    <tr>
+                                                        <td style="width: 300px">NIS</td>
+                                                        <td style="width: 20px">=</td>
+                                                        <td style="width: 500px">{{ $datas['data']->nis }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width: 300px">NAMA</td>
+                                                        <td style="width: 20px">=</td>
+                                                        <td style="width: 500px">{{ $datas['data']->nama_lengkap }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width: 300px">NIK</td>
+                                                        <td style="width: 20px">=</td>
+                                                        <td style="width: 500px">{{ $datas['data']->nik }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width: 300px">NO KK</td>
+                                                        <td style="width: 20px">=</td>
+                                                        <td style="width: 500px">{{ $datas['data']->nokk }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width: 300px">Tempat Lahir</td>
+                                                        <td style="width: 20px">=</td>
+                                                        <td style="width: 500px">{{ $datas['data']->tempat_lahir }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width: 300px">Tanggal Lahir</td>
+                                                        <td style="width: 20px">=</td>
+                                                        <td style="width: 500px">{{ $datas['data']->tanggal_lahir }}</td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6">
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <tr>
-                                                <td style="width: 300px">JENIS KELAMIN</td>
-                                                <td style="width: 20px">=</td>
-                                                <td style="width: 500px">{{ $datas['data']->jenis_kelamin }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td style="width: 300px">ANAK KE</td>
-                                                <td style="width: 20px">=</td>
-                                                <td style="width: 500px">{{ $datas['data']->anak_ke }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td style="width: 300px">JUMLAH SAUDARA</td>
-                                                <td style="width: 20px">=</td>
-                                                <td style="width: 500px">{{ $datas['data']->jumlah_saudara }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td style="width: 300px">SAUDARA KANDUNG</td>
-                                                <td style="width: 20px">=</td>
-                                                <td style="width: 500px">{{ $datas['data']->saudara_kandung }}</td>
-                                            </tr>
-                                        </table>
+                                <div class="col-md-5">
+                                    <div class="card mb-2">
+                                        <div class="card-header">
+                                            <div class="card-title fw-bold">Data Diri</div>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="table-responsive">
+                                                <table class="table">
+                                                    <tr>
+                                                        <td style="width: 300px">JENIS KELAMIN</td>
+                                                        <td style="width: 20px">=</td>
+                                                        <td style="width: 500px">{{ $datas['data']->jenis_kelamin }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width: 300px">ANAK KE</td>
+                                                        <td style="width: 20px">=</td>
+                                                        <td style="width: 500px">{{ $datas['data']->anak_ke }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width: 300px">JUMLAH SAUDARA</td>
+                                                        <td style="width: 20px">=</td>
+                                                        <td style="width: 500px">{{ $datas['data']->jumlah_saudara }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width: 300px">SAUDARA KANDUNG</td>
+                                                        <td style="width: 20px">=</td>
+                                                        <td style="width: 500px">{{ $datas['data']->saudara_kandung }}</td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <tr>
-                                                <td style="width: 300px">ALAMAT</td>
-                                                <td style="width: 20px">=</td>
-                                                <td style="width: 500px">{{ $datas['data']->alamat }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td style="width: 300px">RT/RW</td>
-                                                <td style="width: 20px">=</td>
-                                                <td style="width: 500px">{{ $datas['data']->rt_rw }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td style="width: 300px">DUSUN</td>
-                                                <td style="width: 20px">=</td>
-                                                <td style="width: 500px">{{ $datas['data']->dusun }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td style="width: 300px">DESA</td>
-                                                <td style="width: 20px">=</td>
-                                                <td style="width: 500px">{{ $datas['data']->desa }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td style="width: 300px">KECAMATAN</td>
-                                                <td style="width: 20px">=</td>
-                                                <td style="width: 500px">{{ $datas['data']->kecamatan }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td style="width: 300px">KABUPATEN</td>
-                                                <td style="width: 20px">=</td>
-                                                <td style="width: 500px">{{ $datas['data']->kabupaten }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td style="width: 300px">PROVINSI</td>
-                                                <td style="width: 20px">=</td>
-                                                <td style="width: 500px">{{ $datas['data']->provinsi }}</td>
-                                            </tr>
-                                        </table>
+                                <div class="col-md-7">
+                                    <div class="card mb-2">
+                                        <div class="card-header">
+                                            <div class="card-title fw-bold">Alamat Santri</div>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="table-responsive">
+                                                <table class="table">
+                                                    <tr>
+                                                        <td style="width: 300px">ALAMAT</td>
+                                                        <td style="width: 20px">=</td>
+                                                        <td style="width: 500px">{{ $datas['data']->alamat }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width: 300px">RT/RW</td>
+                                                        <td style="width: 20px">=</td>
+                                                        <td style="width: 500px">{{ $datas['data']->rt_rw }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width: 300px">DUSUN</td>
+                                                        <td style="width: 20px">=</td>
+                                                        <td style="width: 500px">{{ $datas['data']->dusun }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width: 300px">DESA</td>
+                                                        <td style="width: 20px">=</td>
+                                                        <td style="width: 500px">{{ $datas['desa']->name }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width: 300px">KECAMATAN</td>
+                                                        <td style="width: 20px">=</td>
+                                                        <td style="width: 500px">{{ $datas['kecamatan']->name }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width: 300px">KABUPATEN</td>
+                                                        <td style="width: 20px">=</td>
+                                                        <td style="width: 500px">{{ $datas['kabupaten']->name }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width: 300px">PROVINSI</td>
+                                                        <td style="width: 20px">=</td>
+                                                        <td style="width: 500px">{{ $datas['provinsi']->name }}</td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

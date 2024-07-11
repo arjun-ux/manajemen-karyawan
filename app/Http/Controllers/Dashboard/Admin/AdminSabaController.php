@@ -104,7 +104,7 @@ class AdminSabaController extends Controller
     public function lihatSantri($id){
         $id = routeParam::decode($id);
         $datas = $this->santri->lihatSantri($id);
-        // dd($datas['berkas']->foto);
+        // dd($datas);
         // $provinsi = $this->indo->Provinsi();
         return view('dashboard.admin.data-saba-all.lihat_santri', compact('datas'));
     }

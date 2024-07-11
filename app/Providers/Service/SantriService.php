@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
 use App\Providers\Service\WhatsAppService;
 use Illuminate\Support\Facades\Hash;
+use App\Providers\Service\IndoRegionService;
 
 class SantriService extends ServiceProvider
 {
@@ -32,9 +33,18 @@ class SantriService extends ServiceProvider
     public static function lihatSantri($id){
         $data = Saba::where('id', $id)->first();
         $berkas = Berkas::where('saba_id', $id)->first();
+        $provinsi = IndoRegionService::getProvinsi($data->provinsi);
+        $kabupaten = IndoRegionService::getKota($data->kabupaten);
+        $kecamatan = IndoRegionService::getKecamatan($data->kecamatan);
+        $desa = IndoRegionService::getDesa($data->desa);
+        // dd($desa);
         $results = [
             'data' => $data,
             'berkas' => $berkas,
+            'provinsi'=>$provinsi,
+            'kabupaten'=>$kabupaten,
+            'kecamatan'=>$kecamatan,
+            'desa'=>$desa,
         ];
         return $results;
     }

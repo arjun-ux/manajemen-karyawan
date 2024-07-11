@@ -2,6 +2,10 @@
 
 namespace App\Providers\Service;
 
+use App\Models\District;
+use App\Models\Province;
+use App\Models\Regency;
+use App\Models\Village;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
 
@@ -28,6 +32,26 @@ class IndoRegionService extends ServiceProvider
     public static function Desa($request){
         $data['desa'] = DB::table('villages')->where('district_id', $request->district_id)
             ->get(['name', 'id']);
+        return $data;
+    }
+    // nama provinsi
+    public static function getProvinsi($id){
+        $data = Province::where('id', $id)->first();
+        return $data;
+    }
+    // nama kabupaten / kota
+    public static function getKota($id){
+        $data = Regency::where('id', $id)->first();
+        return $data;
+    }
+    // nama kecamatan
+    public static function getKecamatan($id){
+        $data = District::where('id', $id)->first();
+        return $data;
+    }
+    // nama desa
+    public static function getDesa($id){
+        $data = Village::where('id',$id)->first();
         return $data;
     }
 }
