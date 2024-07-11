@@ -4,6 +4,7 @@ namespace App\Providers\Service;
 
 use App\Models\Berkas;
 use App\Models\OrangTua;
+use App\Models\Pendidikan;
 use App\Models\Saba;
 use App\Models\SabaMasukPondok;
 use App\Models\User;
@@ -37,7 +38,12 @@ class SantriService extends ServiceProvider
         $kabupaten = IndoRegionService::getKota($data->kabupaten);
         $kecamatan = IndoRegionService::getKecamatan($data->kecamatan);
         $desa = IndoRegionService::getDesa($data->desa);
-        // dd($desa);
+        $ortu = OrangTua::where('saba_id', $id)->first();
+        $pendidikanA = PendidikanService::getPendidikan($ortu->pendidikan_ayah);
+        $pekerjaanA = PekerjaanService::getPekerjaan($ortu->pekerjaan_ayah);
+        $pendidikanI = PendidikanService::getPendidikan($ortu->pendidikan_ibu);
+        $pekerjaanI = PekerjaanService::getPekerjaan($ortu->pekerjaan_ibu);
+        // dd($pekerjaan);
         $results = [
             'data' => $data,
             'berkas' => $berkas,
@@ -45,6 +51,11 @@ class SantriService extends ServiceProvider
             'kabupaten'=>$kabupaten,
             'kecamatan'=>$kecamatan,
             'desa'=>$desa,
+            'ortu' => $ortu,
+            'pendidikanA' => $pendidikanA,
+            'pekerjaanA' => $pekerjaanA,
+            'pendidikanI' => $pendidikanI,
+            'pekerjaanI' => $pekerjaanI,
         ];
         return $results;
     }

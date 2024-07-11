@@ -5,6 +5,8 @@ namespace App\Providers;
 use App\Providers\Service\SantriService;
 use App\Providers\RouteParamService;
 use App\Providers\Service\IndoRegionService;
+use App\Providers\Service\PekerjaanService;
+use App\Providers\Service\PendidikanService;
 use App\Providers\Service\UserService;
 use App\Providers\Service\WhatsAppService;
 use Illuminate\Support\ServiceProvider;
@@ -35,6 +37,14 @@ class AppServiceProvider extends ServiceProvider
         // user service
         $this->app->singleton(UserService::class, function($app){
             return new UserService($app);
+        });
+        // pendidikan
+        $this->app->singleton(PendidikanService::class, function($app){
+            return new PendidikanService($app);
+        });
+        // pekerjaan
+        $this->app->singleton(PekerjaanService::class, function($app){
+            return new PekerjaanService($app);
         });
     }
 
