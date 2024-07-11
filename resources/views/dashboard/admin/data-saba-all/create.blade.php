@@ -11,7 +11,10 @@
                     <thead>
                         <th id="data-santri" style="background-color: rgb(163, 190, 163)">Data Santri</th>
                         <th id="data-ortu" style="background-color: rgb(188, 209, 206)">Data Orang Tua</th>
-                        <th id="data-wali" style="background-color: rgb(163, 165, 190)">Data Wali</th>
+                        <th id="data-wali" style="background-color: rgb(163, 165, 190)">Penanggung Jawab Biaya</th>
+                        <tr>
+                            <th id="data-asal-sekolah" style="background-color: rgb(192, 218, 232)" colspan="3">Data Asal Sekolah</th>
+                        </tr>
                     </thead>
                 </table>
             </div>
@@ -98,13 +101,21 @@
                     </div>
                     <div class="row g-3 align-items-center mb-2" id="saudara-kandung">
                         <div class="col-md-4">
-                            <label for="saudara_kandung" class="col-form-label">Saudara Kandung</label>
+                            <label for="saudara_kandung" class="col-form-label">Anak Ke</label>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-2" style="display: none">
                             <input type="checkbox" id="saudara_kandung" name="saudara_kandung" value="YA">
                         </div>
-                        <div class="col-md-6">
-                            <input type="text" id="anak_ke" class="form-control" name="anak_ke" placeholder="Anak Ke?">
+                        <div class="col-md-8">
+                            <input type="number" id="anak_ke" class="form-control" name="anak_ke" placeholder="Anak Ke?">
+                        </div>
+                    </div>
+                    <div class="row g-3 align-items-center mb-2">
+                        <div class="col-md-4">
+                            <label for="jumlahSaudara" class="col-form-label">Jumlah Saudara</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="number" id="jumlahSaudara" class="form-control" name="jumlah_saudara">
                         </div>
                     </div>
                     <div class="row g-3 align-items-center mb-2">
@@ -174,178 +185,224 @@
                     </div>
                 </div>
                 {{--  form orang tua  --}}
-                    <div id="form-ortu" style="display: none">
-                        <h4>Data Orang Tua</h4>
-                        <hr>
-                        <div class="row">
-                            <div class="col-md-6">
-                            <div class="card">
-                                <div class="card-header">
-                                <div class="card-title fw-bold text-center"><h5>Ayah</h5></div>
+                <div id="form-ortu" style="display: none">
+                    <h4>Data Orang Tua</h4>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                            <div class="card-title fw-bold text-center"><h5>Ayah</h5></div>
+                            </div>
+                            <div class="card-body">
+                            <div class="row g-3 align-items-center mb-2">
+                                <div class="col-md-4">
+                                <label for="nik_ayah" class="col-form-label">NIK Ayah</label>
                                 </div>
-                                <div class="card-body">
-                                <div class="row g-3 align-items-center mb-2">
-                                    <div class="col-md-4">
-                                    <label for="nik_ayah" class="col-form-label">NIK Ayah</label>
-                                    </div>
-                                    <div class="col-md-8">
-                                    <input type="text" id="nik_ayah" class="form-control"
-                                    name="nik_ayah" placeholder="Berisi 16 digit">
-                                    </div>
-                                </div>
-                                <div class="row g-3 align-items-center mb-2">
-                                    <div class="col-md-4">
-                                    <label for="nama_ayah" class="col-form-label">Nama Ayah</label>
-                                    </div>
-                                    <div class="col-md-8">
-                                    <input type="text" id="nama_ayah" class="form-control" name="nama_ayah">
-                                    </div>
-                                </div>
-                                <div class="row g-3 align-items-center mb-2">
-                                    <div class="col-md-4">
-                                    <label for="pekerjaan-ayah" class="col-form-label">Pekerjaan Ayah</label>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <select name="pekerjaan_ayah" id="pekerjaan-ayah" class="form-control">
-                                            <option value="">Pilih Pekerjaan</option>
-                                            @foreach ($pekerjaan as $val)
-                                                <option value="{{ $val->id }}">{{ $val->nama_pekerjaan }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="row g-3 align-items-center mb-2">
-                                    <div class="col-md-4">
-                                    <label for="pendidikan-ayah" class="col-form-label">Pendidikan Ayah</label>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <select name="pendidikan-ayah" id="pendidikan-ayah" class="form-control">
-                                            <option value="">Pilih Pendidikan</option>
-                                            @foreach ($pendidikan as $val)
-                                                <option value="{{ $val->id }}">{{ $val->nama_pendidikan }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div><div class="row g-3 align-items-center mb-2">
-                                    <div class="col-md-4">
-                                    <label for="no_hp_ayah" class="col-form-label">No Hp Ayah</label>
-                                    </div>
-                                    <div class="col-md-8">
-                                    <input type="text" id="no_hp_ayah" class="form-control" name="no_hp_ayah">
-                                    </div>
-                                </div>
+                                <div class="col-md-8">
+                                <input type="text" id="nik_ayah" class="form-control"
+                                name="nik_ayah" placeholder="Berisi 16 digit">
                                 </div>
                             </div>
-                            </div>
-                            <div class="col-md-6">
-                            <div class="card">
-                                <div class="card-header">
-                                <div class="card-title fw-bold text-center"><h5>Ibu</h5></div>
+                            <div class="row g-3 align-items-center mb-2">
+                                <div class="col-md-4">
+                                <label for="nama_ayah" class="col-form-label">Nama Ayah</label>
                                 </div>
-                                <div class="card-body">
-                                    <div class="row g-3 align-items-center mb-2">
-                                    <div class="col-md-4">
-                                        <label for="nik_ibu" class="col-form-label">NIK Ibu</label>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <input type="text" id="nik_ibu" class="form-control"
-                                        name="nik_ibu" placeholder="Berisi 16 digit">
-                                    </div>
-                                    </div>
-                                    <div class="row g-3 align-items-center mb-2">
-                                    <div class="col-md-4">
-                                        <label for="nama_ibu" class="col-form-label">Nama Ibu</label>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <input type="text" id="nama_ibu" class="form-control" name="nama_ibu">
-                                    </div>
-                                    </div>
-                                    <div class="row g-3 align-items-center mb-2">
-                                    <div class="col-md-4">
-                                        <label for="pekerjaan-ibu" class="col-form-label">Pekerjaan Ibu</label>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <select name="pekerjaan_ibu" id="pekerjaan-ibu" class="form-control">
-                                            <option value="">Pilih Pekerjaan</option>
-                                            @foreach ($pekerjaan as $val)
-                                                <option value="{{ $val->id }}">{{ $val->nama_pekerjaan }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    </div>
-                                    <div class="row g-3 align-items-center mb-2">
-                                    <div class="col-md-4">
-                                        <label for="pendidikan-ibu" class="col-form-label">Pendidikan Ibu</label>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <select name="pendidikan-ibu" id="pendidikan-ibu" class="form-control">
-                                            <option value="">Pilih Pendidikan</option>
-                                            @foreach ($pendidikan as $val)
-                                                <option value="{{ $val->id }}">{{ $val->nama_pendidikan }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    </div><div class="row g-3 align-items-center mb-2">
-                                    <div class="col-md-4">
-                                        <label for="no_hp_ibu" class="col-form-label">No Hp Ibu</label>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <input type="text" id="no_hp_ibu" class="form-control" name="no_hp_ibu">
-                                    </div>
-                                    </div>
+                                <div class="col-md-8">
+                                <input type="text" id="nama_ayah" class="form-control" name="nama_ayah">
+                                </div>
+                            </div>
+                            <div class="row g-3 align-items-center mb-2">
+                                <div class="col-md-4">
+                                <label for="pekerjaan-ayah" class="col-form-label">Pekerjaan Ayah</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <select name="pekerjaan_ayah" id="pekerjaan-ayah" class="form-control">
+                                        <option value="">Pilih Pekerjaan</option>
+                                        @foreach ($pekerjaan as $val)
+                                            <option value="{{ $val->id }}">{{ $val->nama_pekerjaan }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row g-3 align-items-center mb-2">
+                                <div class="col-md-4">
+                                <label for="pendidikan-ayah" class="col-form-label">Pendidikan Ayah</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <select name="pendidikan-ayah" id="pendidikan-ayah" class="form-control">
+                                        <option value="">Pilih Pendidikan</option>
+                                        @foreach ($pendidikan as $val)
+                                            <option value="{{ $val->id }}">{{ $val->nama_pendidikan }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div><div class="row g-3 align-items-center mb-2">
+                                <div class="col-md-4">
+                                <label for="no_hp_ayah" class="col-form-label">No Hp Ayah</label>
+                                </div>
+                                <div class="col-md-8">
+                                <input type="text" id="no_hp_ayah" class="form-control" name="no_hp_ayah">
                                 </div>
                             </div>
                             </div>
                         </div>
-
+                        </div>
+                        <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                            <div class="card-title fw-bold text-center"><h5>Ibu</h5></div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row g-3 align-items-center mb-2">
+                                <div class="col-md-4">
+                                    <label for="nik_ibu" class="col-form-label">NIK Ibu</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" id="nik_ibu" class="form-control"
+                                    name="nik_ibu" placeholder="Berisi 16 digit">
+                                </div>
+                                </div>
+                                <div class="row g-3 align-items-center mb-2">
+                                <div class="col-md-4">
+                                    <label for="nama_ibu" class="col-form-label">Nama Ibu</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" id="nama_ibu" class="form-control" name="nama_ibu">
+                                </div>
+                                </div>
+                                <div class="row g-3 align-items-center mb-2">
+                                <div class="col-md-4">
+                                    <label for="pekerjaan-ibu" class="col-form-label">Pekerjaan Ibu</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <select name="pekerjaan_ibu" id="pekerjaan-ibu" class="form-control">
+                                        <option value="">Pilih Pekerjaan</option>
+                                        @foreach ($pekerjaan as $val)
+                                            <option value="{{ $val->id }}">{{ $val->nama_pekerjaan }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                </div>
+                                <div class="row g-3 align-items-center mb-2">
+                                <div class="col-md-4">
+                                    <label for="pendidikan-ibu" class="col-form-label">Pendidikan Ibu</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <select name="pendidikan-ibu" id="pendidikan-ibu" class="form-control">
+                                        <option value="">Pilih Pendidikan</option>
+                                        @foreach ($pendidikan as $val)
+                                            <option value="{{ $val->id }}">{{ $val->nama_pendidikan }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                </div><div class="row g-3 align-items-center mb-2">
+                                <div class="col-md-4">
+                                    <label for="no_hp_ibu" class="col-form-label">No Hp Ibu</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" id="no_hp_ibu" class="form-control" name="no_hp_ibu">
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
                     </div>
+
+                </div>
                 {{--  form wali  --}}
-                    <div id="form-wali" style="display: none" class="mt-3">
-                        <h4>Data Wali</h4>
-                        <input type="hidden" name="wali" id="wali">
+                <div id="form-wali" style="display: none" class="mt-3">
+                    <h4>Data Wali</h4>
+                    <input type="hidden" name="wali" id="wali">
+                    <hr>
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Penanggung Jawab Biaya</div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-3 align-items-center mb-2">
+                                <div class="col-md-4">
+                                    <label for="nama_wali" class="col-form-label">Nama Wali</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" id="nama_wali" class="form-control" name="nama_wali">
+                                </div>
+                            </div>
+                            <div class="row g-3 align-items-center mb-2">
+                                <div class="col-md-4">
+                                    <label for="kedudukan_dalam_keluarga" class="col-form-label">Kedudukan Dalam Keluarga</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" id="kedudukan_dalam_keluarga" class="form-control" name="kedudukan_dalam_keluarga">
+                                </div>
+                            </div>
+                            <div class="row g-3 align-items-center mb-2">
+                                <div class="col-md-4">
+                                    <label for="no_hp_wali" class="col-form-label">No HP Wali</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" id="no_hp_wali" class="form-control" name="no_hp_wali">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="ayahIbu" style="display: none">
+                    <div class="alert alert-info" id="infoWaliDiPilih">
+                        <p>Wali Dipilih Sebagai Penanggung Jawab Biaya</p>
+                    </div>
+                </div>
+                {{--  form asal sekolah  --}}
+                <div id="formAsalSekolah" style="display: none">
+                    <div class="col-md-12">
+                        <h4>Data Asal Sekolah</h4>
                         <hr>
                         <div class="card">
                             <div class="card-header">
-                                <div class="card-title">Wali</div>
+                                <div class="card-title">Asal Sekolah</div>
                             </div>
                             <div class="card-body">
                                 <div class="row g-3 align-items-center mb-2">
                                     <div class="col-md-4">
-                                        <label for="nama_wali" class="col-form-label">Nama Wali</label>
+                                        <label for="asal-sekolah" class="col-form-label">Nama TK/SD/MI</label>
                                     </div>
                                     <div class="col-md-8">
-                                        <input type="text" id="nama_wali" class="form-control" name="nama_wali">
+                                        <input type="text" id="asal-sekolah" class="form-control" name="asal_sekolah">
                                     </div>
                                 </div>
                                 <div class="row g-3 align-items-center mb-2">
                                     <div class="col-md-4">
-                                        <label for="kedudukan_dalam_keluarga" class="col-form-label">Kedudukan Dalam Keluarga</label>
+                                        <label for="alamat_asal_sekolah" class="col-form-label">Alamat Asal Sekolah</label>
                                     </div>
                                     <div class="col-md-8">
-                                        <input type="text" id="kedudukan_dalam_keluarga" class="form-control" name="kedudukan_dalam_keluarga">
+                                        <input type="text" id="alamat_asal_sekolah" class="form-control" name="alamat_asal_sekolah">
                                     </div>
                                 </div>
                                 <div class="row g-3 align-items-center mb-2">
                                     <div class="col-md-4">
-                                        <label for="no_hp_wali" class="col-form-label">No HP Wali</label>
+                                        <label for="diterima_dikelas" class="col-form-label">Diterima Di Kelas</label>
                                     </div>
                                     <div class="col-md-8">
-                                        <input type="text" id="no_hp_wali" class="form-control" name="no_hp_wali">
+                                        <input type="text" id="diterima_dikelas" class="form-control" name="diterima_dikelas">
+                                    </div>
+                                </div>
+                                <div class="row g-3 align-items-center mb-2">
+                                    <div class="col-md-4">
+                                        <label for="no_surat_pindah" class="col-form-label">No Surat Pindah</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="number" id="no_surat_pindah" class="form-control" name="no_surat_pindah">
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div id="ayahIbu" style="display: none">
-                        <div class="alert alert-info" id="infoWaliDiPilih">
-                            <p>Wali telah Dipilih</p>
-                        </div>
+                </div>
+                <div class="container-fluid">
+                    <div class="row mt-3" id="submit" style="display: none">
+                        <button class="btn btn-success" type="submit">Simpan</button>
                     </div>
-                    <div class="container-fluid">
-                        <div class="row mt-3" id="submit" style="display: none">
-                            <button class="btn btn-success" type="submit">Simpan</button>
-                        </div>
-                    </div>
+                </div>
             </form>
         </div>
       </div><!-- /.container-fluid -->
@@ -360,29 +417,41 @@
         $('#form-ortu').hide();
         $('#form-wali').hide();
         $('#ayahIbu').hide();
+        $('#formAsalSekolah').hide();
     });
     $('#data-ortu').click(function(){
         $('#form-ortu').show();
         $('#form-santri').hide();
         $('#form-wali').hide();
         $('#ayahIbu').hide();
+        $('#formAsalSekolah').hide();
     });
+    $('#data-asal-sekolah').click(function(){
+        $('#formAsalSekolah').show();
+        $('#form-ortu').hide();
+        $('#form-santri').hide();
+        $('#form-wali').hide();
+        $('#ayahIbu').hide();
+    })
     $('#data-wali').click(function(){
         var klickwali = $('#wali').val();
         if (klickwali === 'Ayah') {
             $('#ayahIbu').show();
             $('#form-ortu').hide();
             $('#form-santri').hide();
+            $('#formAsalSekolah').hide();
             return;
         }else if(klickwali === 'Ibu'){
             $('#ayahIbu').show();
             $('#form-ortu').hide();
             $('#form-santri').hide();
+            $('#formAsalSekolah').hide();
             return;
         }else if(klickwali === 'Wali'){
             $('#form-wali').show();
             $('#form-ortu').hide();
             $('#form-santri').hide();
+            $('#formAsalSekolah').hide();
             return;
         }
         /* inputOptions can be an object or Promise */
@@ -406,16 +475,18 @@
                 }
                 if(value === 'Ayah'){
                     var wali = $('#wali').val('Ayah');
-                    $('#infoWaliDiPilih').text('Ayah Dipilih Sebagai Wali');
+                    $('#infoWaliDiPilih').text('Ayah Dipilih Sebagai Penanggung Jawab Biaya');
                     $('#ayahIbu').show();
                     $('#form-ortu').hide();
                     $('#form-wali').hide();
+                    $('#formAsalSekolah').hide();
                 }else if(value === 'Ibu'){
                     var wali = $('#wali').val('Ibu');
-                    $('#infoWaliDiPilih').text('Ibu Dipilih Sebagai Wali');
+                    $('#infoWaliDiPilih').text('Ibu Dipilih Sebagai Penanggung Jawab Biaya');
                     $('#ayahIbu').show();
                     $('#form-ortu').hide();
                     $('#form-wali').hide();
+                    $('#formAsalSekolah').hide();
                 }else{
                     var wali = $('#wali').val('Wali');
                     $('#form-wali').show();
@@ -494,7 +565,6 @@
                                 if(value.isConfirmed){
                                     var saudara = $('#saudara_kandung');
                                     saudara.prop('checked', true);
-                                    saudara.prop('disabled', true);
                                     var id_saudara = res.data;
                                     updateSaudaraKandung(id_saudara);
                                 }else{

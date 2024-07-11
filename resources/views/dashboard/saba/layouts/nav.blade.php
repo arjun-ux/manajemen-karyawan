@@ -20,32 +20,50 @@
                         <a class="hover" href="#"><img src="{{ asset('img/pp.png') }}" width="30px" alt="pp" class="rounded-circle img-fluid p-0"></a>
                         <div class="dropdown">
                             <a class="hover" href="/dashba">My Profile</a>
-                            <a class="hover" data-bs-target="#modalMaba" data-bs-toggle="modal" href="#">Log
+                            <a class="hover" id="logout" href="#">Log
                                 Out</a>
-
                         </div>
                     </li>
-                    <!-- logout Modal maba -->
-                    <div class="modal fade" id="modalMaba" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Logout</h1>
-                                    <button aria-label="Close" class="btn-close" data-bs-dismiss="modal"
-                                        type="button"></button>
-                                </div>
-                                <div class="modal-body">
-                                    Anda Yakin Mau Keluar?
-                                </div>
-                                <div class="modal-footer">
-                                    <button class="btn btn-primary" data-bs-dismiss="modal" type="button">Cencel</button>
-                                    <a class="btn btn-danger" href="{{ route('logout') }}">Logout</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 @endguest
             </ul>
         </div>
     </div>
 </nav>
+@push('script')
+
+    <script>
+        $('#logout').click(function(e){
+            e.preventDefault();
+            Swal.fire({
+                icon: 'warning',
+                title: 'Apakah Anda Yakin Keluar?',
+                toast: true,
+                position: 'top',
+                showCancelButton: true,
+            }).then((value)=>{
+                if(value.isConfirmed){
+                    logout();
+                }
+            });
+        });
+        function logout(){
+            $.ajax({
+                url: '/logout',
+                type: 'GET',
+                success: function(res){
+                    Swal.fire({
+                        icon: 'success',
+                        title: res.message,
+                        toast: true,
+                        showConfirmButton: false,
+                        timer: 1500,
+                        position: 'top-end',
+                        timerProgressBar: true,
+                    }).then(()=>{
+                        location.reload();
+                    });
+                }
+            });
+        }
+    </script>
+@endpush

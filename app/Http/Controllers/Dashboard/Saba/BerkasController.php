@@ -21,6 +21,15 @@ class BerkasController extends Controller
     }
     public function updateBerkas(Request $request)
     {
+        $request->validate([
+            'foto' => 'required',
+            'kk' => 'required',
+            'ktp_ortu' => 'required',
+        ],[
+            'foto.required' => 'Foto Wajib Di Isi',
+            'kk.required' => 'KK Wajib Di Isi',
+            'ktp_ortu.required' => 'KTP ORTU Wajib Di Isi',
+        ]);
         $saba = Saba::where('user_id', Auth::user()->id)->first();
         $berkas = Berkas::where('saba_id', $saba->id)->first();
         $saba_name = $saba->nama_lengkap;

@@ -103,8 +103,8 @@ class AdminSabaController extends Controller
     // hanya lihat dan akan export pdf data diri santri
     public function lihatSantri($id){
         $id = routeParam::decode($id);
-        $datas = $this->santri->getById($id);
-        // dd($datas);
+        $datas = $this->santri->lihatSantri($id);
+        // dd($datas['berkas']->foto);
         // $provinsi = $this->indo->Provinsi();
         return view('dashboard.admin.data-saba-all.lihat_santri', compact('datas'));
     }

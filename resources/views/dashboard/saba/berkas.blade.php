@@ -203,6 +203,17 @@
             }
         });
     });
-
+    @if ($errors->any())
+        @foreach ($errors->all() as $error)
+            Toastify({
+                text: "{{ $error }}",
+                duration: 3000,
+                close: true,
+                gravity: "top", // optional: top, bottom, left, right
+                position: "right", // optional: left, right, center
+                backgroundColor: "#f44336", // optional
+            }).showToast();
+        @endforeach
+    @endif
 </script>
 @endsection

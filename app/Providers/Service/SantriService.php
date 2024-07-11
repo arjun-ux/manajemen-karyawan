@@ -5,6 +5,7 @@ namespace App\Providers\Service;
 use App\Models\Berkas;
 use App\Models\OrangTua;
 use App\Models\Saba;
+use App\Models\SabaMasukPondok;
 use App\Models\User;
 use App\Models\WaliSaba;
 use App\Providers\RouteParamService as routeParam;
@@ -25,6 +26,11 @@ class SantriService extends ServiceProvider
     // get santri by id
     public static function getById($id){
         $data = Saba::where('id', $id)->first();
+        return $data;
+    }
+    // lihat santri
+    public static function lihatSantri($id){
+        $data = Saba::where('id', $id)->first();
         $berkas = Berkas::where('saba_id', $id)->first();
         $results = [
             'data' => $data,
@@ -32,9 +38,10 @@ class SantriService extends ServiceProvider
         ];
         return $results;
     }
-
     // create saba
     public static function StoreSantri($request){
+        // echo json_encode($request->all());
+        // exit();
         $request->validate([
             'no_wa' => 'required',
             'nik' => 'required|min:16|max:16',
@@ -89,6 +96,9 @@ class SantriService extends ServiceProvider
             'tempat_lahir' => $request->tempat_lahir,
             'tanggal_lahir' => $request->tanggal_lahir,
             'jenis_kelamin' => $request->jenis_kelamin,
+            'saudara_kandung' => $request->saudara_kandung,
+            'anak_ke' => $request->anak_ke,
+            'jumlah_saudara' => $request->jumlah_saudara,
             'provinsi' => $request->provinsi,
             'kabupaten' => $request->kabupaten,
             'kecamatan' => $request->kecamatan,
@@ -109,6 +119,14 @@ class SantriService extends ServiceProvider
             'pekerjaan_ibu' => $request->pekerjaan_ibu,
             'pendidikan_ibu' => $request->pendidikan_ibu,
             'no_hp_ibu' => $request->no_hp_ibu,
+        ]);
+        $sabaMasukPondok = SabaMasukPondok::create([
+            'saba_id' => $santri->id,
+            'tanggal_masuk' => now(),
+            'asal_sekolah' => $request->asal_sekolah,
+            'alamat_asal_sekolah' => $request->alamat_asal_sekolah,
+            'diterima_dikelas' => $request->diterima_dikelas,
+            'no_surat_pindah' => $request->no_surat_pindah,
         ]);
         if ($request->wali === 'Ayah') {
             WaliSaba::create([
