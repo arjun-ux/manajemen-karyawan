@@ -223,7 +223,42 @@
                                         <div class="card-header">
                                             <div class="card-title fw-bold">Penanggung Jawab Biaya</div>
                                         </div>
-                                        <div class="card-body"></div>
+                                        <div class="card-body">
+                                            @if (isset($datas['wali']->kedudukan_dalam_keluarga) && $datas['wali']->kedudukan_dalam_keluarga == 'Ayah')
+                                                <div class="alert alert-warning">
+                                                    <strong>* Ayah Sebagai Penanggung Jawab</strong>
+                                                </div>
+                                            @elseif (isset($datas['wali']->kedudukan_dalam_keluarga) && $datas['wali']->kedudukan_dalam_keluarga == 'Ibu')
+                                                <div class="alert alert-success">
+                                                    <strong>* Ibu Sebagai Penanggung Jawab</strong>
+                                                </div>
+                                            @else
+                                                <div class="table-responsive">
+                                                    <table class="table">
+                                                        <tr>
+                                                            <td class="fw-medium" style="width: 300px">Nama</td>
+                                                            <td style="width: 20px">=</td>
+                                                            <td style="width: 500px">{{ isset($datas['wali']->nama_wali) ? $datas['wali']->nama_wali : '' }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="fw-medium" style="width: 300px">Kedudukan</td>
+                                                            <td style="width: 20px">=</td>
+                                                            <td style="width: 500px">{{ isset($datas['wali']->kedudukan_dalam_keluarga) ? $datas['wali']->kedudukan_dalam_keluarga : '' }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="fw-medium" style="width: 300px">Alamat</td>
+                                                            <td style="width: 20px">=</td>
+                                                            <td style="width: 500px">{{ isset($datas['wali']->alamat_wali) ? $datas['wali']->alamat_wali : '' }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="fw-medium" style="width: 300px">No HP</td>
+                                                            <td style="width: 20px">=</td>
+                                                            <td style="width: 500px">{{ isset($datas['wali']->no_hp_wali) ? $datas['wali']->no_hp_wali : '' }}</td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            @endif
+                                        </div>
                                     </div>
                                 </div>
                             </div>

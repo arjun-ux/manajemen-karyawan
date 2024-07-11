@@ -338,6 +338,14 @@
                             </div>
                             <div class="row g-3 align-items-center mb-2">
                                 <div class="col-md-4">
+                                    <label for="alamat_wali" class="col-form-label">Alamat Wali</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" id="alamat_wali" class="form-control" name="alamat_wali">
+                                </div>
+                            </div>
+                            <div class="row g-3 align-items-center mb-2">
+                                <div class="col-md-4">
                                     <label for="no_hp_wali" class="col-form-label">No HP Wali</label>
                                 </div>
                                 <div class="col-md-8">

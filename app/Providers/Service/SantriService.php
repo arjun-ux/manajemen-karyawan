@@ -43,7 +43,8 @@ class SantriService extends ServiceProvider
         $pekerjaanA = PekerjaanService::getPekerjaan($ortu->pekerjaan_ayah);
         $pendidikanI = PendidikanService::getPendidikan($ortu->pendidikan_ibu);
         $pekerjaanI = PekerjaanService::getPekerjaan($ortu->pekerjaan_ibu);
-        // dd($pekerjaan);
+        $wali = WaliSaba::where('saba_id', $id)->first();
+        // dd($wali);
         $results = [
             'data' => $data,
             'berkas' => $berkas,
@@ -56,6 +57,7 @@ class SantriService extends ServiceProvider
             'pekerjaanA' => $pekerjaanA,
             'pendidikanI' => $pendidikanI,
             'pekerjaanI' => $pekerjaanI,
+            'wali' => $wali,
         ];
         return $results;
     }
