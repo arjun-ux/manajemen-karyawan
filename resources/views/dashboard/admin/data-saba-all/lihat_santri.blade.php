@@ -24,7 +24,7 @@
                             <div class="row">
                                 <div class="col-md-3 text-center mb-2">
                                     @if (isset($datas['berkas']->foto))
-                                    <img class="img-thumbnail" src="{{ asset('storage/'. $datas['berkas']->foto) }}" alt="foto-profile-santri" style="max-width: 300px; max-height: 400px">
+                                    <img class="img-thumbnail" src="{{ asset('storage/'. $datas['berkas']->foto) }}" alt="foto-profile-santri" style="width: 300px; height: 300px;">
                                     @else
                                     <img class="img-thumbnail" src="{{ asset('img/pp.png') }}" alt="pp">
                                     @endif
