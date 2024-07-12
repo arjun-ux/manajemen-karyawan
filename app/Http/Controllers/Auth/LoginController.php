@@ -36,6 +36,6 @@ class LoginController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return response()->json(['message'=>'Logout Berhasi']);
+        return response()->json(['message'=>'Logout Berhasil']);
     }
 }

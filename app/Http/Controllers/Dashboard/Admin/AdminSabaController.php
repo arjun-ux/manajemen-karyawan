@@ -91,7 +91,6 @@ class AdminSabaController extends Controller
     public function showSaba($id){
         $id = routeParam::decode($id);
         $results = $this->santri->getById($id);
-        // dd($results);
         $provinsi = $this->indo->Provinsi();
         return view('dashboard.admin.data-saba-all.edit', compact('provinsi', 'results'));
     }
@@ -104,8 +103,6 @@ class AdminSabaController extends Controller
     public function lihatSantri($id){
         $id = routeParam::decode($id);
         $datas = $this->santri->lihatSantri($id);
-        // dd($datas);
-        // $provinsi = $this->indo->Provinsi();
         return view('dashboard.admin.data-saba-all.lihat_santri', compact('datas'));
     }
 }

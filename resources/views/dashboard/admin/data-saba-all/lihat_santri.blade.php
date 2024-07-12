@@ -80,22 +80,41 @@
                                                     <tr>
                                                         <td class="fw-medium" style="width: 300px">JENIS KELAMIN</td>
                                                         <td style="width: 20px">=</td>
-                                                        <td style="width: 500px">{{ isset($datas['data']->jenis_kelamin) ? $datas['data']->jenis_kelamin : '' }}</td>
+                                                        <td style="width: 500px">{{ isset($datas['data']->jenis_kelamin) ? $datas['data']->jenis_kelamin : 'Data Tidak Ditemukan' }}</td>
                                                     </tr>
                                                     <tr>
                                                         <td class="fw-medium" style="width: 300px">ANAK KE</td>
                                                         <td style="width: 20px">=</td>
-                                                        <td style="width: 500px">{{ isset($datas['data']->anak_ke) ? $datas['data']->anak_ke : '' }}</td>
+                                                        <td style="width: 500px">{{ isset($datas['data']->anak_ke) ? $datas['data']->anak_ke : 'Data Tidak Ditemukan' }}</td>
                                                     </tr>
                                                     <tr>
                                                         <td class="fw-medium" style="width: 300px">JUMLAH SAUDARA</td>
                                                         <td style="width: 20px">=</td>
-                                                        <td style="width: 500px">{{ isset($datas['data']->jumlah_saudara) ? $datas['data']->jumlah_saudara : '' }}</td>
+                                                        <td style="width: 500px">{{ isset($datas['data']->jumlah_saudara) ? $datas['data']->jumlah_saudara : 'Data Tidak Ditemukan' }}</td>
                                                     </tr>
                                                     <tr>
-                                                        <td class="fw-medium" style="width: 300px">SAUDARA KANDUNG</td>
+                                                        <td class="fw-medium" style="width: 300px; font-size: 14px;">SAUDARA KANDUNG</td>
                                                         <td style="width: 20px">=</td>
-                                                        <td style="width: 500px">{{ isset($datas['data']->saudara_kandung) ? $datas['data']->saudara_kandung : '' }}</td>
+                                                        <td style="width: 500px">{{ isset($datas['data']->saudara_kandung) ? $datas['data']->saudara_kandung : 'Data Tidak Ditemukan' }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="fw-medium" style="width: 300px">TANGGAL MASUK</td>
+                                                        <td style="width: 20px">=</td>
+                                                        @if (isset($datas['asal_sekolah']->tanggal_masuk))
+                                                            <td style="width: 500px">{{ \Carbon\Carbon::parse($datas['asal_sekolah']->tanggal_masuk)->format('d M Y') }}</td>
+                                                        @else
+                                                            <td style="width: 500px">Data Tidak Ditemukan</td>
+                                                        @endif
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="fw-medium" style="width: 300px">ASAL SEKOLAH</td>
+                                                        <td style="width: 20px">=</td>
+                                                        <td style="width: 500px">{{ isset($datas['asal_sekolah']->asal_sekolah) ? $datas['asal_sekolah']->asal_sekolah : 'Data Tidak Ditemukan' }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="fw-medium" style="width: 300px">ALAMAT SEKOLAH</td>
+                                                        <td style="width: 20px">=</td>
+                                                        <td style="width: 500px">{{ isset($datas['asal_sekolah']->alamat_asal_sekolah) ? $datas['asal_sekolah']->alamat_asal_sekolah : 'Data Tidak Ditemukan' }}</td>
                                                     </tr>
                                                 </table>
                                             </div>
@@ -105,7 +124,7 @@
                                 <div class="col-md-7">
                                     <div class="card mb-2">
                                         <div class="card-header">
-                                            <div class="card-title fw-bold">Alamat Santri</div>
+                                            <div class="card-title fw-bold">Alamat</div>
                                         </div>
                                         <div class="card-body">
                                             <div class="table-responsive">
@@ -263,7 +282,38 @@
                                 </div>
                             </div>
                             <div class="row">
-
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <div class="card-title fw-bold">Berkas</div>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-md-4 text-center">
+                                                    @if (isset($datas['berkas']->kk))
+                                                        <img class="img-thumbnail" src="{{ asset('storage/'. $datas['berkas']->kk) }}" alt="kartu keluarga" style="width: 300px; height: 300px;">
+                                                    @else
+                                                        <img class="img-thumbnail" src="{{ asset('img/preview-image.png') }}" alt="pp" style="width: 300px; height: 300px;">
+                                                    @endif
+                                                </div>
+                                                <div class="col-md-4 text-center">
+                                                    @if (isset($datas['berkas']->ktp_ortu))
+                                                        <img class="img-thumbnail" src="{{ asset('storage/'. $datas['berkas']->ktp_ortu) }}" alt="ktp orang tua" style="width: 300px; height: 300px;">
+                                                    @else
+                                                        <img class="img-thumbnail" src="{{ asset('img/preview-image.png') }}" alt="pp" style="width: 300px; height: 300px;">
+                                                    @endif
+                                                </div>
+                                                <div class="col-md-4 text-center">
+                                                    @if (isset($datas['berkas']->ktp_wali))
+                                                        <img class="img-thumbnail" src="{{ asset('storage/'. $datas['berkas']->ktp_wali) }}" alt="ktp wali" style="width: 300px; height: 300px;">
+                                                    @else
+                                                        <img class="img-thumbnail" src="{{ asset('img/preview-image.png') }}" alt="pp" style="width: 300px; height: 300px;">
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
