@@ -4,12 +4,14 @@
     body {
         background-color: #b2d8d8;
     }
-
+    .card-outline{
+    border-top: green solid 5px;
+}
 </style>
 <div class="container py-5">
     <div class="row justify-content-center py-3">
         <div class="col-md-4 col-sm-8 col-lg-4">
-            <div class="card">
+            <div class="card card-outline">
                 <div class="card-header text-center border-light bg-white">
                     <img class="mb-3" src="{{ asset('img/log.png') }}" alt="" width="90px">
                     <p>REGISTRASI SANTRI BARU</p>
