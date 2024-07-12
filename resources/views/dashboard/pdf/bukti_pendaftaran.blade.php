@@ -59,7 +59,7 @@
     }
 </style>
 <body>
-    <img class="kop" src="data:image/jpg;base64,<?php echo base64_encode($results['kop']); ?>" alt="KOP">
+    <img class="kop" src="data:image/png;base64,<?php echo base64_encode($results['kop']); ?>" alt="KOP">
     <table class="table">
         <table class="table-2">
             <tr class="mb"><td class="biodata">BIODATA SANTRI</td></tr>
