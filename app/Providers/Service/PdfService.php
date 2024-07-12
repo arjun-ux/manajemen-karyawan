@@ -15,20 +15,14 @@ class PdfService extends ServiceProvider
         $id = RouteParamService::decode($id);
         $imagePath = public_path('img/kop.jpg');
         $kop = file_get_contents($imagePath);
-        $saba = DB::table('sabas')->where('id', $id)->first();
-        $provinsi = IndoRegionService::getProvinsi($saba->provinsi);
+        // $saba = DB::table('sabas')->where('id', $id)->first();
+        // $provinsi = IndoRegionService::getProvinsi($saba->provinsi);
 
         $results = [
             'kop' => $kop,
-            'saba' => $saba,
-            'provinsi' => $provinsi,
+            // 'saba' => $saba,
+            // 'provinsi' => $provinsi,
         ];
-
-        // dd($results);
-
-
-
-
         $pdf = Pdf::loadView('dashboard.pdf.bukti_pendaftaran', ['results'=>$results]);
         $pdf->setPaper('A4', 'potrait');
         return $pdf->stream('Bukti Pendaftaran.pdf');
