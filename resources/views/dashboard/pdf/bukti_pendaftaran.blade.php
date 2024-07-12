@@ -7,6 +7,12 @@
     <title>Bukti Pendaftaran Santri</title>
 </head>
 <body>
-    <h4>Bukti Pendaftaran Santri Baru</h4>
+    <table>
+        <tr>
+            <td>Nama</td>
+            <td>=</td>
+            <td>{{ $results['saba']->nama_lengkap }}</td>
+        </tr>
+    </table>
 </body>
 </html>

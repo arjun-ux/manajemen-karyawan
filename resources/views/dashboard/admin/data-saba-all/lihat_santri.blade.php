@@ -14,7 +14,7 @@ use App\Providers\RouteParamService as routeParam;
                         <table class="table">
                             <th style="background-color: rgb(233, 246, 232)">Data <strong>{{ $datas['data']->nama_lengkap }}</strong></th>
                             <th class="text-end" style="background-color: rgb(233, 246, 232)">
-                                <a type="button" href="{{ route('bukti_pendaftaran') }}" class="btn btn-sm btn-outline-warning" ><i class="lni lni-cloud-download"></i></a>
+                                <a type="button" href="/bukti-pendaftaran/{{ routeParam::encode($datas['data']->id) }}" class="btn btn-sm btn-outline-warning" target="_blank"><i class="lni lni-cloud-download"></i></a>
                                 <a type="button" href="/show-saba/{{ routeParam::encode($datas['data']->id) }}" class="btn btn-sm btn-outline-primary" ><i class="lni lni-pencil-alt"></i></a>
                             </th>
                         </table>

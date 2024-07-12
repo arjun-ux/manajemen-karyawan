@@ -103,6 +103,7 @@ class AdminSabaController extends Controller
     public function lihatSantri($id){
         $id = routeParam::decode($id);
         $datas = $this->santri->lihatSantri($id);
+
         return view('dashboard.admin.data-saba-all.lihat_santri', compact('datas'));
     }
 }

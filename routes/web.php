@@ -83,7 +83,7 @@ Route::middleware('role:admin')->group(function(){
     // lihat data diri santri
     Route::get('/lihat-santri/{id}', [AdminSabaController::class, 'lihatSantri']);
     // pdf
-    Route::get('/bukti-pendaftaran', [PdfController::class, 'buktiPendaftaran'])->name('bukti_pendaftaran');
+    Route::get('/bukti-pendaftaran/{id}', [PdfController::class, 'buktiPendaftaran'])->name('bukti_pendaftaran');
 });
 // pekerjaan
 Route::get('/pekerjaan', [PekerjaanController::class, 'getAll']);

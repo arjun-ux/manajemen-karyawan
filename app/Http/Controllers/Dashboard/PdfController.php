@@ -14,8 +14,8 @@ class PdfController extends Controller
         $this->pdfService = $pdfService;
     }
     // donwload bukti pendaftaran
-    public function buktiPendaftaran(){
-        $result = $this->pdfService->PdfPendaftaran();
+    public function buktiPendaftaran($id){
+        $result = $this->pdfService->PdfPendaftaran($id);
         return $result;
     }
 }
