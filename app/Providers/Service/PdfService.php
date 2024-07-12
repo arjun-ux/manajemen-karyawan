@@ -25,7 +25,8 @@ class PdfService extends ServiceProvider
         ];
         $pdf = Pdf::loadView('dashboard.pdf.bukti_pendaftaran', ['results'=>$results]);
         $pdf->setPaper('A4', 'potrait');
-        return $pdf->stream('Bukti Pendaftaran.pdf');
+
+        return $pdf->download('Bukti-Pendaftaran.pdf');
     }
 
 }
