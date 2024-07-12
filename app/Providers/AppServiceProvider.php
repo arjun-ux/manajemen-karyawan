@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Providers\Service\SantriService;
 use App\Providers\RouteParamService;
 use App\Providers\Service\IndoRegionService;
+use App\Providers\Service\PdfService;
 use App\Providers\Service\PekerjaanService;
 use App\Providers\Service\PendidikanService;
 use App\Providers\Service\UserService;
@@ -45,6 +46,10 @@ class AppServiceProvider extends ServiceProvider
         // pekerjaan
         $this->app->singleton(PekerjaanService::class, function($app){
             return new PekerjaanService($app);
+        });
+        // pdf
+        $this->app->singleton(PdfService::class, function($app){
+            return new PdfService($app);
         });
     }
 

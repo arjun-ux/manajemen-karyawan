@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\UserController;
 use App\Http\Controllers\Dashboard\Admin\AdminController;
 use App\Http\Controllers\Dashboard\Admin\AdminSabaController;
+use App\Http\Controllers\Dashboard\PdfController;
 use App\Http\Controllers\Dashboard\Saba\AsalSekolahController;
 use App\Http\Controllers\Dashboard\Saba\BerkasController;
 use App\Http\Controllers\Dashboard\Saba\OrtuController;
@@ -81,7 +82,8 @@ Route::middleware('role:admin')->group(function(){
     Route::delete('/delete-admin/{uid}', [UserController::class, 'delete_admin']);
     // lihat data diri santri
     Route::get('/lihat-santri/{id}', [AdminSabaController::class, 'lihatSantri']);
-
+    // pdf
+    Route::get('/bukti-pendaftaran', [PdfController::class, 'buktiPendaftaran'])->name('bukti_pendaftaran');
 });
 // pekerjaan
 Route::get('/pekerjaan', [PekerjaanController::class, 'getAll']);

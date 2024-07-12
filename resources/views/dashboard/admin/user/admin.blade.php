@@ -9,13 +9,13 @@
             <a href="#" id="btn-add" class="btn btn-outline-success btn-sm"><i class="lni lni-user"></i></a>
             <div class="table-responsive">
                 <table class="table table-bordered table-stripped" id="tableUserAdmin" style="width: 100%; height: 50%">
-                    <thead>
+                    <thead class="bg-dark">
                         <tr>
-                            <th class="text-center">NO</th>
-                            <th class="text-center">USERNAME</th>
-                            <th class="text-center">NAMA</th>
-                            <th class="text-center">NO WHATSAPP</th>
-                            <th class="text-center">ACTION</th>
+                            <th class="text-center text-light">NO</th>
+                            <th class="text-center text-light">USERNAME</th>
+                            <th class="text-center text-light">NAMA</th>
+                            <th class="text-center text-light">NO WHATSAPP</th>
+                            <th class="text-center text-light">ACTION</th>
                         </tr>
                     </thead>
                     <tbody>

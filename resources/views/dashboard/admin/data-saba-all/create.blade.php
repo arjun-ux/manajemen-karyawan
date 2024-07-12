@@ -190,7 +190,7 @@
                     <hr>
                     <div class="row">
                         <div class="col-md-6">
-                        <div class="card">
+                        <div class="card card-outline">
                             <div class="card-header">
                             <div class="card-title fw-bold text-center"><h5>Ayah</h5></div>
                             </div>
@@ -249,7 +249,7 @@
                         </div>
                         </div>
                         <div class="col-md-6">
-                        <div class="card">
+                        <div class="card card-outline">
                             <div class="card-header">
                             <div class="card-title fw-bold text-center"><h5>Ibu</h5></div>
                             </div>
@@ -315,7 +315,7 @@
                     <h4>Data Wali</h4>
                     <input type="hidden" name="wali" id="wali">
                     <hr>
-                    <div class="card">
+                    <div class="card card-outline">
                         <div class="card-header">
                             <div class="card-title">Penanggung Jawab Biaya</div>
                         </div>
@@ -365,7 +365,7 @@
                     <div class="col-md-12">
                         <h4>Data Asal Sekolah</h4>
                         <hr>
-                        <div class="card">
+                        <div class="card card-outline">
                             <div class="card-header">
                                 <div class="card-title">Asal Sekolah</div>
                             </div>
@@ -515,12 +515,14 @@
     $('#postCreate').submit(function(e){
         e.preventDefault();
         $('#loader').show();
+        $('#loader-container').show();
         $.ajax({
             url: "{{ url('/store-santri') }}",
             type: "POST",
             data: $('#postCreate').serialize(),
             success: function(res){
                 $('#loader').hide();
+                $('#loader-container').hide();
                 Swal.fire({
                     icon: "success",
                     title: res.message,
@@ -536,6 +538,7 @@
             },
             error: function(xhr, error) {
                 $('#loader').hide();
+                $('#loader-container').hide();
                 let errorMessages = xhr.responseJSON.errors;
                 Object.keys(errorMessages).forEach((key) => {
                     errorMessages[key].forEach((errorMessage) => {
@@ -552,6 +555,7 @@
             var nokk = $(this).val();
             if (nokk.length === 16){
                 $('#loader').show();
+                $('#loader-container').show();
                 $.ajax({
                     url: '/saudara-kandung/'+nokk,
                     type: 'POST',
@@ -561,6 +565,7 @@
                     },
                     success: function(res){
                         $('#loader').hide();
+                        $('#loader-container').hide();
                         if(res.status === 404){
                             console.log('Tidak Sekandung')
                         }else{
@@ -583,6 +588,7 @@
                     },
                     error: function(xhr, error){
                         $('#loader').hide();
+                        $('#loader-conatainer').hide();
                         console.log(xhr);
                         console.log(error);
                     }

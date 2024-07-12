@@ -8,12 +8,12 @@
             <hr>
             <div class="table-responsive">
                 <table class="table table-bordered table-stripped" id="tableUserSantri" style="width: 100%; height: 50%">
-                    <thead>
+                    <thead class="bg-dark">
                         <tr>
-                            <th class="text-center">NO</th>
-                            <th class="text-center">NIS</th>
-                            <th class="text-center">NAMA</th>
-                            <th class="text-center">ACTION</th>
+                            <th class="text-center text-light">NO</th>
+                            <th class="text-center text-light">NIS</th>
+                            <th class="text-center text-light">NAMA</th>
+                            <th class="text-center text-light">ACTION</th>
                         </tr>
                     </thead>
                     <tbody>

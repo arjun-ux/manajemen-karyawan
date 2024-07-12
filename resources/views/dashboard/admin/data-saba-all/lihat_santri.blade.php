@@ -1,5 +1,8 @@
 @extends('dashboard.admin.layouts.app')
 @section('content')
+@php
+use App\Providers\RouteParamService as routeParam;
+@endphp
 <div class="content-wrapper">
     <!-- Main content -->
     <section class="content">
@@ -11,8 +14,8 @@
                         <table class="table">
                             <th style="background-color: rgb(233, 246, 232)">Data <strong>{{ $datas['data']->nama_lengkap }}</strong></th>
                             <th class="text-end" style="background-color: rgb(233, 246, 232)">
-                                <button type="button" class="btn btn-sm btn-outline-warning" ><i class="lni lni-cloud-download"></i></button>
-                                <button type="button" class="btn btn-sm btn-outline-primary" ><i class="lni lni-pencil-alt"></i></button>
+                                <a type="button" href="{{ route('bukti_pendaftaran') }}" class="btn btn-sm btn-outline-warning" ><i class="lni lni-cloud-download"></i></a>
+                                <a type="button" href="/show-saba/{{ routeParam::encode($datas['data']->id) }}" class="btn btn-sm btn-outline-primary" ><i class="lni lni-pencil-alt"></i></a>
                             </th>
                         </table>
                     </div>
@@ -30,7 +33,7 @@
                                     @endif
                                 </div>
                                 <div class="col-md-9">
-                                    <div class="card mb-2">
+                                    <div class="card card-outline mb-2">
                                         <div class="card-header">
                                             <div class="card-title fw-bold">Data Diri</div>
                                         </div>
@@ -70,7 +73,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-5">
-                                    <div class="card mb-2">
+                                    <div class="card card-outline mb-2">
                                         <div class="card-header">
                                             <div class="card-title fw-bold">Data Diri</div>
                                         </div>
@@ -122,7 +125,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-7">
-                                    <div class="card mb-2">
+                                    <div class="card card-outline mb-2">
                                         <div class="card-header">
                                             <div class="card-title fw-bold">Alamat</div>
                                         </div>
@@ -172,7 +175,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-4">
-                                    <div class="card mb-2">
+                                    <div class="card card-outline mb-2">
                                         <div class="card-header">
                                             <div class="card-title fw-bold">Data Ayah</div>
                                         </div>
@@ -205,7 +208,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <div class="card mb-2">
+                                    <div class="card card-outline mb-2">
                                         <div class="card-header">
                                             <div class="card-title fw-bold">Data Ibu</div>
                                         </div>
@@ -238,7 +241,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <div class="card mb-2">
+                                    <div class="card card-outline mb-2">
                                         <div class="card-header">
                                             <div class="card-title fw-bold">Penanggung Jawab Biaya</div>
                                         </div>
@@ -283,7 +286,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="card">
+                                    <div class="card card-outline">
                                         <div class="card-header">
                                             <div class="card-title fw-bold">Berkas</div>
                                         </div>
