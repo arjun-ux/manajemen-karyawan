@@ -47,7 +47,7 @@ class SantriService extends ServiceProvider
         $asal_sekolah = SabaMasukPondok::where('id', $id)->first();
         $results = [
             'data' => $data,
-            'berkas' => $berkas,
+            // 'berkas' => $berkas,
             'provinsi'=>$provinsi,
             'kabupaten'=>$kabupaten,
             'kecamatan'=>$kecamatan,

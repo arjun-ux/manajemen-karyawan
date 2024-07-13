@@ -25,13 +25,13 @@ use App\Providers\RouteParamService as routeParam;
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-3 text-center mb-2">
+                                {{--  <div class="col-md-3 text-center mb-2">
                                     @if (isset($datas['berkas']->foto))
                                     <img class="img-thumbnail" src="{{ asset('storage/'. $datas['berkas']->foto) }}" alt="foto-profile-santri" style="width: 300px; height: 300px;">
                                     @else
                                     <img class="img-thumbnail" src="{{ asset('img/pp.png') }}" alt="pp">
                                     @endif
-                                </div>
+                                </div>  --}}
                                 <div class="col-md-9">
                                     <div class="card card-outline mb-2">
                                         <div class="card-header">
@@ -290,7 +290,7 @@ use App\Providers\RouteParamService as routeParam;
                                         <div class="card-header">
                                             <div class="card-title fw-bold">Berkas</div>
                                         </div>
-                                        <div class="card-body">
+                                        {{--  <div class="card-body">
                                             <div class="row">
                                                 <div class="col-md-4 text-center">
                                                     @if (isset($datas['berkas']->kk))
@@ -313,7 +313,7 @@ use App\Providers\RouteParamService as routeParam;
                                                         <img class="img-thumbnail" src="{{ asset('img/preview-image.png') }}" alt="pp" style="width: 300px; height: 300px;">
                                                     @endif
                                                 </div>
-                                            </div>
+                                            </div>  --}}
                                         </div>
                                     </div>
                                 </div>
