@@ -33,7 +33,7 @@ class SantriService extends ServiceProvider
     // lihat santri
     public static function lihatSantri($id){
         $data = Saba::where('id', $id)->first();
-        $berkas = Berkas::where('saba_id', $id)->first();
+        $berkas = DB::table('berkas')->where('saba_id', $id)->first(['foto']);
         $provinsi = IndoRegionService::getProvinsi($data->provinsi);
         $kabupaten = IndoRegionService::getKota($data->kabupaten);
         $kecamatan = IndoRegionService::getKecamatan($data->kecamatan);
@@ -47,7 +47,7 @@ class SantriService extends ServiceProvider
         $asal_sekolah = SabaMasukPondok::where('id', $id)->first();
         $results = [
             'data' => $data,
-            // 'berkas' => $berkas,
+            'berkas' => $berkas,
             'provinsi'=>$provinsi,
             'kabupaten'=>$kabupaten,
             'kecamatan'=>$kecamatan,
