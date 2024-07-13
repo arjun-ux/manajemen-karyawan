@@ -3,6 +3,21 @@
 @php
 use App\Providers\RouteParamService as routeParam;
 @endphp
+<style>
+    {{--  checkbox berkas  --}}
+    .card-header.flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    }
+    .card-header.flex .card-title {
+        flex: 1; /* Menggunakan flex untuk memanfaatkan ruang tersedia */
+    }
+    /* Hide default checkbox */
+    input[type="checkbox"] {
+        display: none;
+    }
+</style>
 <div class="content-wrapper">
     <!-- Main content -->
     <section class="content">
@@ -287,8 +302,10 @@ use App\Providers\RouteParamService as routeParam;
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="card card-outline">
-                                        <div class="card-header" id="btn-berkas" data-id="{{ $datas['data']->id }}">
+                                        <div class="card-header flex" data-id="{{ $datas['data']->id }}">
                                             <div class="card-title fw-bold">Berkas</div>
+                                            <input type="checkbox" id="checkbox-berkas">
+                                            <label for="checkbox-berkas">&#9776;</label>
                                         </div>
                                         <div class="card-body" style="display: none" id="card-body">
                                             <div class="row">
@@ -337,28 +354,54 @@ use App\Providers\RouteParamService as routeParam;
             }
         });
     });
-    $('#btn-berkas').click(function(){
-        var sid = $(this).data("id");
-        $.ajax({
-            url: "/load-berkas/"+sid,
-            type: "GET",
-            {{--  dataType: 'json',  --}}
-            success: function(res){
-                $('#card-body').show();
-                if (res.data && res.data.kk && res.data.ktp_ortu && res.data.ktp_wali) {
-                    var kk = '{{ asset('storage/') }}' + '/' + res.data.kk;
-                    var ktp_ortu = '{{ asset('storage/') }}' + '/' + res.data.ktp_ortu;
-                    var ktp_wali = '{{ asset('storage/') }}' + '/' + res.data.ktp_wali;
-                    $('#kk').attr('src', kk);
-                    $('#ktp_ortu').attr('src', ktp_ortu);
-                    $('#ktp_wali').attr('src', ktp_wali);
+
+    $(document).ready(function() {
+        var checkbox = $('#checkbox-berkas');
+        var cardBody = $('#card-body');
+        var loaded = false; // Flag untuk menyimpan status apakah data sudah dimuat
+
+        checkbox.change(function() {
+            if (this.checked) {
+                // Checkbox dicentang
+                if (!loaded) {
+                    // Jika data belum dimuat, lakukan permintaan AJAX
+                    var sid = $(this).closest('.card-header').data("id");
+                    $.ajax({
+                        url: "/load-berkas/" + sid,
+                        type: "GET",
+                        success: function(res) {
+                            if (res.data && res.data.kk && res.data.ktp_ortu && res.data.ktp_wali) {
+                                var kk = '{{ asset('storage/') }}' + '/' + res.data.kk;
+                                var ktp_ortu = '{{ asset('storage/') }}' + '/' + res.data.ktp_ortu;
+                                var ktp_wali = '{{ asset('storage/') }}' + '/' + res.data.ktp_wali;
+                                $('#kk').attr('src', kk);
+                                $('#ktp_ortu').attr('src', ktp_ortu);
+                                $('#ktp_wali').attr('src', ktp_wali);
+                                cardBody.show(); // Tampilkan card-body setelah berhasil memuat gambar
+                                loaded = true; // Set flag loaded menjadi true
+                            } else {
+                                $('#kk').attr('src', ''); // Kosongkan gambar jika tidak ditemukan
+                                $('#ktp_ortu').attr('src', '');
+                                $('#ktp_wali').attr('src', '');
+                                cardBody.hide(); // Sembunyikan card-body jika tidak ada gambar yang ditemukan
+                            }
+                        },
+                        error: function() {
+                            cardBody.hide(); // Sembunyikan card-body jika terjadi error
+                        }
+                    });
                 } else {
-                    $('#iniFoto').html('<p>Gambar tidak ditemukan</p>');
+                    // Jika data sudah dimuat sebelumnya, langsung tampilkan card-body
+                    cardBody.show();
                 }
+            } else {
+                // Checkbox tidak dicentang, sembunyikan card-body
+                cardBody.hide();
             }
         });
-
     });
+
+
   </script>
 @endpush
 
