@@ -287,33 +287,21 @@ use App\Providers\RouteParamService as routeParam;
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="card card-outline">
-                                        <div class="card-header">
+                                        <div class="card-header" id="btn-berkas" data-id="{{ $datas['data']->id }}">
                                             <div class="card-title fw-bold">Berkas</div>
                                         </div>
-                                        {{--  <div class="card-body">
+                                        <div class="card-body" style="display: none" id="card-body">
                                             <div class="row">
                                                 <div class="col-md-4 text-center">
-                                                    @if (isset($datas['berkas']->kk))
-                                                        <img class="img-thumbnail" src="{{ asset('storage/'. $datas['berkas']->kk) }}" alt="kartu keluarga" style="width: 300px; height: 300px;">
-                                                    @else
-                                                        <img class="img-thumbnail" src="{{ asset('img/preview-image.png') }}" alt="pp" style="width: 300px; height: 300px;">
-                                                    @endif
+                                                    <img id="kk" class="img-thumbnail"  src="" alt="kartu keluarga" style="width: 300px; height: 300px;">
                                                 </div>
                                                 <div class="col-md-4 text-center">
-                                                    @if (isset($datas['berkas']->ktp_ortu))
-                                                        <img class="img-thumbnail" src="{{ asset('storage/'. $datas['berkas']->ktp_ortu) }}" alt="ktp orang tua" style="width: 300px; height: 300px;">
-                                                    @else
-                                                        <img class="img-thumbnail" src="{{ asset('img/preview-image.png') }}" alt="pp" style="width: 300px; height: 300px;">
-                                                    @endif
+                                                    <img id="ktp_ortu" class="img-thumbnail" src="" alt="ktp_ortu" style="width: 300px; height: 300px;">
                                                 </div>
                                                 <div class="col-md-4 text-center">
-                                                    @if (isset($datas['berkas']->ktp_wali))
-                                                        <img class="img-thumbnail" src="{{ asset('storage/'. $datas['berkas']->ktp_wali) }}" alt="ktp wali" style="width: 300px; height: 300px;">
-                                                    @else
-                                                        <img class="img-thumbnail" src="{{ asset('img/preview-image.png') }}" alt="pp" style="width: 300px; height: 300px;">
-                                                    @endif
+                                                    <img id="ktp_wali" class="img-thumbnail" src="" alt="ktp wali" style="width: 300px; height: 300px;">
                                                 </div>
-                                            </div>  --}}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -331,7 +319,6 @@ use App\Providers\RouteParamService as routeParam;
 @push('script')
   <script>
     $('.btn-pdf').click(function(){
-
         $.ajax({
             url: '/bukti-pendaftaran',
             type: 'POST',
@@ -339,7 +326,6 @@ use App\Providers\RouteParamService as routeParam;
                 dataArray: @json($datas),
                 _token: "{{ csrf_token() }}",
             },
-
             success: function(res){
                 console.log(res.message);
                 var downloadLink = res.download_link;
@@ -350,6 +336,28 @@ use App\Providers\RouteParamService as routeParam;
                 console.log(error)
             }
         });
+    });
+    $('#btn-berkas').click(function(){
+        var sid = $(this).data("id");
+        $.ajax({
+            url: "/load-berkas/"+sid,
+            type: "GET",
+            {{--  dataType: 'json',  --}}
+            success: function(res){
+                $('#card-body').show();
+                if (res.data && res.data.kk && res.data.ktp_ortu && res.data.ktp_wali) {
+                    var kk = '{{ asset('storage/') }}' + '/' + res.data.kk;
+                    var ktp_ortu = '{{ asset('storage/') }}' + '/' + res.data.ktp_ortu;
+                    var ktp_wali = '{{ asset('storage/') }}' + '/' + res.data.ktp_wali;
+                    $('#kk').attr('src', kk);
+                    $('#ktp_ortu').attr('src', ktp_ortu);
+                    $('#ktp_wali').attr('src', ktp_wali);
+                } else {
+                    $('#iniFoto').html('<p>Gambar tidak ditemukan</p>');
+                }
+            }
+        });
+
     });
   </script>
 @endpush

@@ -82,6 +82,8 @@ Route::middleware('role:admin')->group(function(){
     Route::delete('/delete-admin/{uid}', [UserController::class, 'delete_admin']);
     // lihat data diri santri
     Route::get('/lihat-santri/{id}', [AdminSabaController::class, 'lihatSantri']);
+    // load berkas
+    Route::get('/load-berkas/{sid}', [AdminSabaController::class, 'lihatBerkas']);
     // pdf
     Route::get('/bukti-pendaftaran/{id}', [PdfController::class, 'buktiPendaftaran'])->name('bukti_pendaftaran');
 });
