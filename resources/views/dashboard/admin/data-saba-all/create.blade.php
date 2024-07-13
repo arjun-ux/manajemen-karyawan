@@ -94,8 +94,8 @@
                         <div class="col-md-8">
                             <select name="jenis_kelamin" id="inputJK" class="form-control">
                             <option value="">Pilih Jenis Kelamin</option>
-                            <option value="laki-laki">Laki-Laki</option>
-                            <option value="perempuan">Perempuan</option>
+                            <option value="Laki-Laki">Laki-Laki</option>
+                            <option value="Perempuan">Perempuan</option>
                             </select>
                         </div>
                     </div>

@@ -330,7 +330,27 @@ use App\Providers\RouteParamService as routeParam;
 @endsection
 @push('script')
   <script>
+    $('.btn-pdf').click(function(){
 
+        $.ajax({
+            url: '/bukti-pendaftaran',
+            type: 'POST',
+            data: {
+                dataArray: @json($datas),
+                _token: "{{ csrf_token() }}",
+            },
+
+            success: function(res){
+                console.log(res.message);
+                var downloadLink = res.download_link;
+                window.location.href = downloadLink;
+            },
+            error: function(xhr, error){
+                console.log(xhr)
+                console.log(error)
+            }
+        });
+    });
   </script>
 @endpush
 
