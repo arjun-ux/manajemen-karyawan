@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('no_wa');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('role');
+            $table->string('role')->index();
             $table->rememberToken();
             $table->timestamps();
         });

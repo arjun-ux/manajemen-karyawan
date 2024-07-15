@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('kamar_id')->nullable();
             // identitas santri
             $table->string('nis')->nullable()->unique();
-            $table->string('nik')->nullable();
+            $table->string('nik')->nullable()->index();
             $table->string('nokk')->nullable();
             $table->string('nama_lengkap')->nullable();
             $table->string('tempat_lahir')->nullable();

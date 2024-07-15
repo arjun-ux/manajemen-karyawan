@@ -22,7 +22,7 @@ class UserSeeder extends Seeder
             'password'=> Hash::make('asdasd'),
             'role' => 'admin'
         ]);
-        // User::factory()->count(100)->create();
+        // User::factory()->count(10000)->create();
         // Saba::factory()->count(100)->create();
     }
 }

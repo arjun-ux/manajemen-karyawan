@@ -43,9 +43,7 @@ class UserService extends ServiceProvider
 
     // user admin
     public static function getUserAdmin(){
-        $datas = User::where('role', 'admin')
-                    ->whereNot('id', 1)
-                    ->get();
+        $datas = DB::table('users')->where('id', '!=', 1)->get(['id', 'username', 'name', 'no_wa']);
         return $datas;
     }
     // store admin

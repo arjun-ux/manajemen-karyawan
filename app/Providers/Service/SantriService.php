@@ -22,7 +22,7 @@ class SantriService extends ServiceProvider
 
     // getAllData
     public static function getAll(){
-        $data = DB::table('sabas')->get();
+        $data = DB::table('sabas')->get(['id','nis','nama_lengkap']);
         return $data;
     }
     // get santri by id
