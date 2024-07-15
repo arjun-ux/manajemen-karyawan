@@ -28,10 +28,10 @@
                         <div class="row align-items-center mb-3">
                             <div class="col-md-12">
                                 <div class="mt-2">
-                                    <input type="text" class="form-control" name="username" placeholder="Username" autofocus>
+                                    <input type="text" class="form-control" name="username" placeholder="Username" autofocus required>
                                 </div>
                                 <div class="mt-2">
-                                    <input type="password" class="form-control" name="password" placeholder="Password">
+                                    <input type="password" class="form-control" name="password" placeholder="Password" required>
                                 </div>
                             </div>
                         </div>

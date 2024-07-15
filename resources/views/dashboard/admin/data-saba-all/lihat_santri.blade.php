@@ -370,19 +370,22 @@ use App\Providers\RouteParamService as routeParam;
                         url: "/load-berkas/" + sid,
                         type: "GET",
                         success: function(res) {
-                            if (res.data && res.data.kk && res.data.ktp_ortu && res.data.ktp_wali) {
+                            if (res.data && res.data.kk && res.data.ktp_ortu) {
+                                cardBody.show(); // Tampilkan card-body setelah berhasil memuat gambar
                                 var kk = '{{ asset('storage/') }}' + '/' + res.data.kk;
                                 var ktp_ortu = '{{ asset('storage/') }}' + '/' + res.data.ktp_ortu;
                                 var ktp_wali = '{{ asset('storage/') }}' + '/' + res.data.ktp_wali;
                                 $('#kk').attr('src', kk);
                                 $('#ktp_ortu').attr('src', ktp_ortu);
                                 $('#ktp_wali').attr('src', ktp_wali);
-                                cardBody.show(); // Tampilkan card-body setelah berhasil memuat gambar
+                                if(res.data.ktp_wali == null){
+                                    $('#ktp_wali').attr('src', '{{ asset('img/preview-image.png') }}');
+                                }
                                 loaded = true; // Set flag loaded menjadi true
                             } else {
-                                $('#kk').attr('src', ''); // Kosongkan gambar jika tidak ditemukan
-                                $('#ktp_ortu').attr('src', '');
-                                $('#ktp_wali').attr('src', '');
+                                $('#kk').attr('src', '{{ asset('img/preview-image.png') }}'); // Kosongkan gambar jika tidak ditemukan
+                                $('#ktp_ortu').attr('src', '{{ asset('img/preview-image.png') }}');
+                                $('#ktp_wali').attr('src', '{{ asset('img/preview-image.png') }}');
                                 cardBody.hide(); // Sembunyikan card-body jika tidak ada gambar yang ditemukan
                             }
                         },
