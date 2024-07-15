@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('pembayaran_id')->nullable();
             $table->unsignedBigInteger('saba_id')->nullable();
+            $table->string('jumlah')->nullable();
             $table->string('status_pembayaran')->default('Belum Lunas');
             $table->timestamps();
         });

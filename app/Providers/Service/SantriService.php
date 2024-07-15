@@ -106,9 +106,10 @@ class SantriService extends ServiceProvider
             // 'nama_ibu.required' => 'Nama Ibu Wajib Di Isi',
             // 'pekerjaan_ibu.required' => 'Pekerjaan Ibu Wajib Di Isi',
         ]);
-        $tgl = Carbon::parse($request->tanggal_lahir)->format('dmy');
+        $tgl = Carbon::parse($request->tanggal_lahir)->format('dmy'); // ex hasil tanggal. 1501724
         $user = User::create([
             'username' => Saba::generateNis(),
+            'name' => $request->nama_lengkap,
             'no_wa' => $request->no_wa,
             'password' => Hash::make($tgl),
             'role' => 'saba'
@@ -132,6 +133,7 @@ class SantriService extends ServiceProvider
             'dusun' => $request->dusun,
             'rt_rw' => $request->rt_rw,
             'alamat' => $request->alamat,
+            'status' => 'Register',
         ]);
         $ortu = OrangTua::create([
             'saba_id' => $santri->id,

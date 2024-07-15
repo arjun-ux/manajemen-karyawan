@@ -176,6 +176,7 @@
                         timerProgressBar: true,
                     }).then(()=>{
                         location.reload();
+                        window.location.href = '/'
                     });
                 }
             });

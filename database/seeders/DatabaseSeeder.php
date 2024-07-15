@@ -4,13 +4,8 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use App\Models\Role;
-use App\Models\Saba;
-use App\Models\User;
-use Faker\Factory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -36,5 +31,6 @@ class DatabaseSeeder extends Seeder
             $this->call(IndoRegionVillageSeeder::class);
             $this->call(PekerjaanSeeder::class);
             $this->call(PendidikanSeeder::class);
+            $this->call(PembayaranSeeder::class);
     }
 }

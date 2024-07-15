@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('sabas', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('kamar_id')->nullable();
             // identitas santri
             $table->string('nis')->nullable()->unique();
             $table->string('nik')->nullable();
