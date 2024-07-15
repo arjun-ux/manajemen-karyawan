@@ -56,6 +56,15 @@ Route::middleware('role:saba')->group(function(){
 Route::middleware('role:admin')->group(function(){
     // dashboard
     Route::get('/dashmin',[AdminController::class, 'index'])->name('dashmin');
+    // settings
+    // setting jenis pembayaran
+    Route::get('/jenis-pembayaran', function(){
+        return "Halaman Jenis Pembayaran";
+    })->name('jenis_pembayaran');
+    // setting kamar
+    Route::get('/kamar', function(){
+        return "Halaman kamar";
+    })->name('kamar');
     // data santri
     Route::get('/saba-all', [AdminSabaController::class,'index'])->name('data_saba_all');
     Route::get('/getAllSantri', [AdminSabaController::class, 'getAllSantri']);

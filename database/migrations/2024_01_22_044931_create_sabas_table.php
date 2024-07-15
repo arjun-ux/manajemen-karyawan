@@ -32,7 +32,7 @@ return new class extends Migration
             $table->string('dusun')->nullable();
             $table->string('rt_rw')->nullable();
             $table->text('alamat')-> nullable();
-            // $table->string('status')->nullable();
+            $table->string('status')->nullable();
             $table->timestamps();
         });
     }

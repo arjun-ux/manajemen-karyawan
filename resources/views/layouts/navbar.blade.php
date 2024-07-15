@@ -14,38 +14,19 @@
                 <li class="nav-item">
                     <a class="hover" href="#">TENTANG KAMI</a>
                     <div class="dropdown">
-                        {{-- @foreach (App\Models\Fakultas::get() as $item)
-                            <a class="hover" href="#">{{ $item->nama_fakultas }}</a>
-                        @endforeach --}}
+
                     </div>
                 </li>
                 <li class="nav-item">
                     <a class="hover" href="#">ASRAMA</a>
                     <div class="dropdown">
-                        {{-- @foreach (App\Models\ProgramStudy::get() as $item)
-                            <a class="hover" href="#">{{ $item->nama_program }}</a>
-                        @endforeach --}}
                     </div>
                 </li>
                 <li class="nav-item">
                     <a class="hover" href="#">PSB</a>
                     <div class="dropdown">
-                        {{-- <a class="hover" href="{{ route('santri.list') }}">SANTRI BARU</a> --}}
                         <a class="hover" href="#jalur-pendaftaran">BIAYA PENDAFTARAN</a>
                         <a class="hover" href="#alur-pendaftaran">ALUR PENDAFTARAN</a>
-                            {{-- @if ($setting->count() === 0)
-                            <a class="hover" href="/biaya-pendaftaran">
-                                Biaya pendafataran
-                            </a>
-                            @elseif ($pdf->biaya_pendaftaran === 0)
-                                <a class="hover" href="/biaya-pendaftaran">
-                                    Biaya pendafataran
-                                </a>
-                            @else
-                                <a aria-current="page" class="hover" href="/biaya-pendaftaran" target="_blank">
-                                    Biaya pendafataran
-                                </a>
-                            @endif --}}
                         <a class="hover" href="#faq">FAQ</a>
                     </div>
                 </li>

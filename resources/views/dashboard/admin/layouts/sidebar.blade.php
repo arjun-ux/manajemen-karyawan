@@ -30,12 +30,6 @@
                 <li class="sidebar-item">
                     <a href="#" class="sidebar-link">
                         <i class="lni lni-checkmark-circle"></i>
-                        Jenis Pembayaran
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
-                        <i class="lni lni-checkmark-circle"></i>
                         Lunas
                     </a>
                 </li>
@@ -87,7 +81,27 @@
                         Santri
                     </a>
                 </li>
-
+            </ul>
+        </li>
+        <li class="sidebar-item">
+            <a href="#" class="sidebar-link collapsed has-dropdown {{ Route::is('jenis_pembayaran')|| Route::is('kamar') ? 'active' : '' }}" data-bs-toggle="collapse"
+                data-bs-target="#settings" aria-expanded="false" aria-controls="settings">
+                <i class="lni lni-cog"></i>
+                <span>Settings</span>
+            </a>
+            <ul id="settings" class="sidebar-dropdown collapse" data-bs-parent="#sidebar">
+                <li class="sidebar-item {{ Route::is('jenis_pembayaran') ? 'active' : '' }}">
+                    <a href="{{ route('jenis_pembayaran') }}" class="sidebar-link">
+                        <i class="lni lni-wallet"></i>
+                        Jenis Pembayaran
+                    </a>
+                </li>
+                <li class="sidebar-item {{ Route::is('kamar') ? 'active' : '' }}">
+                    <a href="{{ route('kamar') }}" class="sidebar-link">
+                        <i class="lni lni-layers"></i>
+                        Kamar
+                    </a>
+                </li>
             </ul>
         </li>
 

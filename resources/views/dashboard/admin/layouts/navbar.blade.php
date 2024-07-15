@@ -36,12 +36,6 @@
                             <li class="li_pro">
                                 <a class="pro" href="#">
                                     <i class="lni lni-checkmark-circle"></i>
-                                    Jenis Pembayaran
-                                </a>
-                            </li>
-                            <li class="li_pro">
-                                <a class="pro" href="#">
-                                    <i class="lni lni-checkmark-circle"></i>
                                     Lunas
                                 </a>
                             </li>
@@ -91,6 +85,28 @@
                                 <a class="pro" href="{{ route('user.index') }}">
                                     <i class="lni lni-user"></i>
                                     Santri
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li class="li_pro">
+                        <a class="pro" href="#" class="collapsed has-dropdown" data-bs-toggle="collapse"
+                            data-bs-target="#settings" aria-expanded="false" aria-controls="settings">
+                            <i class="lni lni-cog"></i>
+                            <span>Settings</span>
+                        </a>
+                        <ul id="settings" class="sidebar-dropdown collapse" data-bs-parent="#sidebar">
+                            <li class="li_pro">
+                                <a class="pro" href="{{ route('jenis_pembayaran') }}">
+                                    <i class="lni lni-wallet"></i>
+                                    Jenis Pembayaran
+                                </a>
+                            </li>
+                            <li class="li_pro">
+                                <a class="pro" href="{{ route('kamar') }}">
+                                    <i class="lni lni-layers"></i>
+                                    Kamar
                                 </a>
                             </li>
 
