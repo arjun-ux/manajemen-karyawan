@@ -22,21 +22,21 @@
                         <div class="row mb-3">
                             <div class="col-md-12">
                                 <div class="mt-2">
-                                    <input type="text" class="form-control @error('nama_lengkap') is-invalid @enderror" name="nama_lengkap" placeholder="Nama Lengkap"
+                                    <input type="text" class="form-control @error('nama_lengkap') is-invalid @enderror" name="nama_lengkap" placeholder="Nama Lengkap" required
                                     value="{{ old('nama_lengkap') }}" autofocus>
                                     @error('nama_lengkap')
                                         {{ $message }}
                                     @enderror
                                 </div>
                                 <div class="mt-2">
-                                    <input type="text" class="form-control @error('no_wa') is-invalid @enderror" name="no_wa" placeholder="Nomor WhatsApp"
+                                    <input type="text" class="form-control @error('no_wa') is-invalid @enderror" name="no_wa" placeholder="Nomor WhatsApp" required
                                     value="{{ old('no_wa') }}">
                                     @error('no_wa')
                                         {{ $message }}
                                     @enderror
                                 </div>
                                 <div class="mt-2">
-                                    <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Password">
+                                    <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Password"> required
                                     @error('password')
                                         {{ $message }}
                                     @enderror
