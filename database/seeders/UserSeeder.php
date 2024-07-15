@@ -23,6 +23,6 @@ class UserSeeder extends Seeder
             'role' => 'admin'
         ]);
         User::factory()->count(50000)->create();
-        // Saba::factory()->count(100)->create();
+
     }
 }
