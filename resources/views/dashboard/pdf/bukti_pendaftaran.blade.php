@@ -8,7 +8,10 @@
 </head>
 <style>
     body {
-        margin: -0.5cm;
+        margin-top: -1cm;
+        margin-bottom: -1cm;
+        margin-left: -0.5cm;
+        margin-right: -0.5cm;
         font-family: 'Times New Roman';
     }
     .kop {
@@ -20,52 +23,62 @@
         display: flex;
         justify-content: center;
         margin-bottom: 10px;
+        font-family: 'Times New Roman';
     }
     .table-2 {
-        width: 80%;
+        width: 90%;
         border-bottom: black solid 3px;
         text-align: center;
         margin: 0 auto;
+        font-family: 'Times New Roman';
     }
     .table-3 {
-        width: 80%;
+        width: 90%;
         margin: 0 auto;
         padding: 0 12px;
+        font-family: 'Times New Roman';
     }
     .table-4 {
-        width: 75%;
+        width: 85%;
         margin: 0 auto;
         padding: 0 12px;
+        font-family: 'Times New Roman';
     }
     .table-5{
-        width: 70%;
+        width: 80%;
         margin: 0 auto;
-        padding: 0 12px;
+
+        font-family: 'Times New Roman';
     }
     .table-6 {
         width: 80%;
         margin: 0 auto;
-        margin-top: 30px;
+        margin-top: 20px;
         text-align: right;
+        font-family: 'Times New Roman';
     }
     .table-7{
-        width: 70%;
+        width: 80%;
         margin: 0 auto;
+        font-family: 'Times New Roman';
     }
     .biodata {
         font-size: 16px;
         font-weight: bold;
+        font-family: 'Times New Roman';
     }
     .pondok {
-        font-size: 14px;
+        font-size: 13px;
         font-weight: bold;
+        font-family: 'Times New Roman';
     }
     .head{
         font-size: 12px;
         font-weight: bold;
+        font-family: 'Times New Roman';
     }
     .font-12 {
-        font-size: 12px;
+        font-size: 13px;
     }
     .col-4{
         width: 30%;
@@ -206,9 +219,9 @@
         </tr>
     </table>
     <table class="table-4">
-        <tr>
+        <tr>\Carbon\Carbon::parse($results['asal_masuk']->tanggal_masuk)->isoFormat('dddd, D MMMM YYYY')
             <td class="font-12 col-5">1. Hari Tanggal</td>
-            <td class="font-12 col-6" style="border-bottom: rgb(0, 0, 0) solid 1px;">: {{ \Carbon\Carbon::now()->isoFormat('dddd, D MMMM YYYY') }}</td>
+            <td class="font-12 col-6" style="border-bottom: rgb(0, 0, 0) solid 1px;">: {{ \Carbon\Carbon::parse($results['asal_sekolah']->tanggal_masuk)->isoFormat('dddd, D MMMM YYYY') }}</td>
         </tr>
         <tr>
             <td class="font-12 col-5">2. Asal dari TK / SD</td>
