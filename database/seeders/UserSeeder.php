@@ -22,7 +22,16 @@ class UserSeeder extends Seeder
             'password'=> Hash::make('asdasd'),
             'role' => 'admin'
         ]);
-        User::factory()->count(100000)->create();
+        User::factory()->count(10000)->create();
+        User::factory()->count(10000)->create();
+        User::factory()->count(10000)->create();
+        User::factory()->count(10000)->create();
+        User::factory()->count(10000)->create();
+        User::factory()->count(10000)->create();
+        User::factory()->count(10000)->create();
+        User::factory()->count(10000)->create();
+        User::factory()->count(10000)->create();
+        User::factory()->count(10000)->create();
 
     }
 }
