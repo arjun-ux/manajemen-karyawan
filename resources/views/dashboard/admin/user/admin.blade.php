@@ -143,28 +143,8 @@
                 {data: 'username', name: 'username'},
                 {data: 'name', name: 'name'},
                 {data: 'no_wa', name: 'no_wa'},
-                {
-                    data: null,
-                    name: 'action',
-                    orderable: false,
-                    searchable: false,
-                    render: function(data, type, row) {
-                        return `
-                            <a href="#" data-id="${row.id}" class="btn_edit btn btn-outline-primary btn-sm mt-1">
-                                <i class="lni lni-pencil-alt"></i>
-                            </a>
-                            <a href="#" data-id="${row.id}" class="btn_delete btn btn-outline-danger btn-sm mt-1">
-                                <i class="lni lni-trash-can"></i>
-                            </a>
-                        `;
-                    }
-                }
-
+                {data: 'action', name: 'action', orderable: false, searchable: false},
             ],
-            "deferLoading": 57,
-            "deferRender": true,  // Defer rendering for improved performance
-            "paging": true,       // Enable pagination
-            "pageLength": 5,     // Number of records per page
         });
     });
 

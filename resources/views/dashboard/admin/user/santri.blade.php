@@ -80,16 +80,12 @@
                 "type": 'GET',
             },
             "columns": [
-                {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
                 {data: 'username', name: 'username'},
-                {data: 'nama_lengkap', name: 'nama_lengkap'},
+                {data: 'name', name: 'name'},
                 {data: 'action', orderable: false, searchable: false}
 
             ],
-            "deferLoading": 57,
-            "deferRender": true,  // Defer rendering for improved performance
-            "paging": true,       // Enable pagination
-            "pageLength": 5,     // Number of records per page
         });
     });
 

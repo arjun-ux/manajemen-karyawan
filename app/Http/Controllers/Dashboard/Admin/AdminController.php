@@ -21,7 +21,7 @@ class AdminController extends Controller
     public function index()
     {
         $jumlahSantri = count($this->santriService->getAll());
-        $jumlahAdmin = count($this->userService->getUserAdmin());
+        $jumlahAdmin = $this->userService->getUserAdmin()->count();
         $JUMLAH = [
             'jumlahSantri' => $jumlahSantri,
             'jumlahAdmin' => $jumlahAdmin,

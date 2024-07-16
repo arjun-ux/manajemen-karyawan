@@ -5,9 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\Service\UserService;
 use Yajra\DataTables\Facades\DataTables;
-use App\Providers\RouteParamService as routeParam;
 use Illuminate\Http\Request;
-use PHPUnit\Framework\MockObject\Stub\ReturnStub;
 
 class UserController extends Controller
 {
@@ -28,7 +26,6 @@ class UserController extends Controller
                     $btn = '<a href="#" data-id="'.$row->id.'" class="btn_edit btn btn-outline-primary btn-sm mt-1"><i class="lni lni-pencil-alt"></i></a>';
                     return $btn;
                 })
-
                 ->addIndexColumn()
                 ->toJson();
     }
@@ -49,9 +46,15 @@ class UserController extends Controller
     // data user admin
     public function userAdmin(){
         $results = $this->userService->getUserAdmin();
-        return DataTables::of($results)
-                ->addIndexColumn()
-                ->toJson();
+        return DataTables::eloquent($results)
+                    ->addColumn('action', function($row){
+                        $btn = '<a href="#" data-id="'.$row->id.'" class="btn_edit btn btn-outline-primary btn-sm mt-1"><i class="lni lni-pencil-alt"></i></a>';
+                        $btn .= ' <a href="#" data-id="'.$row->id.'" class="btn_delete btn btn-outline-danger btn-sm mt-1"><i class="lni lni-trash-can"></i></a>';
+                        return $btn;
+                    })
+                    ->rawColumns(['action'])
+                    ->addIndexColumn()
+                    ->toJson();
     }
     // store admin
     public function store_admin(Request $request){
