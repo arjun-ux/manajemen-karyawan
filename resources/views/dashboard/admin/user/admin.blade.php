@@ -133,7 +133,7 @@
     $(document).ready(function(){
         $('#tableUserAdmin').DataTable({
             "processing": false,
-            "serverSide": false,
+            "serverSide": true,
             "ajax": {
                 "url": '/getUserAdmin',
                 "type": 'GET',
