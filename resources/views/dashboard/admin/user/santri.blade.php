@@ -80,7 +80,7 @@
                 "type": 'GET',
             },
             "columns": [
-                {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
+                {data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 {data: 'username', name: 'username'},
                 {data: 'nama_lengkap', name: 'nama_lengkap'},
                 {data: 'action', orderable: false, searchable: false}

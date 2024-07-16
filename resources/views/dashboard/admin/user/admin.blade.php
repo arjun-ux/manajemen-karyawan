@@ -139,13 +139,15 @@
                 "type": 'GET',
             },
             "columns": [
-                {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
                 {data: 'username', name: 'username'},
                 {data: 'name', name: 'name'},
                 {data: 'no_wa', name: 'no_wa'},
                 {
                     data: null,
                     name: 'action',
+                    orderable: false,
+                    searchable: false,
                     render: function(data, type, row) {
                         return `
                             <a href="#" data-id="${row.id}" class="btn_edit btn btn-outline-primary btn-sm mt-1">
