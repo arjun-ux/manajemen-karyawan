@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
+
     // index login multi auth
     public function login()
     {

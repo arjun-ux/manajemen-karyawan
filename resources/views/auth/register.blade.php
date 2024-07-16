@@ -36,7 +36,7 @@
                                     @enderror
                                 </div>
                                 <div class="mt-2">
-                                    <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Password"> required
+                                    <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Password" required>
                                     @error('password')
                                         {{ $message }}
                                     @enderror

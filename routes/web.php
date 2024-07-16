@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\UserController;
 use App\Http\Controllers\Dashboard\Admin\AdminController;
 use App\Http\Controllers\Dashboard\Admin\AdminSabaController;
+use App\Http\Controllers\Dashboard\KamarController;
 use App\Http\Controllers\Dashboard\PdfController;
 use App\Http\Controllers\Dashboard\Saba\AsalSekolahController;
 use App\Http\Controllers\Dashboard\Saba\BerkasController;
@@ -64,9 +65,8 @@ Route::middleware('role:admin', 'throttle:admin')->group(function(){
         return "Halaman Jenis Pembayaran";
     })->name('jenis_pembayaran');
     // setting kamar
-    Route::get('/kamar', function(){
-        return "Halaman kamar";
-    })->name('kamar');
+    Route::get('/kamar', [KamarController::class, 'index'])->name('kamar');
+    Route::get('/data-kamar', [KamarController::class, 'getKamar']);
     // data santri
     Route::get('/saba-all', [AdminSabaController::class,'index'])->name('data_saba_all');
     Route::get('/getAllSantri', [AdminSabaController::class, 'getAllSantri']);

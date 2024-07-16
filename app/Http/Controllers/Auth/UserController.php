@@ -50,7 +50,6 @@ class UserController extends Controller
     public function userAdmin(){
         $results = $this->userService->getUserAdmin();
         return DataTables::of($results)
-
                 ->addIndexColumn()
                 ->toJson();
     }

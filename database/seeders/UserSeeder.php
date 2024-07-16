@@ -23,10 +23,6 @@ class UserSeeder extends Seeder
             'role' => 'admin'
         ]);
         User::factory()->count(10000)->create();
-        User::factory()->count(10000)->create();
-        User::factory()->count(10000)->create();
-        User::factory()->count(10000)->create();
-        User::factory()->count(10000)->create();
 
     }
 }
