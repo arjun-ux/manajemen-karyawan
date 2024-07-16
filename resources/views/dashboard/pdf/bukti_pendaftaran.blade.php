@@ -95,6 +95,14 @@
     .mb{
       margin-bottom: 50px;
     }
+    .bottom-border {
+        position: relative;
+        left: 25%;  /* Atur posisi border dari kiri */
+        bottom: 0;  /* Atur border berada di bagian bawah */
+        width: 50%;  /* Atur lebar border sesuai kebutuhan */
+        border-bottom: black solid 1px;  /* Border bawah */
+    }
+
 </style>
 <body>
     <img class="kop" src="data:image/png;base64,<?php echo base64_encode($results['kop']); ?>" alt="KOP">
@@ -277,8 +285,16 @@
             <td class="font-12">Orang Tua / Wali</td>
         </tr>
         <tr>
-            <td class="font-12" style="padding-top: 50px">(_________________)</td>
-            <td class="font-12" style="padding-top: 50px">{{ isset($results['ortu']->nama_ayah) ? $results['ortu']->nama_ayah : (isset($results['ortu']->nama_ibu) ? $results['ortu']->nama_ibu : (isset($results['wali']->nama_wali) ? $results['wali']->nama_wali : '_______________' )) }}</td>
+            <td class="font-12 ttd" style="padding-top: 50px;">
+                <div class="bottom-border">
+                    Nama Kepala Pesantren
+                </div>
+            </td>
+            <td class="font-12 ttd" style="padding-top: 50px;">
+                <div class="bottom-border">
+                    {{ isset($results['ortu']->nama_ayah) ? $results['ortu']->nama_ayah : (isset($results['ortu']->nama_ibu) ? $results['ortu']->nama_ibu : (isset($results['wali']->nama_wali) ? $results['wali']->nama_wali : '_______________' )) }}
+                </div>
+            </td>
         </tr>
     </table>
 </body>
