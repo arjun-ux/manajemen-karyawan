@@ -51,7 +51,7 @@ class UserController extends Controller
         $results = $this->userService->getUserAdmin();
         return DataTables::of($results)
                 ->addIndexColumn()
-                ->make();
+                ->toJson();
     }
     // store admin
     public function store_admin(Request $request){
