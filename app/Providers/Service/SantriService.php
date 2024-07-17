@@ -27,8 +27,17 @@ class SantriService extends ServiceProvider
     }
     // get santri by id
     public static function getById($id){
-        $data = Saba::where('id', $id)->first();
-        return $data;
+        $saba = Saba::query()->where('id', $id)->first();
+        $ortu = OrangTua::query()->where('saba_id', $id)->first();
+        $provinsi = IndoRegionService::Provinsi();
+        $wali = WaliSaba::query()->where('saba_id', $id)->first();
+        $results = [
+            'saba' => $saba,
+            'ortu' => $ortu,
+            'provinsi' => $provinsi,
+            'wali' => $wali,
+        ];
+        return $results;
     }
     // lihat santri
     public static function lihatSantri($id){

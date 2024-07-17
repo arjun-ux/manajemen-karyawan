@@ -91,6 +91,7 @@ class AdminSabaController extends Controller
     public function showSaba($id){
         $id = routeParam::decode($id);
         $results = $this->santri->getById($id);
+        // dd($results);
         $provinsi = $this->indo->Provinsi();
         return view('dashboard.admin.data-saba-all.edit', compact('provinsi', 'results'));
     }

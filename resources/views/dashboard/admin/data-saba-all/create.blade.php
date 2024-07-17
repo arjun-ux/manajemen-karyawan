@@ -21,8 +21,6 @@
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
-    <!-- Modal -->
-    <!-- /.content-header -->
 
     <!-- Main content -->
     <section class="content">
