@@ -14,7 +14,13 @@
     <div id="loader" class="loader"></div>
     @include('layouts.navbar')
     @yield('content')
+
+    {{--  jquery 3.7  --}}
+    <script src="{{ asset('dist/js/jquery.min.js') }}"></script>
     <script src="{{ asset('dist/js/bootstrap.bundle.min.js') }}"></script>
+    {{--  sweet  --}}
+    <script src="{{ asset('dist/js/sweetalert2.all.min.js') }}"></script>
+    @stack('script')
     @stack('scroll')
     <script>
         // loader when location reload

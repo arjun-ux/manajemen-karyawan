@@ -26,7 +26,6 @@
         <div class="row">
             <form id="postUpdate">
                 @csrf
-                <input type="hidden" name="dataid">
                 {{--  form data diri santri  --}}
                 <div id="form-santri">
                     <div class="row">
@@ -248,10 +247,10 @@
                             </div>
                             <div class="row g-3 align-items-center mb-2">
                                 <div class="col-md-4">
-                                <label for="pendidikan-ayah" class="col-form-label">Pendidikan Ayah</label>
+                                    <label for="pendidikan-ayah" class="col-form-label">Pendidikan Ayah</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <select name="pendidikan-ayah" id="pendidikan-ayah" class="form-control">
+                                    <select name="pendidikan_ayah" id="pendidikan-ayah" class="form-control">
                                         @if (isset($results['ortu']->pendidikan_ayah))
                                         <option value="{{ old('pendidikan_ayah', $results['ortu']->pendidikan_ayah) }}">{{ $results['pendidikanA']->nama_pendidikan }}</option>
                                         @endif
@@ -261,7 +260,8 @@
                                         @endforeach
                                     </select>
                                 </div>
-                            </div><div class="row g-3 align-items-center mb-2">
+                            </div>
+                            <div class="row g-3 align-items-center mb-2">
                                 <div class="col-md-4">
                                     <label for="no_hp_ayah" class="col-form-label">No Hp Ayah</label>
                                 </div>
@@ -269,134 +269,111 @@
                                     <input type="text" id="no_hp_ayah" class="form-control" name="no_hp_ayah" value="{{ $results['ortu']->no_hp_ayah }}">
                                 </div>
                             </div>
-                            </div>
+                        </div>
                         </div>
                         </div>
                         <div class="col-md-6">
-                        <div class="card card-outline">
-                            <div class="card-header">
-                                <div class="fw-bold">Ibu</div>
+                            <div class="card card-outline">
+                                <div class="card-header">
+                                    <div class="fw-bold">Ibu</div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row g-3 align-items-center mb-2">
+                                    <div class="col-md-4">
+                                        <label for="nik_ibu" class="col-form-label">NIK Ibu</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" id="nik_ibu" class="form-control"
+                                        name="nik_ibu" placeholder="Berisi 16 digit" value="{{ $results['ortu']->nik_ibu }}">
+                                    </div>
+                                    </div>
+                                    <div class="row g-3 align-items-center mb-2">
+                                    <div class="col-md-4">
+                                        <label for="nama_ibu" class="col-form-label">Nama Ibu</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" id="nama_ibu" class="form-control" name="nama_ibu" value="{{ $results['ortu']->nama_ibu }}">
+                                    </div>
+                                    </div>
+                                    <div class="row g-3 align-items-center mb-2">
+                                    <div class="col-md-4">
+                                        <label for="pekerjaan-ibu" class="col-form-label">Pekerjaan Ibu</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <select name="pekerjaan_ibu" id="pekerjaan-ibu" class="form-control">
+                                            @if (isset($results['ortu']->pekerjaan_ibu))
+                                                <option value="{{ old('pekerjaan_ibu', $results['ortu']->pekerjaan_ibu) }}">{{ $results['pekerjaanI']->nama_pekerjaan }}</option>
+                                            @endif
+                                            <option value="">Pilih Pekerjaan</option>
+                                            @foreach ($results['pekerjaan'] as $val)
+                                                <option value="{{ $val->id }}">{{ $val->nama_pekerjaan }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    </div>
+                                    <div class="row g-3 align-items-center mb-2">
+                                    <div class="col-md-4">
+                                        <label for="pendidikan-ibu" class="col-form-label">Pendidikan Ibu</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <select name="pendidikan-ibu" id="pendidikan-ibu" class="form-control">
+                                            @if (isset($results['ortu']->pendidikan_ibu))
+                                            <option value="{{ old('pendidikan_ibu', $results['ortu']->pendidikan_ibu) }}">{{ $results['pendidikanI']->nama_pendidikan }}</option>
+                                            @endif
+                                            <option value="">Pilih Pendidikan</option>
+                                            @foreach ($results['pendidikan'] as $val)
+                                                <option value="{{ $val->id }}">{{ $val->nama_pendidikan }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    </div><div class="row g-3 align-items-center mb-2">
+                                    <div class="col-md-4">
+                                        <label for="no_hp_ibu" class="col-form-label">No Hp Ibu</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" id="no_hp_ibu" class="form-control" name="no_hp_ibu" value="{{ $results['ortu']->no_hp_ibu }}">
+                                    </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="card-body">
-                                <div class="row g-3 align-items-center mb-2">
-                                <div class="col-md-4">
-                                    <label for="nik_ibu" class="col-form-label">NIK Ibu</label>
-                                </div>
-                                <div class="col-md-8">
-                                    <input type="text" id="nik_ibu" class="form-control"
-                                    name="nik_ibu" placeholder="Berisi 16 digit" value="{{ $results['ortu']->nik_ibu }}">
-                                </div>
-                                </div>
-                                <div class="row g-3 align-items-center mb-2">
-                                <div class="col-md-4">
-                                    <label for="nama_ibu" class="col-form-label">Nama Ibu</label>
-                                </div>
-                                <div class="col-md-8">
-                                    <input type="text" id="nama_ibu" class="form-control" name="nama_ibu" value="{{ $results['ortu']->nama_ibu }}">
-                                </div>
-                                </div>
-                                <div class="row g-3 align-items-center mb-2">
-                                <div class="col-md-4">
-                                    <label for="pekerjaan-ibu" class="col-form-label">Pekerjaan Ibu</label>
-                                </div>
-                                <div class="col-md-8">
-                                    <select name="pekerjaan_ibu" id="pekerjaan-ibu" class="form-control">
-                                        @if (isset($results['ortu']->pekerjaan_ibu))
-                                            <option value="{{ old('pekerjaan_ibu', $results['ortu']->pekerjaan_ibu) }}">{{ $results['pekerjaanI']->nama_pekerjaan }}</option>
-                                        @endif
-                                        <option value="">Pilih Pekerjaan</option>
-                                        @foreach ($results['pekerjaan'] as $val)
-                                            <option value="{{ $val->id }}">{{ $val->nama_pekerjaan }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                </div>
-                                <div class="row g-3 align-items-center mb-2">
-                                <div class="col-md-4">
-                                    <label for="pendidikan-ibu" class="col-form-label">Pendidikan Ibu</label>
-                                </div>
-                                <div class="col-md-8">
-                                    <select name="pendidikan-ibu" id="pendidikan-ibu" class="form-control">
-                                        @if (isset($results['ortu']->pendidikan_ibu))
-                                        <option value="{{ old('pendidikan_ibu', $results['ortu']->pendidikan_ibu) }}">{{ $results['pendidikanI']->nama_pendidikan }}</option>
-                                        @endif
-                                        <option value="">Pilih Pendidikan</option>
-                                        @foreach ($results['pendidikan'] as $val)
-                                            <option value="{{ $val->id }}">{{ $val->nama_pendidikan }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                </div><div class="row g-3 align-items-center mb-2">
-                                <div class="col-md-4">
-                                    <label for="no_hp_ibu" class="col-form-label">No Hp Ibu</label>
-                                </div>
-                                <div class="col-md-8">
-                                    <input type="text" id="no_hp_ibu" class="form-control" name="no_hp_ibu" value="{{ $results['ortu']->no_hp_ibu }}">
-                                </div>
-                                </div>
-                            </div>
-                        </div>
                         </div>
                     </div>
-
                 </div>
-                @if ($results['wali']->kedudukan_dalam_keluarga == 'Ayah')
-                    <div id="ayahIbu" style="display: none">
-                        <div class="alert alert-info" id="infoWaliDiPilih">
-                            <p>Ayah Dipilih Sebagai Penanggung Jawab Biaya</p>
+                {{--  data wali  --}}
+                <div id="ayahIbu" style="display: none">
+                    <div class="card card-outline">
+                        <div class="card-header">
+                            <div class="fw-bold">Penanggung Jawab Biaya</div>
                         </div>
-                    </div>
-                @elseif ($results['wali']->kedudukan_dalam_keluarga == 'Ibu')
-                    <div id="ayahIbu" style="display: none">
-                        <div class="alert alert-info" id="infoWaliDiPilih">
-                            <p>Ayah Dipilih Sebagai Penanggung Jawab Biaya</p>
-                        </div>
-                    </div>
-                @else
-                    {{--  form wali  --}}
-                    <div id="form-wali">
-                        <input type="hidden" name="wali" id="wali">
-                        <div class="card card-outline">
-                            <div class="card-header">
-                                <div class="fw-bold">Penanggung Jawab Biaya</div>
+                        <div class="card-body">
+                            <div class="row g-3 align-items-center text-center mb-2">
+                                <div class="col-md-4">
+                                    <input type="radio" name="kedudukan_dalam_keluarga" id="waliAyah" value="Ayah">
+                                    <label for="waliAyah" class="col-form-label">Ayah</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="radio" name="kedudukan_dalam_keluarga" id="waliIbu" value="Ibu">
+                                    <label for="waliIbu" class="col-form-label">Ibu</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="radio" name="kedudukan_dalam_keluarga" id="inputWali" value="Wali">
+                                    <label for="inputWali" class="col-form-label">Wali</label>
+                                </div>
                             </div>
-                            <div class="card-body">
-                                <div class="row g-3 align-items-center mb-2">
-                                    <div class="col-md-4">
-                                        <label for="nama_wali" class="col-form-label">Nama Wali</label>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <input type="text" id="nama_wali" class="form-control" name="nama_wali">
-                                    </div>
+                            <div class="row g-3 align-items-center text-center">
+                                <div class="alert alert-success" id="ibuWali" style="display: none">
+                                    <strong>Ibu Dipilih Sebagai Wali</strong>
                                 </div>
-                                <div class="row g-3 align-items-center mb-2">
-                                    <div class="col-md-4">
-                                        <label for="kedudukan_dalam_keluarga" class="col-form-label">Kedudukan Dalam Keluarga</label>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <input type="text" id="kedudukan_dalam_keluarga" class="form-control" name="kedudukan_dalam_keluarga">
-                                    </div>
+                                <div class="alert alert-warning" id="ayahWali" style="display: none">
+                                    <strong>Ayah Dipilih Sebagai Wali</strong>
                                 </div>
-                                <div class="row g-3 align-items-center mb-2">
-                                    <div class="col-md-4">
-                                        <label for="alamat_wali" class="col-form-label">Alamat Wali</label>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <input type="text" id="alamat_wali" class="form-control" name="alamat_wali">
-                                    </div>
-                                </div>
-                                <div class="row g-3 align-items-center mb-2">
-                                    <div class="col-md-4">
-                                        <label for="no_hp_wali" class="col-form-label">No HP Wali</label>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <input type="text" id="no_hp_wali" class="form-control" name="no_hp_wali">
-                                    </div>
+                                <div class="alert alert-info" id="waliInput" style="display: none">
+                                    <strong>Wali Orang Lain</strong>
                                 </div>
                             </div>
                         </div>
                     </div>
-                @endif
+                </div>
                 {{--  form asal sekolah  --}}
                 <div id="formAsalSekolah" style="display: none">
                     <div class="col-md-12">
@@ -488,7 +465,7 @@
                     let errorMessages = xhr.responseJSON.errors;
                     Object.keys(errorMessages).forEach((key) => {
                         errorMessages[key].forEach((errorMessage) => {
-                            toastr.info(errorMessage);
+                            toastr.error(errorMessage);
                         });
                     });
                 }
@@ -522,7 +499,21 @@
             $('#form-santri').hide();
             $('#formAsalSekolah').hide();
         });
-
+        $('#waliAyah').click(function(){
+            $('#ayahWali').show();
+            $('#ibuWali').hide();
+            $('#waliInput').hide();
+        });
+        $('#waliIbu').click(function(){
+            $('#ibuWali').show();
+            $('#ayahWali').hide();
+            $('#waliInput').hide();
+        });
+        $('#inputWali').click(function(){
+            $('#waliInput').show();
+            $('#ibuWali').hide();
+            $('#ayahWali').hide();
+        });
 
 
         $(document).ready(function() {
