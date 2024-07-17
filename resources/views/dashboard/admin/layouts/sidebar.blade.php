@@ -1,5 +1,5 @@
 <aside id="sidebar">
-    <div class="d-flex">
+    <div class="d-flex" style="border-bottom: whitesmoke solid 1px;">
         <button class="toggle-btn" id="toggle-btn" type="button">
             <img src="{{ asset('img/log.png') }}" alt="logo" width="40px" style="margin-left: 0">
         </button>
