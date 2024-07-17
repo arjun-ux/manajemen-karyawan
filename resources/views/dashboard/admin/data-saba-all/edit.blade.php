@@ -98,7 +98,7 @@
                                             <label for="saudara_kandung" class="col-form-label">Saudara Kandung</label>
                                         </div>
                                         <div class="col-md-8">
-                                            <input type="checkbox" id="saudara_kandung" name="saudara_kandung" value="YA">
+                                            <input type="checkbox" id="saudara_kandung" name="saudara_kandung" value="YA"> Ya
                                         </div>
                                     </div>
                                     <div class="row g-3 align-items-center mb-2" id="saudara-kandung">
@@ -215,19 +215,19 @@
                             <div class="card-body">
                             <div class="row g-3 align-items-center mb-2">
                                 <div class="col-md-4">
-                                <label for="nik_ayah" class="col-form-label">NIK Ayah</label>
+                                    <label for="nik_ayah" class="col-form-label">NIK Ayah</label>
                                 </div>
                                 <div class="col-md-8">
-                                <input type="text" id="nik_ayah" class="form-control"
-                                name="nik_ayah" placeholder="Berisi 16 digit">
+                                    <input type="text" id="nik_ayah" class="form-control"
+                                    name="nik_ayah" placeholder="Berisi 16 digit" value="{{ $results['ortu']->nik_ayah }}">
                                 </div>
                             </div>
                             <div class="row g-3 align-items-center mb-2">
                                 <div class="col-md-4">
-                                <label for="nama_ayah" class="col-form-label">Nama Ayah</label>
+                                    <label for="nama_ayah" class="col-form-label">Nama Ayah</label>
                                 </div>
                                 <div class="col-md-8">
-                                <input type="text" id="nama_ayah" class="form-control" name="nama_ayah">
+                                    <input type="text" id="nama_ayah" class="form-control" name="nama_ayah" value=" {{ $results['ortu']->nama_ayah }}">
                                 </div>
                             </div>
                             <div class="row g-3 align-items-center mb-2">
@@ -236,10 +236,13 @@
                                 </div>
                                 <div class="col-md-8">
                                     <select name="pekerjaan_ayah" id="pekerjaan-ayah" class="form-control">
+                                        @if (isset($results['ortu']->pekerjaan_ayah))
+                                            <option value="{{ old('pekerjaan_ayah', $results['ortu']->pekerjaan_ayah) }}">{{ $results['pekerjaanA']->nama_pekerjaan }}</option>
+                                        @endif
                                         <option value="">Pilih Pekerjaan</option>
-                                        {{--  @foreach ($pekerjaan as $val)
+                                        @foreach ($results['pekerjaan'] as $val)
                                             <option value="{{ $val->id }}">{{ $val->nama_pekerjaan }}</option>
-                                        @endforeach  --}}
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -249,18 +252,21 @@
                                 </div>
                                 <div class="col-md-8">
                                     <select name="pendidikan-ayah" id="pendidikan-ayah" class="form-control">
+                                        @if (isset($results['ortu']->pendidikan_ayah))
+                                        <option value="{{ old('pendidikan_ayah', $results['ortu']->pendidikan_ayah) }}">{{ $results['pendidikanA']->nama_pendidikan }}</option>
+                                        @endif
                                         <option value="">Pilih Pendidikan</option>
-                                        {{--  @foreach ($pendidikan as $val)
+                                        @foreach ($results['pendidikan'] as $val)
                                             <option value="{{ $val->id }}">{{ $val->nama_pendidikan }}</option>
-                                        @endforeach  --}}
+                                        @endforeach
                                     </select>
                                 </div>
                             </div><div class="row g-3 align-items-center mb-2">
                                 <div class="col-md-4">
-                                <label for="no_hp_ayah" class="col-form-label">No Hp Ayah</label>
+                                    <label for="no_hp_ayah" class="col-form-label">No Hp Ayah</label>
                                 </div>
                                 <div class="col-md-8">
-                                <input type="text" id="no_hp_ayah" class="form-control" name="no_hp_ayah">
+                                    <input type="text" id="no_hp_ayah" class="form-control" name="no_hp_ayah" value="{{ $results['ortu']->no_hp_ayah }}">
                                 </div>
                             </div>
                             </div>
@@ -269,7 +275,7 @@
                         <div class="col-md-6">
                         <div class="card card-outline">
                             <div class="card-header">
-                            <div class="fw-bold">Ibu</div>
+                                <div class="fw-bold">Ibu</div>
                             </div>
                             <div class="card-body">
                                 <div class="row g-3 align-items-center mb-2">
@@ -278,7 +284,7 @@
                                 </div>
                                 <div class="col-md-8">
                                     <input type="text" id="nik_ibu" class="form-control"
-                                    name="nik_ibu" placeholder="Berisi 16 digit">
+                                    name="nik_ibu" placeholder="Berisi 16 digit" value="{{ $results['ortu']->nik_ibu }}">
                                 </div>
                                 </div>
                                 <div class="row g-3 align-items-center mb-2">
@@ -286,7 +292,7 @@
                                     <label for="nama_ibu" class="col-form-label">Nama Ibu</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" id="nama_ibu" class="form-control" name="nama_ibu">
+                                    <input type="text" id="nama_ibu" class="form-control" name="nama_ibu" value="{{ $results['ortu']->nama_ibu }}">
                                 </div>
                                 </div>
                                 <div class="row g-3 align-items-center mb-2">
@@ -295,10 +301,13 @@
                                 </div>
                                 <div class="col-md-8">
                                     <select name="pekerjaan_ibu" id="pekerjaan-ibu" class="form-control">
+                                        @if (isset($results['ortu']->pekerjaan_ibu))
+                                            <option value="{{ old('pekerjaan_ibu', $results['ortu']->pekerjaan_ibu) }}">{{ $results['pekerjaanI']->nama_pekerjaan }}</option>
+                                        @endif
                                         <option value="">Pilih Pekerjaan</option>
-                                        {{--  @foreach ($pekerjaan as $val)
+                                        @foreach ($results['pekerjaan'] as $val)
                                             <option value="{{ $val->id }}">{{ $val->nama_pekerjaan }}</option>
-                                        @endforeach  --}}
+                                        @endforeach
                                     </select>
                                 </div>
                                 </div>
@@ -308,10 +317,13 @@
                                 </div>
                                 <div class="col-md-8">
                                     <select name="pendidikan-ibu" id="pendidikan-ibu" class="form-control">
+                                        @if (isset($results['ortu']->pendidikan_ibu))
+                                        <option value="{{ old('pendidikan_ibu', $results['ortu']->pendidikan_ibu) }}">{{ $results['pendidikanI']->nama_pendidikan }}</option>
+                                        @endif
                                         <option value="">Pilih Pendidikan</option>
-                                        {{--  @foreach ($pendidikan as $val)
+                                        @foreach ($results['pendidikan'] as $val)
                                             <option value="{{ $val->id }}">{{ $val->nama_pendidikan }}</option>
-                                        @endforeach  --}}
+                                        @endforeach
                                     </select>
                                 </div>
                                 </div><div class="row g-3 align-items-center mb-2">
@@ -319,7 +331,7 @@
                                     <label for="no_hp_ibu" class="col-form-label">No Hp Ibu</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" id="no_hp_ibu" class="form-control" name="no_hp_ibu">
+                                    <input type="text" id="no_hp_ibu" class="form-control" name="no_hp_ibu" value="{{ $results['ortu']->no_hp_ibu }}">
                                 </div>
                                 </div>
                             </div>
@@ -329,13 +341,13 @@
 
                 </div>
                 @if ($results['wali']->kedudukan_dalam_keluarga == 'Ayah')
-                    <div id="ayahIbu">
+                    <div id="ayahIbu" style="display: none">
                         <div class="alert alert-info" id="infoWaliDiPilih">
                             <p>Ayah Dipilih Sebagai Penanggung Jawab Biaya</p>
                         </div>
                     </div>
                 @elseif ($results['wali']->kedudukan_dalam_keluarga == 'Ibu')
-                    <div id="ayahIbu">
+                    <div id="ayahIbu" style="display: none">
                         <div class="alert alert-info" id="infoWaliDiPilih">
                             <p>Ayah Dipilih Sebagai Penanggung Jawab Biaya</p>
                         </div>
@@ -398,7 +410,8 @@
                                         <label for="asal-sekolah" class="col-form-label">Nama TK/SD/MI</label>
                                     </div>
                                     <div class="col-md-8">
-                                        <input type="text" id="asal-sekolah" class="form-control" name="asal_sekolah">
+                                        <input type="text" id="asal-sekolah" class="form-control" name="asal_sekolah"
+                                        value="{{ $results['asal_sekolah']->asal_sekolah }}">
                                     </div>
                                 </div>
                                 <div class="row g-3 align-items-center mb-2">
@@ -406,7 +419,8 @@
                                         <label for="alamat_asal_sekolah" class="col-form-label">Alamat Asal Sekolah</label>
                                     </div>
                                     <div class="col-md-8">
-                                        <input type="text" id="alamat_asal_sekolah" class="form-control" name="alamat_asal_sekolah">
+                                        <input type="text" id="alamat_asal_sekolah" class="form-control" name="alamat_asal_sekolah"
+                                        value="{{ $results['asal_sekolah']->alamat_asal_sekolah }}">
                                     </div>
                                 </div>
                                 <div class="row g-3 align-items-center mb-2">
@@ -414,7 +428,8 @@
                                         <label for="diterima_dikelas" class="col-form-label">Diterima Di Kelas</label>
                                     </div>
                                     <div class="col-md-8">
-                                        <input type="text" id="diterima_dikelas" class="form-control" name="diterima_dikelas">
+                                        <input type="text" id="diterima_dikelas" class="form-control" name="diterima_dikelas"
+                                        value="{{ $results['asal_sekolah']->diterima_dikelas }}">
                                     </div>
                                 </div>
                                 <div class="row g-3 align-items-center mb-2">
@@ -422,7 +437,8 @@
                                         <label for="no_surat_pindah" class="col-form-label">No Surat Pindah</label>
                                     </div>
                                     <div class="col-md-8">
-                                        <input type="number" id="no_surat_pindah" class="form-control" name="no_surat_pindah">
+                                        <input type="number" id="no_surat_pindah" class="form-control" name="no_surat_pindah"
+                                        value="{{ $results['asal_sekolah']->no_surat_pindah }}">
                                     </div>
                                 </div>
                             </div>
@@ -430,7 +446,7 @@
                     </div>
                 </div>
                 <div class="container-fluid">
-                    <div class="row mt-3" id="submit" style="display: none">
+                    <div class="row mt-3" id="submit">
                         <button class="btn btn-success" type="submit">Simpan</button>
                     </div>
                 </div>
@@ -455,6 +471,7 @@
                 type: 'POST',
                 data: $('#postUpdate').serialize(),
                 success: function(res){
+                    console.log(res);
                     Swal.fire({
                         icon: 'success',
                         title: res.message,
@@ -464,7 +481,7 @@
                         showConfirmButton: false,
                         timerProgressBar: true,
                     }).then(()=>{
-                        location.reload();
+                        window.location.href = '/saba-all';
                     });
                 },
                 error: function(xhr, error) {

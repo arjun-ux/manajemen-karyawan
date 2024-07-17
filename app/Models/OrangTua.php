@@ -11,5 +11,4 @@ class OrangTua extends Model
     use HasFactory;
     protected $table = 'orang_tuas';
     protected $guarded = [];
-
 }
