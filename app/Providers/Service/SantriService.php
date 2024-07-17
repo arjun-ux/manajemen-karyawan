@@ -361,6 +361,7 @@ class SantriService extends ServiceProvider
                 'nik_ibu' => $request->nik_ibu,
                 'nama_ibu' => $request->nama_ibu,
                 'pekerjaan_ibu' => $request->pekerjaan_ibu,
+                'pendidikan_ibu' => $request->pendidikan_ibu,
                 'no_hp_ibu' => $request->no_hp_ibu,
             ]);
             $asal_sekolah = SabaMasukPondok::query()->where('saba_id', $saba->id)->first();
