@@ -520,6 +520,8 @@
             $('#province-dd').on('change', function() {
                 var idProvince = this.value;
                 $("#city-dd").html('');
+                $("#kecamatan-dd").html('<option value=""></option>');
+                $("#desa-dd").html('<option value=""></option>');
                 $.ajax({
                     url: "{{ url('api/fetch-kota') }}",
                     type: "POST",
@@ -541,6 +543,7 @@
             $('#city-dd').on('change', function() {
                 var idState = this.value;
                 $("#kecamatan-dd").html('');
+                $("#desa-dd").html('<option value=""></option>');
                 $.ajax({
                     url: "{{ url('api/fetch-kecamatan') }}",
                     type: "POST",
@@ -585,7 +588,7 @@
             var kab = '{{ $results['saba']->kabupaten }}'
             var kec = '{{ $results['saba']->kecamatan }}'
 
-            var idProvince = this.value;
+
             if (prov) {
                 $.ajax({
                     url: "{{ url('api/fetch-kota') }}",
@@ -597,13 +600,11 @@
                     dataType: 'json',
                     success: function(result) {
                         $('#city-dd').html('<option value="">Pilih Kota/Kabupaten</option>');
-
                         $.each(result.kota, function(key, value) {
                             $("#city-dd").append(
                                 `<option value="${value.id}" ${value.id == kab ? 'selected' : ''} > ${value.name}</option>`
                             );
                         });
-                        $('#kecamatan-dd').html('<option value=""></option>');
                     }
                 });
             }
@@ -618,18 +619,15 @@
                     dataType: 'json',
                     success: function(result) {
                         $('#kecamatan-dd').html('<option value="">Pilih kecamatan</option>');
-
                         $.each(result.kecamatan, function(key, value) {
                             $("#kecamatan-dd").append(
                                 `<option value="${value.id}" ${value.id == kec ? 'selected' : ''} > ${value.name}</option>`
                             );
                         });
-                        $('#desa-dd').html('<option value=""></option>');
                     }
                 });
             }
             if (kec) {
-
                 $.ajax({
                     url: "{{ url('api/fetch-desa') }}",
                     type: "POST",
@@ -640,8 +638,6 @@
                     dataType: 'json',
                     success: function(res) {
                         $('#desa-dd').html('<option value="">Pilih Desa</option>');
-
-
                         $.each(res.desa, function(key, value) {
                             $("#desa-dd").append(
                                 `<option value="${value.id}" ${value.id == desa ? 'selected' : ''} > ${value.name}</option>`
