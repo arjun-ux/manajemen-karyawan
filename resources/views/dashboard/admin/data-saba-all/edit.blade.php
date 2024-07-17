@@ -316,7 +316,7 @@
                                         <label for="pendidikan-ibu" class="col-form-label">Pendidikan Ibu</label>
                                     </div>
                                     <div class="col-md-8">
-                                        <select name="pendidikan-ibu" id="pendidikan-ibu" class="form-control">
+                                        <select name="pendidikan_ibu" id="pendidikan-ibu" class="form-control">
                                             @if (isset($results['ortu']->pendidikan_ibu))
                                             <option value="{{ old('pendidikan_ibu', $results['ortu']->pendidikan_ibu) }}">{{ $results['pendidikanI']->nama_pendidikan }}</option>
                                             @endif
