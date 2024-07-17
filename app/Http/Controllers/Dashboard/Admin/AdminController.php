@@ -20,7 +20,7 @@ class AdminController extends Controller
     // index dashboard
     public function index()
     {
-        $jumlahSantri = count($this->santriService->getAll());
+        $jumlahSantri =$this->santriService->getAll()->count();
         $jumlahAdmin = $this->userService->getUserAdmin()->count();
         $JUMLAH = [
             'jumlahSantri' => $jumlahSantri,

@@ -8,9 +8,11 @@ use App\Providers\Service\IndoRegionService;
 use App\Providers\Service\PdfService;
 use App\Providers\Service\PekerjaanService;
 use App\Providers\Service\PendidikanService;
+use App\Providers\Service\SettingsService;
 use App\Providers\Service\UserService;
 use App\Providers\Service\WhatsAppService;
 use Illuminate\Support\ServiceProvider;
+use Psy\CodeCleaner\ReturnTypePass;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -50,6 +52,10 @@ class AppServiceProvider extends ServiceProvider
         // pdf
         $this->app->singleton(PdfService::class, function($app){
             return new PdfService($app);
+        });
+        // settings pesantren
+        $this->app->singleton(SettingsService::class, function($app){
+            return new SettingsService($app);
         });
     }
 
