@@ -1,6 +1,8 @@
 @extends('dashboard.admin.layouts.app')
 @section('content')
-
+<style>
+    .bold
+</style>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">
@@ -9,12 +11,10 @@
             <div class="table-responsive">
                 <table class="table text-center table-bordered">
                     <thead>
-                        <th id="data-santri" style="background-color: rgb(163, 190, 163)">Data Santri</th>
-                        <th id="data-ortu" style="background-color: rgb(188, 209, 206)">Data Orang Tua</th>
-                        <th id="data-wali" style="background-color: rgb(163, 165, 190)">Penanggung Jawab Biaya</th>
-                        <tr>
-                            <th id="data-asal-sekolah" style="background-color: rgb(192, 218, 232)" colspan="3">Data Asal Sekolah</th>
-                        </tr>
+                        <th id="data-santri" style="background-color: rgb(163, 190, 163); font-size: 20px;"><i class="lni lni-user fw-bold"></i></th>
+                        <th id="data-ortu" style="background-color: rgb(188, 209, 206);font-size: 20px;"><i class="lni lni-users fw-bold"></i></th>
+                        <th id="data-asal-sekolah" style="background-color: rgb(192, 218, 232); font-size: 20px;"><i class="lni lni-graduation fw-bold"></i></th>
+                        <th id="data-wali" style="background-color: rgb(163, 165, 190); font-size: 20px;"><i class="lni lni-handshake fw-bold"></i></th>
                     </thead>
                 </table>
             </div>
@@ -33,166 +33,181 @@
                 <input type="hidden" name="dataid">
                 {{--  form data diri santri  --}}
                 <div id="form-santri">
-                    <div class="col-md-12">
-                    <h4>Data Santri</h4>
-                    <hr>
-                    <div class="row g-3 align-items-center mb-2">
-                        <div class="col-md-4">
-                            <label for="inputWa" class="col-form-label">NO WhatsApp</label>
+                    <div class="row">
+                        <div class="col-md-6 mb-2">
+                            <div class="card">
+                                <div class="card-header card-outline">
+                                    <div class="fw-bold">Data Diri</div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row g-3 align-items-center mb-2">
+                                        <div class="col-md-4">
+                                            <label for="inputWa" class="col-form-label">NO WhatsApp</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" id="inputWa" class="form-control"
+                                            name="no_wa" placeholder="No Wa Untuk Kirim Notifikasi">
+                                        </div>
+                                    </div>
+                                    <div class="row g-3 align-items-center mb-2">
+                                        <div class="col-md-4">
+                                            <label for="inputnik" class="col-form-label">NIK</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" id="inputnik" class="form-control"
+                                            name="nik" placeholder="Berisi 16 Karakter">
+                                        </div>
+                                    </div>
+                                    <div class="row g-3 align-items-center mb-2">
+                                        <div class="col-md-4">
+                                            <label for="inputnokk" class="col-form-label">NO KK</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" id="inputnokk" class="form-control"
+                                            name="nokk" placeholder="Berisi 16 Karakter">
+                                        </div>
+                                    </div>
+                                    <div class="row g-3 align-items-center mb-2">
+                                        <div class="col-md-4">
+                                            <label for="inputname" class="col-form-label">Nama Lengkap</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" id="inputname" class="form-control" name="nama_lengkap">
+                                        </div>
+                                    </div>
+                                    <div class="row g-3 align-items-center mb-2">
+                                        <div class="col-md-4">
+                                            <label for="inputlahir" class="col-form-label">Tempat Lahir</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" id="inputlahir" class="form-control" name="tempat_lahir">
+                                        </div>
+                                    </div>
+                                    <div class="row g-3 align-items-center mb-2">
+                                        <div class="col-md-4">
+                                            <label for="inputdateL" class="col-form-label">Tanggal Lahir</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="date" id="inputdateL" class="form-control" name="tanggal_lahir">
+                                        </div>
+                                    </div>
+                                    <div class="row g-3 align-items-center mb-2">
+                                        <div class="col-md-4">
+                                            <label for="inputJK" class="col-form-label">Jenis Kelamin</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <select name="jenis_kelamin" id="inputJK" class="form-control">
+                                            <option value="">Pilih Jenis Kelamin</option>
+                                            <option value="Laki-Laki">Laki-Laki</option>
+                                            <option value="Perempuan">Perempuan</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row g-3 align-items-center mb-2" id="saudara-kandung">
+                                        <div class="col-md-4">
+                                            <label for="saudara_kandung" class="col-form-label">Anak Ke</label>
+                                        </div>
+                                        <div class="col-md-2" style="display: none">
+                                            <input type="checkbox" id="saudara_kandung" name="saudara_kandung" value="YA">
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="number" id="anak_ke" class="form-control" name="anak_ke" placeholder="Anak Ke?">
+                                        </div>
+                                    </div>
+                                    <div class="row g-3 align-items-center mb-2">
+                                        <div class="col-md-4">
+                                            <label for="jumlahSaudara" class="col-form-label">Jumlah Saudara</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="number" id="jumlahSaudara" class="form-control" name="jumlah_saudara">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-8">
-                            <input type="text" id="inputWa" class="form-control"
-                            name="no_wa" placeholder="No Wa Untuk Kirim Notifikasi">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header card-outline">
+                                    <div class="fw-bold">Alamat</div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row g-3 align-items-center mb-2">
+                                        <div class="col-md-4">
+                                            <label for="province-dd" class="col-form-label">Provinsi</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <select class="form-control" id="province-dd" name="provinsi">
+                                                <option value="">Pilih Provinsi</option>
+                                                @foreach ($provinsi as $item)
+                                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row g-3 align-items-center mb-2">
+                                        <div class="col-md-4">
+                                            <label for="city-dd" class="col-form-label">Kabupaten</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <select class="form-control" id="city-dd" name="kabupaten">
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row g-3 align-items-center mb-2">
+                                        <div class="col-md-4">
+                                            <label for="kecamatan-dd" class="col-form-label">Kecamatan</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <select class="form-control" id="kecamatan-dd" name="kecamatan">
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row g-3 align-items-center mb-2">
+                                        <div class="col-md-4">
+                                            <label for="desa-dd" class="col-form-label">Desa</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <select class="form-control" id="desa-dd" name="desa">
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row g-3 align-items-center mb-2">
+                                        <div class="col-md-4">
+                                            <label for="inputdus" class="col-form-label">Dusun</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" id="inputdus" class="form-control" name="dusun">
+                                        </div>
+                                    </div>
+                                    <div class="row g-3 align-items-center mb-2">
+                                        <div class="col-md-4">
+                                            <label for="inputrt" class="col-form-label">RT/RW</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" id="inputrt" class="form-control" name="rt_rw">
+                                        </div>
+                                    </div>
+                                    <div class="row g-3 align-items-center mb-2">
+                                        <div class="col-md-4">
+                                            <label for="inputalam" class="col-form-label">Alamat</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" id="inputalam" class="form-control" name="alamat">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row g-3 align-items-center mb-2">
-                        <div class="col-md-4">
-                            <label for="inputnik" class="col-form-label">NIK</label>
-                        </div>
-                        <div class="col-md-8">
-                            <input type="text" id="inputnik" class="form-control"
-                            name="nik" placeholder="Berisi 16 Karakter">
-                        </div>
-                    </div>
-                    <div class="row g-3 align-items-center mb-2">
-                        <div class="col-md-4">
-                            <label for="inputnokk" class="col-form-label">NO KK</label>
-                        </div>
-                        <div class="col-md-8">
-                            <input type="text" id="inputnokk" class="form-control"
-                            name="nokk" placeholder="Berisi 16 Karakter">
-                        </div>
-                    </div>
-                    <div class="row g-3 align-items-center mb-2">
-                        <div class="col-md-4">
-                            <label for="inputname" class="col-form-label">Nama Lengkap</label>
-                        </div>
-                        <div class="col-md-8">
-                            <input type="text" id="inputname" class="form-control" name="nama_lengkap">
-                        </div>
-                    </div>
-                    <div class="row g-3 align-items-center mb-2">
-                        <div class="col-md-4">
-                            <label for="inputlahir" class="col-form-label">Tempat Lahir</label>
-                        </div>
-                        <div class="col-md-8">
-                            <input type="text" id="inputlahir" class="form-control" name="tempat_lahir">
-                        </div>
-                    </div>
-                    <div class="row g-3 align-items-center mb-2">
-                        <div class="col-md-4">
-                            <label for="inputdateL" class="col-form-label">Tanggal Lahir</label>
-                        </div>
-                        <div class="col-md-8">
-                            <input type="date" id="inputdateL" class="form-control" name="tanggal_lahir">
-                        </div>
-                    </div>
-                    <div class="row g-3 align-items-center mb-2">
-                        <div class="col-md-4">
-                            <label for="inputJK" class="col-form-label">Jenis Kelamin</label>
-                        </div>
-                        <div class="col-md-8">
-                            <select name="jenis_kelamin" id="inputJK" class="form-control">
-                            <option value="">Pilih Jenis Kelamin</option>
-                            <option value="Laki-Laki">Laki-Laki</option>
-                            <option value="Perempuan">Perempuan</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row g-3 align-items-center mb-2" id="saudara-kandung">
-                        <div class="col-md-4">
-                            <label for="saudara_kandung" class="col-form-label">Anak Ke</label>
-                        </div>
-                        <div class="col-md-2" style="display: none">
-                            <input type="checkbox" id="saudara_kandung" name="saudara_kandung" value="YA">
-                        </div>
-                        <div class="col-md-8">
-                            <input type="number" id="anak_ke" class="form-control" name="anak_ke" placeholder="Anak Ke?">
-                        </div>
-                    </div>
-                    <div class="row g-3 align-items-center mb-2">
-                        <div class="col-md-4">
-                            <label for="jumlahSaudara" class="col-form-label">Jumlah Saudara</label>
-                        </div>
-                        <div class="col-md-8">
-                            <input type="number" id="jumlahSaudara" class="form-control" name="jumlah_saudara">
-                        </div>
-                    </div>
-                    <div class="row g-3 align-items-center mb-2">
-                        <div class="col-md-4">
-                            <label for="province-dd" class="col-form-label">Provinsi</label>
-                        </div>
-                        <div class="col-md-8">
-                            <select class="form-control" id="province-dd" name="provinsi">
-                                <option value="">Pilih Provinsi</option>
-                                @foreach ($provinsi as $item)
-                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row g-3 align-items-center mb-2">
-                        <div class="col-md-4">
-                            <label for="city-dd" class="col-form-label">Kabupaten</label>
-                        </div>
-                        <div class="col-md-8">
-                            <select class="form-control" id="city-dd" name="kabupaten">
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row g-3 align-items-center mb-2">
-                        <div class="col-md-4">
-                            <label for="kecamatan-dd" class="col-form-label">Kecamatan</label>
-                        </div>
-                        <div class="col-md-8">
-                            <select class="form-control" id="kecamatan-dd" name="kecamatan">
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row g-3 align-items-center mb-2">
-                        <div class="col-md-4">
-                            <label for="desa-dd" class="col-form-label">Desa</label>
-                        </div>
-                        <div class="col-md-8">
-                            <select class="form-control" id="desa-dd" name="desa">
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row g-3 align-items-center mb-2">
-                        <div class="col-md-4">
-                            <label for="inputdus" class="col-form-label">Dusun</label>
-                        </div>
-                        <div class="col-md-8">
-                            <input type="text" id="inputdus" class="form-control" name="dusun">
-                        </div>
-                    </div>
-                    <div class="row g-3 align-items-center mb-2">
-                        <div class="col-md-4">
-                            <label for="inputrt" class="col-form-label">RT/RW</label>
-                        </div>
-                        <div class="col-md-8">
-                            <input type="text" id="inputrt" class="form-control" name="rt_rw">
-                        </div>
-                    </div>
-                    <div class="row g-3 align-items-center mb-2">
-                        <div class="col-md-4">
-                            <label for="inputalam" class="col-form-label">Alamat</label>
-                        </div>
-                        <div class="col-md-8">
-                            <input type="text" id="inputalam" class="form-control" name="alamat">
-                        </div>
-                    </div>
+
                     </div>
                 </div>
                 {{--  form orang tua  --}}
                 <div id="form-ortu" style="display: none">
-                    <h4>Data Orang Tua</h4>
-                    <hr>
                     <div class="row">
                         <div class="col-md-6">
                         <div class="card card-outline">
                             <div class="card-header">
-                            <div class="card-title fw-bold text-center"><h5>Ayah</h5></div>
+                            <div class="fw-bold">Ayah</div>
                             </div>
                             <div class="card-body">
                             <div class="row g-3 align-items-center mb-2">
@@ -251,7 +266,7 @@
                         <div class="col-md-6">
                         <div class="card card-outline">
                             <div class="card-header">
-                            <div class="card-title fw-bold text-center"><h5>Ibu</h5></div>
+                            <div class="fw-bold">Ibu</div>
                             </div>
                             <div class="card-body">
                                 <div class="row g-3 align-items-center mb-2">
@@ -311,13 +326,11 @@
 
                 </div>
                 {{--  form wali  --}}
-                <div id="form-wali" style="display: none" class="mt-3">
-                    <h4>Data Wali</h4>
+                <div id="form-wali" style="display: none">
                     <input type="hidden" name="wali" id="wali">
-                    <hr>
                     <div class="card card-outline">
                         <div class="card-header">
-                            <div class="card-title">Penanggung Jawab Biaya</div>
+                            <div class="fw-bold">Penanggung Jawab Biaya</div>
                         </div>
                         <div class="card-body">
                             <div class="row g-3 align-items-center mb-2">
@@ -363,11 +376,9 @@
                 {{--  form asal sekolah  --}}
                 <div id="formAsalSekolah" style="display: none">
                     <div class="col-md-12">
-                        <h4>Data Asal Sekolah</h4>
-                        <hr>
                         <div class="card card-outline">
                             <div class="card-header">
-                                <div class="card-title">Asal Sekolah</div>
+                                <div class="fw-bold">Asal Sekolah</div>
                             </div>
                             <div class="card-body">
                                 <div class="row g-3 align-items-center mb-2">
