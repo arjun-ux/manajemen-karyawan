@@ -4,21 +4,34 @@
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
-            <h4>Data Santri</h4>
-            <hr>
-            <a class="btn btn-outline-success btn-sm" href="{{ route('create_saba') }}"><i class="lni lni-user"></i></a>
-            <table class="table table-bordered table-stripped" id="tableSantri" style="width: 100%; height: 50%">
-                <thead class="bg-dark">
-                    <tr>
-                        <th class="text-center text-light">NO</th>
-                        <th class="text-center text-light">NIS</th>
-                        <th class="text-center text-light">NAMA</th>
-                        <th class="text-center text-light">ACTION</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <th style="background-color: rgb(233, 246, 232)">Data Santri</strong></th>
+                            <th class="text-end" style="background-color: rgb(233, 246, 232)">
+                                <a class="btn btn-outline-success btn-sm" href="{{ route('create_saba') }}"><i class="lni lni-user"></i></a>
+                            </th>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-stripped" id="tableSantri" style="width: 100%; height: 50%">
+                            <thead class="bg-dark">
+                                <tr>
+                                    <th class="text-center text-light">NO</th>
+                                    <th class="text-center text-light">NIS</th>
+                                    <th class="text-center text-light">NAMA</th>
+                                    <th class="text-center text-light">ACTION</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
@@ -40,11 +53,7 @@
                 {data: 'nama_lengkap', name: 'nama_lengkap'},
                 {data: 'action', orderable: false, searchable: false}
 
-            ],
-            "deferLoading": 57,
-            "deferRender": true,  // Defer rendering for improved performance
-            "paging": true,       // Enable pagination
-            "pageLength": 5,     // Number of records per page
+            ]
         });
     });
   </script>

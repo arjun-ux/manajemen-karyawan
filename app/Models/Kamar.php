@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Kamar extends Model
 {
     use HasFactory;
+    protected $guarded = [];
+    public function Saba(){
+        return $this->belongsTo(Saba::class, 'kamar_id', 'id');
+    }
 }

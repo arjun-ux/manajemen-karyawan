@@ -24,6 +24,36 @@
     <section class="content">
       <div class="container-fluid">
         <div class="row">
+            <div class="col-md-12 mb-2">
+                <div class="card card-outline">
+                    <div class="card-header">
+                        <div class="fw-medium">Data Pesantren</div>
+                    </div>
+                    <div class="card-body">
+                        <form id="setKamar">
+                            <div class="row align-items-center">
+                                <div class="col-md-3">
+                                    <label for="selectKamar">Asrama / Kamar</label>
+                                </div>
+                                <div class="col-md-7">
+                                    <select name="kamar_id" id="selectKamar" class="form-control">
+                                        @if (isset($results['kamarsaba']->nama_kamar))
+                                            <option value="{{ old('nama_kamar', $results['kamarsaba']->nama_kamar) }}">{{ $results['kamarsaba']->nama_kamar }}</option>
+                                        @endif
+                                        <option value="">Pilih Kamar</option>
+                                        @foreach ($results['kamar'] as $val)
+                                            <option value="{{ $val->id }}">{{ $val->nama_kamar }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-2" id="submitKamar" style="display: none">
+                                    <button type="submit" class="btn btn-sm btn-success">Simpan</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
             <form id="postUpdate">
                 @csrf
                 {{--  form data diri santri  --}}
@@ -200,7 +230,6 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
                 {{--  form orang tua  --}}
@@ -448,7 +477,6 @@
                 type: 'POST',
                 data: $('#postUpdate').serialize(),
                 success: function(res){
-                    console.log(res);
                     Swal.fire({
                         icon: 'success',
                         title: res.message,
@@ -515,6 +543,43 @@
             $('#ayahWali').hide();
         });
 
+        $('#selectKamar').change(function() {
+            if ($(this).val() !== '') {
+                $('#submitKamar').css('display', 'block');
+                $('#setKamar').submit(function(e){
+                    e.preventDefault();
+                    var id = '{{ routeParam::encode($results['saba']->id) }}'
+                    var kamarId = $('#selectKamar').val();
+                    $.ajax({
+                        url: "/set-kamar-santri/"+id,
+                        type: 'POST',
+                        data: {
+                            kamar_id: kamarId,
+                            _token: '{{ csrf_token() }}',
+                        },
+                        success: function(res){
+                            Swal.fire({
+                                icon: 'success',
+                                title: res.message,
+                                toast: true,
+                                position: 'top-end',
+                                timer: 2000,
+                                showConfirmButton: false,
+                                timerProgressBar: true,
+                            }).then(()=>{
+                                location.reload();
+                            });
+                        },
+                        error: function(xhr,error){
+                            console.log(xhr)
+                            console.log(error)
+                        }
+                    });
+                })
+            } else {
+                $('#submitKamar').css('display', 'none');
+            }
+        });
 
         $(document).ready(function() {
             $('#province-dd').on('change', function() {

@@ -4,68 +4,62 @@
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
-            <h4>Data Kamar</h4>
-            <hr>
-            <a href="#" id="btn-add" class="btn btn-outline-success btn-sm"><i class="lni lni-user"></i></a>
-            <div class="table-responsive">
-                <table class="table table-bordered table-stripped" id="tableKamar" style="width: 100%; height: 50%">
-                    <thead class="bg-dark">
-                        <tr>
-                            <th class="text-center text-light">NO</th>
-                            <th class="text-center text-light">NAMA KAMAR</th>
-                            <th class="text-center text-light">PEMBIMBING</th>
-                            <th class="text-center text-light">ACTION</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <th style="background-color: rgb(233, 246, 232)">Data Kamar</strong></th>
+                            <th class="text-end" style="background-color: rgb(233, 246, 232)">
+                                <a href="#" id="btn-add" class="btn btn-outline-success btn-sm"><i class="lni lni-codepen"></i></a>
+                            </th>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-stripped" id="tableKamar" style="width: 100%; height: 50%">
+                            <thead class="bg-dark">
+                                <tr>
+                                    <th class="text-center text-light">NO</th>
+                                    <th class="text-center text-light">NAMA KAMAR</th>
+                                    <th class="text-center text-light">PEMBIMBING</th>
+                                    <th class="text-center text-light">ACTION</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
     <!-- Modal Add-->
-    <div class="modal fade" id="modalAddUser">
+    <div class="modal fade" id="modalAddKamar">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Admin</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Kamar</h1>
                     <button type="button" class="btn-close xeditmodal" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form id="formAdd">
                         @csrf
-                        <input type="hidden" id="DataId" name="id">
                         <div class="row mb-2">
                             <div class="col-md-4">
-                                <label for="addUsername" class="col-form-label">Username</label>
+                                <label for="nama_kamar" class="col-form-label">Nama Kamar</label>
                                 </div>
                                 <div class="col-md-8">
-                                <input type="text" id="addUsername" class="form-control" name="username">
+                                <input type="text" id="nama_kamar" class="form-control" name="nama_kamar">
                             </div>
                         </div>
                         <div class="row mb-2">
                             <div class="col-md-4">
-                                <label for="addName" class="col-form-label">Nama</label>
+                                <label for="pembimbing_kamar" class="col-form-label">Pembimbing</label>
                                 </div>
                                 <div class="col-md-8">
-                                <input type="text" id="addName" class="form-control" name="name">
-                            </div>
-                        </div>
-                        <div class="row mb-2">
-                            <div class="col-md-4">
-                                <label for="AddWa" class="col-form-label">No WA</label>
-                                </div>
-                                <div class="col-md-8">
-                                <input type="text" id="addWa" class="form-control" name="no_wa">
-                            </div>
-                        </div>
-                        <div class="row mb-2">
-                            <div class="col-md-4">
-                                <label for="addPass" class="col-form-label">Password</label>
-                                </div>
-                                <div class="col-md-8">
-                                <input type="text" id="addPass" class="form-control" name="password">
+                                <input type="text" id="pembimbing_kamar" class="form-control" name="pembimbing">
                             </div>
                         </div>
                         <button type="submit" class="btn btn-success">Submit</button>
@@ -88,34 +82,18 @@
                         <input type="hidden" id="dataId" name="id">
                         <div class="row mb-2">
                             <div class="col-md-4">
-                                <label for="inputUsername" class="col-form-label">Username</label>
+                                <label for="editKamar" class="col-form-label">Nama Kamar</label>
                                 </div>
                                 <div class="col-md-8">
-                                <input type="text" id="inputUsername" class="form-control" name="username">
+                                <input type="text" id="editKamar" class="form-control" name="nama_kamar">
                             </div>
                         </div>
                         <div class="row mb-2">
                             <div class="col-md-4">
-                                <label for="inputName" class="col-form-label">Nama</label>
+                                <label for="editPembimbing" class="col-form-label">Pembimbing</label>
                                 </div>
                                 <div class="col-md-8">
-                                <input type="text" id="inputName" class="form-control" name="name">
-                            </div>
-                        </div>
-                        <div class="row mb-2">
-                            <div class="col-md-4">
-                                <label for="inputNo" class="col-form-label">No WA</label>
-                                </div>
-                                <div class="col-md-8">
-                                <input type="text" id="inputNo" class="form-control" name="no_wa">
-                            </div>
-                        </div>
-                        <div class="row mb-2">
-                            <div class="col-md-4">
-                                <label for="inputPass" class="col-form-label">Password</label>
-                                </div>
-                                <div class="col-md-8">
-                                <input type="text" id="inputPass" class="form-control" name="password">
+                                <input type="text" id="editPembimbing" class="form-control" name="pembimbing">
                             </div>
                         </div>
                         <button type="submit" class="btn btn-success">Submit</button>
@@ -141,86 +119,62 @@
                 {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
                 {data: 'nama_kamar', name: 'nama_kamar'},
                 {data: 'pembimbing', name: 'pembimbing'},
-                {
-                    data: null,
-                    name: 'action',
-                    orderable: false,
-                    searchable: false,
-                    render: function(data, type, row) {
-                        return `
-                            <a href="#" data-id="${row.id}" class="btn_edit btn btn-outline-primary btn-sm mt-1">
-                                <i class="lni lni-pencil-alt"></i>
-                            </a>
-                            <a href="#" data-id="${row.id}" class="btn_delete btn btn-outline-danger btn-sm mt-1">
-                                <i class="lni lni-trash-can"></i>
-                            </a>
-                        `;
-                    }
-                }
-
+                {data: 'action', name: 'action', orderable: false, searchable: false},
             ],
-            "deferLoading": 57,
-            "deferRender": true,  // Defer rendering for improved performance
-            "paging": true,       // Enable pagination
-            "pageLength": 5,     // Number of records per page
         });
     });
 
-    {{--  $('#btn-add').click(function(){
-        $('#modalAddUser').modal('show');
-        $('#formAdd').submit(function(e){
-            e.preventDefault();
-            $('#loader').show();
-            $.ajax({
-                url: '/store-admin',
-                type: 'POST',
-                data: $('#formAdd').serialize(),
-                success: function(res){
-                    $('#loader').hide();
-                    Swal.fire({
-                        icon: "success",
-                        title: res.message,
-                        toast: true,
-                        position: "top-end",
-                        timer: 2000,
-                        showConfirmButton: false,
-                        timerProgressBar: true,
-                    }).then(()=>{
-                        $('#DataId').val(null);
-                        $('#addUsername').val(null);
-                        $('#addName').val(null);
-                        $('#addWa').val(null);
-                        $('#addPass').val(null);
-                        $('#modalAddUser').modal('hide');
-                        $('#tableUserAdmin').DataTable().ajax.reload();
+    $('#btn-add').click(function(){
+        $('#modalAddKamar').modal('show');
+    });
+    $('#formAdd').submit(function(e){
+        e.preventDefault();
+        $('#loader').show();
+        $.ajax({
+            url: '/store-kamar',
+            type: 'POST',
+            data: $('#formAdd').serialize(),
+            success: function(res){
+                $('#loader').hide();
+                Swal.fire({
+                    icon: "success",
+                    title: res.message,
+                    toast: true,
+                    position: "top-end",
+                    timer: 2000,
+                    showConfirmButton: false,
+                    timerProgressBar: true,
+                }).then(()=>{
+                    $('#nama_kamar').val(null);
+                    $('#pembimbing_kamar').val(null);
+                    $('#modalAddKamar').modal('hide');
+                    $('#tableKamar').DataTable().ajax.reload();
+                });
+            },
+            error: function(xhr, error){
+                $('#loader').hide();
+                let errorMessages = xhr.responseJSON.errors;
+                Object.keys(errorMessages).forEach((key) => {
+                    errorMessages[key].forEach((errorMessage) => {
+                        toastr.error(errorMessage);
                     });
-                },
-                error: function(xhr, error){
-                    $('#loader').hide();
-                    let errorMessages = xhr.responseJSON.errors;
-                    Object.keys(errorMessages).forEach((key) => {
-                        errorMessages[key].forEach((errorMessage) => {
-                            toastr.error(errorMessage);
-                        });
-                    });
-                }
-            });
-        })
-    });  --}}
+                });
+            }
+        });
+    })
 
-    {{--  $('body').on('click','.btn_edit',function(){
+    $('body').on('click','.btn_edit',function(){
         $('#loader').show();
         var id = $(this).data('id');
         $.ajax({
-            url: '/get-id-admin/'+id,
+            url: '/id-kamar/'+id,
             type: 'GET',
             success: function(res){
-                console.log(res.data);
+                console.log(res);
                 $('#loader').hide();
-                $('#dataId').val(res.data.id);
-                $('#inputUsername').val(res.data.username);
-                $('#inputName').val(res.data.name);
-                $('#inputNo').val(res.data.no_wa);
+                $('#dataId').val(res.id);
+                $('#editKamar').val(res.nama_kamar);
+                $('#editPembimbing').val(res.pembimbing);
                 $('#modalFormEdit').modal('show');
             },
             error: function(xhr, error){
@@ -231,26 +185,25 @@
         });
         $('#formEdit').submit(function(e){
             e.preventDefault();
-            var uid = $('#dataId').val();
+            var id = $('#dataId').val();
             $('#loader').show();
             $.ajax({
-                url: '/update-admin',
+                url: '/update-kamar',
                 type: 'POST',
                 data: $('#formEdit').serialize(),
                 success: function(res){
-                    console.log(res);
                     $('#loader').hide();
                     Swal.fire({
                         icon: "success",
                         title: res.message,
                         toast: true,
                         position: "top-end",
-                        timer: 2000,
+                        timer: 1500,
                         showConfirmButton: false,
                         timerProgressBar: true,
                     }).then(()=>{
                         $('#modalFormEdit').modal('hide');
-                        $('#tableUserAdmin').DataTable().ajax.reload();
+                        $('#tableKamar').DataTable().ajax.reload();
                     });
                 },
                 error: function(xhr, error){
@@ -266,13 +219,12 @@
         });
         $('.btn-close').on('click', function(){
             $('#dataId').val(null);
-            $('#inputUsername').val(null);
-            $('#inputName').val(null);
-            $('#inputNo').val(null);
+            $('#editKamar').val(null);
+            $('#editPembimbing').val(null);
         });
-    });  --}}
+    });
 
-    {{--  $('body').on('click','.btn_delete',function(){
+    $('body').on('click','.btn_delete',function(){
         var id = $(this).data('id');
         Swal.fire({
             icon: "question",
@@ -289,7 +241,7 @@
         function deleteAdmin(){
             $('#loader').show();
             $.ajax({
-                url: '/delete-admin/'+id,
+                url: '/delete-kamar/'+id,
                 type: 'DELETE',
                 data: {
                     _token: '{{ csrf_token() }}'
@@ -301,11 +253,11 @@
                         title: res.message,
                         toast: true,
                         position: "top-end",
-                        timer: 1500,
+                        timer: 1000,
                         showConfirmButton: false,
                         timerProgressBar: true,
                     }).then(()=>{
-                        $('#tableUserAdmin').DataTable().ajax.reload();
+                        $('#tableKamar').DataTable().ajax.reload();
                     });
                 },
                 error: function(xhr, error){
@@ -315,7 +267,7 @@
                 }
             });
         }
-    });  --}}
+    });
   </script>
 @endpush
 

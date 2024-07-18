@@ -56,6 +56,11 @@ use App\Providers\RouteParamService as routeParam;
                                             <div class="table-responsive">
                                                 <table class="table">
                                                     <tr>
+                                                        <td class="fw-medium" style="width: 300px">Asrama / Kamar</td>
+                                                        <td style="width: 20px">=</td>
+                                                        <td style="width: 500px">{{ isset($datas['kamarsaba']->nama_kamar) ? $datas['kamarsaba']->nama_kamar : 'Kamar Belum Dipilih' }}</td>
+                                                    </tr>
+                                                    <tr>
                                                         <td class="fw-medium" style="width: 300px">NIS</td>
                                                         <td style="width: 20px">=</td>
                                                         <td style="width: 500px">{{ isset($datas['data']->nis) ? $datas['data']->nis : '' }}</td>

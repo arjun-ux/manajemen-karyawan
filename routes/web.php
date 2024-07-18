@@ -67,6 +67,12 @@ Route::middleware('role:admin', 'throttle:admin')->group(function(){
     // setting kamar
     Route::get('/kamar', [KamarController::class, 'index'])->name('kamar');
     Route::get('/data-kamar', [KamarController::class, 'getKamar']);
+    Route::post('/store-kamar', [KamarController::class, 'store']);
+    Route::get('/id-kamar/{id}', [KamarController::class, 'idKamar']);
+    Route::post('/update-kamar', [KamarController::class, 'update_kamar']);
+    Route::delete('/delete-kamar/{id}', [KamarController::class, 'delete_kamar']);
+    Route::post('/set-kamar-santri/{id}', [KamarController::class, 'setKamarSantri']);
+
     // data santri
     Route::get('/saba-all', [AdminSabaController::class,'index'])->name('data_saba_all');
     Route::get('/getAllSantri', [AdminSabaController::class, 'getAllSantri']);

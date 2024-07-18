@@ -54,6 +54,8 @@ class SantriService extends ServiceProvider
             $pekerjaan = Pekerjaan::query()->get(['id', 'nama_pekerjaan']);
             $pendidikan = Pendidikan::query()->get(['id', 'nama_pendidikan']);
             $asal_sekolah = SabaMasukPondok::query()->where('saba_id', $id)->first();
+            $kamar = SettingsService::get_all_kamar()->get();
+            $kamarsaba = SettingsService::getDataById($saba->kamar_id);
             $results = [
                 'saba' => $saba,
                 'ortu' => $ortu,
@@ -66,6 +68,8 @@ class SantriService extends ServiceProvider
                 'pekerjaan' => $pekerjaan,
                 'pendidikan' => $pendidikan,
                 'asal_sekolah' => $asal_sekolah,
+                'kamar' => $kamar,
+                'kamarsaba' => $kamarsaba,
             ];
             return $results;
         } catch (\Throwable $th) {
@@ -95,6 +99,7 @@ class SantriService extends ServiceProvider
             $wali = WaliSaba::where('saba_id', $id)->first();
             $asal_sekolah = SabaMasukPondok::where('id', $id)->first();
             $foto = Berkas::query()->where('saba_id', $id)->first('foto');
+            $kamarsaba = SettingsService::getDataById($data->kamar_id);
             $results = [
                 'data' => $data,
                 'provinsi'=>$provinsi,
@@ -109,6 +114,7 @@ class SantriService extends ServiceProvider
                 'wali' => $wali,
                 'asal_sekolah' => $asal_sekolah,
                 'foto' => $foto,
+                'kamarsaba' => $kamarsaba,
             ];
             return $results;
         } catch (\Throwable $th) {
@@ -423,5 +429,9 @@ class SantriService extends ServiceProvider
         } catch (\Throwable $th) {
             throw $th;
         }
+    }
+    // update berkas
+    public static function getBerkasByid($saba_id){
+        //
     }
 }

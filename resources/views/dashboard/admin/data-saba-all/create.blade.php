@@ -243,7 +243,7 @@
                                 <label for="pendidikan-ayah" class="col-form-label">Pendidikan Ayah</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <select name="pendidikan-ayah" id="pendidikan-ayah" class="form-control">
+                                    <select name="pendidikan_ayah" id="pendidikan-ayah" class="form-control">
                                         <option value="">Pilih Pendidikan</option>
                                         @foreach ($pendidikan as $val)
                                             <option value="{{ $val->id }}">{{ $val->nama_pendidikan }}</option>
@@ -302,7 +302,7 @@
                                     <label for="pendidikan-ibu" class="col-form-label">Pendidikan Ibu</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <select name="pendidikan-ibu" id="pendidikan-ibu" class="form-control">
+                                    <select name="pendidikan_ibu" id="pendidikan-ibu" class="form-control">
                                         <option value="">Pilih Pendidikan</option>
                                         @foreach ($pendidikan as $val)
                                             <option value="{{ $val->id }}">{{ $val->nama_pendidikan }}</option>
