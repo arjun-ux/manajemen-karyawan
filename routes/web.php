@@ -7,6 +7,7 @@ use App\Http\Controllers\Dashboard\Admin\AdminController;
 use App\Http\Controllers\Dashboard\Admin\AdminSabaController;
 use App\Http\Controllers\Dashboard\KamarController;
 use App\Http\Controllers\Dashboard\PdfController;
+use App\Http\Controllers\Dashboard\PembayaranController;
 use App\Http\Controllers\Dashboard\Saba\AsalSekolahController;
 use App\Http\Controllers\Dashboard\Saba\BerkasController;
 use App\Http\Controllers\Dashboard\Saba\OrtuController;
@@ -59,11 +60,12 @@ Route::middleware('role:saba','throttle:saba')->group(function(){
 Route::middleware('role:admin', 'throttle:admin')->group(function(){
     // dashboard
     Route::get('/dashmin',[AdminController::class, 'index'])->name('dashmin');
-    // settings
+    // settings---------------------------------------------------------------------------------------
     // setting jenis pembayaran
-    Route::get('/jenis-pembayaran', function(){
-        return "Halaman Jenis Pembayaran";
-    })->name('jenis_pembayaran');
+    Route::get('/jenis-pembayaran', [PembayaranController::class, 'index'])->name('jenis_pembayaran');
+    Route::get('/data-jenis-pembayaran', [PembayaranController::class, 'get_all']);
+    Route::post('/store-pembayaran', [PembayaranController::class, 'store']);
+    Route::get('/id-pembayaran/{id}', [PembayaranController::class, 'getById']);
     // setting kamar
     Route::get('/kamar', [KamarController::class, 'index'])->name('kamar');
     Route::get('/data-kamar', [KamarController::class, 'getKamar']);

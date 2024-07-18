@@ -4,6 +4,7 @@ namespace App\Providers\Service;
 
 use App\Models\Kamar;
 use App\Models\Saba;
+use App\Models\Pembayaran;
 use Illuminate\Http\Request;
 use Illuminate\Support\ServiceProvider;
 
@@ -56,5 +57,23 @@ class SettingsService extends ServiceProvider
         $santri = Saba::query()->firstWhere('id',$id);
         $santri->update(['kamar_id'=>$request->kamar_id]);
         return response()->json(['message'=>'Berhasil Memilih Kamar Santri']);
+    }
+
+    // setting pembayaran -------------------------------------------------------------------------
+    public static function getAllPemba(){
+        return Pembayaran::query(['id','jenis_pembayaran','jumlah','keterangan']);
+    }
+    // store
+    public static function store_pembayaran(Request $request){
+        $pembayaran = Pembayaran::create([
+            'jenis_pembayaran'=>$request->jenis_pembayaran,
+            'jumlah'=>$request->jumlah,
+            'keterangan'=>$request->keterangan,
+        ]);
+        return response()->json(['message'=>'Data Berhasil DiInput']);
+    }
+    // get pembayaran by id
+    public static function get_pembayaran_by_id($id){
+        return Pembayaran::query()->firstWhere('id',$id);
     }
 }
