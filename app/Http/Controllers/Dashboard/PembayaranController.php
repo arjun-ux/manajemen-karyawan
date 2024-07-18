@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PembayaranRequest;
 use App\Http\Requests\StorePembayaranRequest;
 use App\Providers\Service\SettingsService;
 use Illuminate\Http\Request;
@@ -32,12 +33,8 @@ class PembayaranController extends Controller
                         ->toJson();
     }
     // store pembayaran
-    public function store(Request $request){
-        $request->validate([
-            'jenis_pembayaran'=>'required',
-            'jumlah'=>'required',
-            'keterangan'=>'required',
-        ]);
+    public function store(PembayaranRequest $request){
+        $valid = $request->validated();
         return $this->Settings->store_pembayaran($request);
     }
     // get by id

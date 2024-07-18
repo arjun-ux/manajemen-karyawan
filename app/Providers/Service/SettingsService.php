@@ -2,6 +2,8 @@
 
 namespace App\Providers\Service;
 
+use App\Http\Requests\KamarRequest;
+use App\Http\Requests\PembayaranRequest;
 use App\Models\Kamar;
 use App\Models\Saba;
 use App\Models\Pembayaran;
@@ -16,16 +18,11 @@ class SettingsService extends ServiceProvider
         return Kamar::query(['id', 'nama_kamar', 'pembimbing']);
     }
     // store kamar
-    public static function store_kamar(Request $request){
-        $request->validate([
-            'nama_kamar' => 'required',
-            'pembimbing' => 'required',
-        ]);
+    public static function store_kamar(KamarRequest $request){
         Kamar::create([
             'nama_kamar' => $request->nama_kamar,
             'pembimbing' => $request->pembimbing,
         ]);
-
         return response()->json(['message'=>'Berhasil Input Data']);
     }
     // get id kamar
@@ -33,11 +30,7 @@ class SettingsService extends ServiceProvider
         return Kamar::query()->firstWhere('id',$id);
     }
     // update kamaar
-    public static function updateKamar(Request $r){
-        $r->validate([
-            'nama_kamar'=>'required',
-            'pembimbing'=>'required',
-        ]);
+    public static function updateKamar(KamarRequest $r){
         $kamar = Kamar::query()->firstWhere('id', $r->id);
         $kamar->update([
             'nama_kamar'=>$r->nama_kamar,
@@ -51,7 +44,7 @@ class SettingsService extends ServiceProvider
         $kamar->delete();
         return response()->json(['message'=>'Data Berhasil Di Hapus']);
     }
-    // settignkamar santri
+    // setting kamar santri
     public static function set_kamar_santri(Request $request, $id){
         $request->validate(['kamar_id'=>'required']);
         $santri = Saba::query()->firstWhere('id',$id);
@@ -64,7 +57,7 @@ class SettingsService extends ServiceProvider
         return Pembayaran::query(['id','jenis_pembayaran','jumlah','keterangan']);
     }
     // store
-    public static function store_pembayaran(Request $request){
+    public static function store_pembayaran(PembayaranRequest $request){
         $pembayaran = Pembayaran::create([
             'jenis_pembayaran'=>$request->jenis_pembayaran,
             'jumlah'=>$request->jumlah,

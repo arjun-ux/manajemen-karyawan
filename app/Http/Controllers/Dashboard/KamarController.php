@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\KamarRequest;
 use App\Providers\RouteParamService;
 use App\Providers\Service\SettingsService;
 use Illuminate\Http\Request;
@@ -33,7 +34,8 @@ class KamarController extends Controller
                 ->toJson();
     }
     // store
-    public function store(Request $request){
+    public function store(KamarRequest $request){
+        $valid = $request->validated();
         return $this->Settings->store_kamar($request);
     }
     // id kamar
@@ -42,7 +44,8 @@ class KamarController extends Controller
         return $results;
     }
     // update
-    public function update_kamar(Request $request){
+    public function update_kamar(KamarRequest $request){
+        $valid = $request->validated();
         $results = $this->Settings->updateKamar($request);
         return $results;
     }
