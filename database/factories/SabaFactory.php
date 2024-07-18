@@ -21,7 +21,9 @@ class SabaFactory extends Factory
         return [
             'user_id' => $this->faker->numberBetween(2, 10001),
             'nis' => $this->faker->unique()->numberBetween(240001, 900001),
-            'nama_lengkap' => 'Jangan Dibuka. Data Palsu Broo...',
+            'nik' => fake()->numberBetween(1000000000000000, 9000000000000000),
+            'nokk' => fake()->numberBetween(1000000000000000, 9000000000000000),
+            'nama_lengkap' => fake()->name(),
         ];
     }
 }

@@ -17,7 +17,6 @@ use App\Providers\Service\WhatsAppService;
 use Illuminate\Support\Facades\Hash;
 use App\Providers\Service\IndoRegionService;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Log;
 
 class SantriService extends ServiceProvider
 {
@@ -25,73 +24,108 @@ class SantriService extends ServiceProvider
 
     // getAllData
     public static function getAll(){
-        $data = Saba::query(['id','nis','nama_lengkap']);
-        return $data;
+        try {
+            $data = Saba::query(['id','nis','nama_lengkap'])->orderBy('id', "desc");
+            if (!$data) {
+                throw new \Exception("Data Tidak ditemukan");
+            }
+            return $data;
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
     // get santri by id
     public static function getById($id){
-        $saba = Saba::query()->where('id', $id)->first();
-        $ortu = OrangTua::query()->where('saba_id', $id)->first();
-        $provinsi = IndoRegionService::Provinsi();
-        $wali = WaliSaba::query()->where('saba_id', $id)->first();
-        $pendidikanA = PendidikanService::getPendidikan($ortu->pendidikan_ayah);
-        $pekerjaanA = PekerjaanService::getPekerjaan($ortu->pekerjaan_ayah);
-        $pendidikanI = PendidikanService::getPendidikan($ortu->pendidikan_ibu);
-        $pekerjaanI = PekerjaanService::getPekerjaan($ortu->pekerjaan_ibu);
-        $pekerjaan = Pekerjaan::query()->get(['id', 'nama_pekerjaan']);
-        $pendidikan = Pendidikan::query()->get(['id', 'nama_pendidikan']);
-        $asal_sekolah = SabaMasukPondok::query()->where('saba_id', $id)->first();
-        $results = [
-            'saba' => $saba,
-            'ortu' => $ortu,
-            'provinsi' => $provinsi,
-            'wali' => $wali,
-            'pendidikanA' => $pendidikanA,
-            'pekerjaanA' => $pekerjaanA,
-            'pendidikanI' => $pendidikanI,
-            'pekerjaanI' => $pekerjaanI,
-            'pekerjaan' => $pekerjaan,
-            'pendidikan' => $pendidikan,
-            'asal_sekolah' => $asal_sekolah,
-        ];
-        return $results;
+        try {
+            $saba = Saba::query()->where('id', $id)->first();
+            if (!$saba) {
+                throw new \Exception("Data with ID $id not found in Saba table.");
+            }
+            $ortu = OrangTua::query()->where('saba_id', $id)->first();
+            if (!$ortu) {
+                throw new \Exception("Data Orang Tua Tidak Ditemukan Dengan Santri ID $id.");
+            }
+            $provinsi = IndoRegionService::Provinsi();
+            $wali = WaliSaba::query()->where('saba_id', $id)->first();
+            $pendidikanA = PendidikanService::getPendidikan($ortu->pendidikan_ayah);
+            $pekerjaanA = PekerjaanService::getPekerjaan($ortu->pekerjaan_ayah);
+            $pendidikanI = PendidikanService::getPendidikan($ortu->pendidikan_ibu);
+            $pekerjaanI = PekerjaanService::getPekerjaan($ortu->pekerjaan_ibu);
+            $pekerjaan = Pekerjaan::query()->get(['id', 'nama_pekerjaan']);
+            $pendidikan = Pendidikan::query()->get(['id', 'nama_pendidikan']);
+            $asal_sekolah = SabaMasukPondok::query()->where('saba_id', $id)->first();
+            $results = [
+                'saba' => $saba,
+                'ortu' => $ortu,
+                'provinsi' => $provinsi,
+                'wali' => $wali,
+                'pendidikanA' => $pendidikanA,
+                'pekerjaanA' => $pekerjaanA,
+                'pendidikanI' => $pendidikanI,
+                'pekerjaanI' => $pekerjaanI,
+                'pekerjaan' => $pekerjaan,
+                'pendidikan' => $pendidikan,
+                'asal_sekolah' => $asal_sekolah,
+            ];
+            return $results;
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
+
     // lihat santri
     public static function lihatSantri($id){
-        $data = Saba::where('id', $id)->first();
-        $provinsi = IndoRegionService::getProvinsi($data->provinsi);
-        $kabupaten = IndoRegionService::getKota($data->kabupaten);
-        $kecamatan = IndoRegionService::getKecamatan($data->kecamatan);
-        $desa = IndoRegionService::getDesa($data->desa);
-        $ortu = OrangTua::where('saba_id', $id)->first();
-        $pendidikanA = PendidikanService::getPendidikan($ortu->pendidikan_ayah);
-        $pekerjaanA = PekerjaanService::getPekerjaan($ortu->pekerjaan_ayah);
-        $pendidikanI = PendidikanService::getPendidikan($ortu->pendidikan_ibu);
-        $pekerjaanI = PekerjaanService::getPekerjaan($ortu->pekerjaan_ibu);
-        $wali = WaliSaba::where('saba_id', $id)->first();
-        $asal_sekolah = SabaMasukPondok::where('id', $id)->first();
-        $foto = Berkas::query()->where('saba_id', $id)->first('foto');
-        $results = [
-            'data' => $data,
-            'provinsi'=>$provinsi,
-            'kabupaten'=>$kabupaten,
-            'kecamatan'=>$kecamatan,
-            'desa'=>$desa,
-            'ortu' => $ortu,
-            'pendidikanA' => $pendidikanA,
-            'pekerjaanA' => $pekerjaanA,
-            'pendidikanI' => $pendidikanI,
-            'pekerjaanI' => $pekerjaanI,
-            'wali' => $wali,
-            'asal_sekolah' => $asal_sekolah,
-            'foto' => $foto,
-        ];
-        return $results;
+        try {
+            $data = Saba::where('id', $id)->first();
+            if (!$data) {
+                throw new \Exception("Data Santri Dengan ID $id tidak ditemukan");
+            }
+            $provinsi = IndoRegionService::getProvinsi($data->provinsi);
+            $kabupaten = IndoRegionService::getKota($data->kabupaten);
+            $kecamatan = IndoRegionService::getKecamatan($data->kecamatan);
+            $desa = IndoRegionService::getDesa($data->desa);
+            $ortu = OrangTua::where('saba_id', $id)->first();
+            if (!$ortu) {
+                throw new \Exception("Data Orang Tua untuk Santri dengan ID $id tidak ditemukan.");
+            }
+            $pendidikanA = PendidikanService::getPendidikan($ortu->pendidikan_ayah);
+            $pekerjaanA = PekerjaanService::getPekerjaan($ortu->pekerjaan_ayah);
+            $pendidikanI = PendidikanService::getPendidikan($ortu->pendidikan_ibu);
+            $pekerjaanI = PekerjaanService::getPekerjaan($ortu->pekerjaan_ibu);
+            $wali = WaliSaba::where('saba_id', $id)->first();
+            $asal_sekolah = SabaMasukPondok::where('id', $id)->first();
+            $foto = Berkas::query()->where('saba_id', $id)->first('foto');
+            $results = [
+                'data' => $data,
+                'provinsi'=>$provinsi,
+                'kabupaten'=>$kabupaten,
+                'kecamatan'=>$kecamatan,
+                'desa'=>$desa,
+                'ortu' => $ortu,
+                'pendidikanA' => $pendidikanA,
+                'pekerjaanA' => $pekerjaanA,
+                'pendidikanI' => $pendidikanI,
+                'pekerjaanI' => $pekerjaanI,
+                'wali' => $wali,
+                'asal_sekolah' => $asal_sekolah,
+                'foto' => $foto,
+            ];
+            return $results;
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
     // get berkas
     public static function getBerkas($sid){
-        $berkas = DB::table('berkas')->where('saba_id', $sid)->first();
-        return $berkas;
+        try {
+            $berkas = Berkas::query(['kk','ktp_ortu','ktp_wali'])->where('saba_id',$sid)->first();
+            if (!$berkas) {
+                throw new \Exception("Data Berkas Milik santri ID $sid Tidak ditemukan");
+            }
+            return $berkas;
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
     // create saba
     public static function StoreSantri($request){
@@ -134,90 +168,100 @@ class SantriService extends ServiceProvider
             // 'nama_ibu.required' => 'Nama Ibu Wajib Di Isi',
             // 'pekerjaan_ibu.required' => 'Pekerjaan Ibu Wajib Di Isi',
         ]);
-        $tgl = Carbon::parse($request->tanggal_lahir)->format('dmy'); // ex hasil tanggal. 1501724
-        $user = User::create([
-            'username' => Saba::generateNis(),
-            'name' => $request->nama_lengkap,
-            'no_wa' => $request->no_wa,
-            'password' => Hash::make($tgl),
-            'role' => 'saba'
-        ]);
-        $santri = Saba::create([
-            'user_id' => $user->id,
-            'nis' => $user->username,
-            'nik' => $request->nik,
-            'nokk' => $request->nokk,
-            'nama_lengkap' => $request->nama_lengkap,
-            'tempat_lahir' => $request->tempat_lahir,
-            'tanggal_lahir' => $request->tanggal_lahir,
-            'jenis_kelamin' => $request->jenis_kelamin,
-            'saudara_kandung' => $request->saudara_kandung,
-            'anak_ke' => $request->anak_ke,
-            'jumlah_saudara' => $request->jumlah_saudara,
-            'provinsi' => $request->provinsi,
-            'kabupaten' => $request->kabupaten,
-            'kecamatan' => $request->kecamatan,
-            'desa' => $request->desa,
-            'dusun' => $request->dusun,
-            'rt_rw' => $request->rt_rw,
-            'alamat' => $request->alamat,
-            'status' => 'Register',
-        ]);
-        $ortu = OrangTua::create([
-            'saba_id' => $santri->id,
-            'nik_ayah' => $request->nik_ayah,
-            'nama_ayah' => $request->nama_ayah,
-            'pekerjaan_ayah' => $request->pekerjaan_ayah,
-            'pendidikan_ayah' => $request->pendidikan_ayah,
-            'no_hp_ayah' => $request->no_hp_ayah,
-            'nik_ibu' => $request->nik_ibu,
-            'nama_ibu' => $request->nama_ibu,
-            'pekerjaan_ibu' => $request->pekerjaan_ibu,
-            'pendidikan_ibu' => $request->pendidikan_ibu,
-            'no_hp_ibu' => $request->no_hp_ibu,
-        ]);
-        SabaMasukPondok::create([
-            'saba_id' => $santri->id,
-            'tanggal_masuk' => now(),
-            'asal_sekolah' => $request->asal_sekolah,
-            'alamat_asal_sekolah' => $request->alamat_asal_sekolah,
-            'diterima_dikelas' => $request->diterima_dikelas,
-            'no_surat_pindah' => $request->no_surat_pindah,
-        ]);
-        if ($request->wali === 'Ayah') {
-            WaliSaba::create([
-                'saba_id' => $ortu->saba_id,
-                'nama_wali' => $ortu->nama_ayah,
-                'no_hp_wali' => $ortu->no_hp_ayah,
-                'kedudukan_dalam_keluarga' => "Ayah",
-                'alamat_wali' => 'Sama Dengan Anak'
+        try {
+            DB::beginTransaction();
+            $tgl = Carbon::parse($request->tanggal_lahir)->format('dmy'); // ex hasil tanggal. 1501724
+            $user = User::create([
+                'username' => Saba::generateNis(),
+                'name' => $request->nama_lengkap,
+                'no_wa' => $request->no_wa,
+                'password' => Hash::make($tgl),
+                'role' => 'saba'
             ]);
-        }elseif ($request->wali === 'Ibu') {
-            WaliSaba::create([
-                'saba_id' => $ortu->saba_id,
-                'nama_wali' => $ortu->nama_ibu,
-                'no_hp_wali' => $ortu->no_hp_ibu,
-                'kedudukan_dalam_keluarga' => "Ibu",
-                'alamat_wali' => 'Sama Dengan Anak'
+            if (!$user) {
+                throw new \Exception("Gagal membuat user untuk Santri ini");
+            }
+            $santri = Saba::create([
+                'user_id' => $user->id,
+                'nis' => $user->username,
+                'nik' => $request->nik,
+                'nokk' => $request->nokk,
+                'nama_lengkap' => $request->nama_lengkap,
+                'tempat_lahir' => $request->tempat_lahir,
+                'tanggal_lahir' => $request->tanggal_lahir,
+                'jenis_kelamin' => $request->jenis_kelamin,
+                'saudara_kandung' => $request->saudara_kandung,
+                'anak_ke' => $request->anak_ke,
+                'jumlah_saudara' => $request->jumlah_saudara,
+                'provinsi' => $request->provinsi,
+                'kabupaten' => $request->kabupaten,
+                'kecamatan' => $request->kecamatan,
+                'desa' => $request->desa,
+                'dusun' => $request->dusun,
+                'rt_rw' => $request->rt_rw,
+                'alamat' => $request->alamat,
+                'status' => 'Register',
             ]);
-        }elseif ($request->wali === 'Wali') {
-            WaliSaba::create([
+            if (!$santri) {
+                throw new \Exception("Gagal membuat data Orang Tua");
+            }
+            $ortu = OrangTua::create([
                 'saba_id' => $santri->id,
-                'nama_wali' => $request->nama_wali,
-                'kedudukan_dalam_keluarga' => $request->kedudukan_dalam_keluarga,
-                'alamat_wali' => $request->alamat_wali,
-                'no_hp_wali' => $request->no_hp_wali,
+                'nik_ayah' => $request->nik_ayah,
+                'nama_ayah' => $request->nama_ayah,
+                'pekerjaan_ayah' => $request->pekerjaan_ayah,
+                'pendidikan_ayah' => $request->pendidikan_ayah,
+                'no_hp_ayah' => $request->no_hp_ayah,
+                'nik_ibu' => $request->nik_ibu,
+                'nama_ibu' => $request->nama_ibu,
+                'pekerjaan_ibu' => $request->pekerjaan_ibu,
+                'pendidikan_ibu' => $request->pendidikan_ibu,
+                'no_hp_ibu' => $request->no_hp_ibu,
             ]);
+            SabaMasukPondok::create([
+                'saba_id' => $santri->id,
+                'tanggal_masuk' => now(),
+                'asal_sekolah' => $request->asal_sekolah,
+                'alamat_asal_sekolah' => $request->alamat_asal_sekolah,
+                'diterima_dikelas' => $request->diterima_dikelas,
+                'no_surat_pindah' => $request->no_surat_pindah,
+            ]);
+            if ($request->wali === 'Ayah' || $request->wali === 'Ibu') {
+                WaliSaba::create([
+                    'saba_id' => $ortu->saba_id,
+                    'nama_wali' => $ortu->nama_ayah,
+                    'no_hp_wali' => $ortu->no_hp_ayah,
+                    'kedudukan_dalam_keluarga' => "Ayah",
+                    'alamat_wali' => 'Sama Dengan Anak'
+                ]);
+            }elseif ($request->wali === 'Wali') {
+                WaliSaba::create([
+                    'saba_id' => $santri->id,
+                    'nama_wali' => $request->nama_wali,
+                    'kedudukan_dalam_keluarga' => $request->kedudukan_dalam_keluarga,
+                    'alamat_wali' => $request->alamat_wali,
+                    'no_hp_wali' => $request->no_hp_wali,
+                ]);
+            }else {
+                throw new \Exception("Ada Kesalahan Dalam Menyimpan Data Wali");
+            }
+            // send notif by wa
+            if ($request->no_wa) {
+                $numberTarget = $request->no_wa;
+                $message = 'Berikut Username Untuk Login Anda '.$santri->nis.', atas nama '.$santri->nama_lengkap.'.';
+                WhatsAppService::sendNotif($numberTarget, $message);
+            }
+            DB::commit();
+            return response()->json([
+                'status' => 200,
+                'message' => 'Berhasil Input Data',
+                'data' => $santri,
+            ]);
+        } catch (\Throwable $th) {
+            // Rollback transaksi jika terjadi kesalahan
+            DB::rollback();
+            throw $th;
         }
-        // send notif by wa
-        $numberTarget = $request->no_wa;
-        $message = 'Berikut Username Untuk Login Anda '.$santri->nis.', atas nama '.$santri->nama_lengkap.'.';
-        WhatsAppService::sendNotif($numberTarget, $message);
-        return response()->json([
-            'status' => 200,
-            'message' => 'Berhasil Input Data',
-            'data' => $santri,
-        ]);
     }
     // berkas store
     public static function storeBerkas($request){
