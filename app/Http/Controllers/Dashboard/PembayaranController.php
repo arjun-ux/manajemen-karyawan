@@ -32,7 +32,7 @@ class PembayaranController extends Controller
                         ->addIndexColumn()
                         ->toJson();
     }
-    // store pembayaran
+    // store pembayaran controller
     public function store(PembayaranRequest $request){
         $valid = $request->validated();
         return $this->Settings->store_pembayaran($request);
@@ -41,5 +41,14 @@ class PembayaranController extends Controller
     public function getById($id){
         $result = $this->Settings->get_pembayaran_by_id($id);
         return $result;
+    }
+    // update pembayaran
+    public function update_pembayaran(PembayaranRequest $request){
+        $request->validated();
+        return $this->Settings->updatePembayaran($request);
+    }
+    // delete jenis pembayaran
+    public function deletePembayaran($id){
+        return $this->Settings->deletePembayaran($id);
     }
 }

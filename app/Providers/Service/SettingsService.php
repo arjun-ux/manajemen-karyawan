@@ -69,4 +69,20 @@ class SettingsService extends ServiceProvider
     public static function get_pembayaran_by_id($id){
         return Pembayaran::query()->firstWhere('id',$id);
     }
+    // update pembayaran
+    public static function updatePembayaran(PembayaranRequest $request){
+        $data = Pembayaran::query()->firstWhere('id', $request->id);
+        $data->update([
+            'jenis_pembayaran'=>$request->jenis_pembayaran,
+            'jumlah'=>$request->jumlah,
+            'keterangan'=>$request->keterangan,
+        ]);
+        return response()->json(['message'=>'Berhasil Update Pembayaran']);
+    }
+    // delete jenis pembayaran
+    public static function deletePembayaran($id){
+        $data = Pembayaran::query()->firstWhere('id',$id);
+        $data->delete();
+        return response()->json(['message'=>'Berhasil Delete Data']);
+    }
 }

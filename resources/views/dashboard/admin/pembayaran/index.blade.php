@@ -239,12 +239,12 @@
                 console.log(error)
             }
         });
-        {{--  $('#formEdit').submit(function(e){
+        $('#formEdit').submit(function(e){
             e.preventDefault();
             var id = $('#dataId').val();
             $('#loader').show();
             $.ajax({
-                url: '/update-kamar',
+                url: '/update-pembayaran',
                 type: 'POST',
                 data: $('#formEdit').serialize(),
                 success: function(res){
@@ -259,7 +259,7 @@
                         timerProgressBar: true,
                     }).then(()=>{
                         $('#modalFormEdit').modal('hide');
-                        $('#tableKamar').DataTable().ajax.reload();
+                        $('#TablejenisPembayaran').DataTable().ajax.reload();
                     });
                 },
                 error: function(xhr, error){
@@ -275,12 +275,13 @@
         });
         $('.btn-close').on('click', function(){
             $('#dataId').val(null);
-            $('#editKamar').val(null);
-            $('#editPembimbing').val(null);
-        });  --}}
+            $('#jenis_pembayaran').val(null);
+            $('#jumlah').val(null);
+            $('#keterangan').val(null);
+        });
     });
 
-    {{--  $('body').on('click','.btn_delete',function(){
+    $('body').on('click','.btn_delete',function(){
         var id = $(this).data('id');
         Swal.fire({
             icon: "question",
@@ -297,7 +298,7 @@
         function deleteAdmin(){
             $('#loader').show();
             $.ajax({
-                url: '/delete-kamar/'+id,
+                url: '/delete-pembayaran/'+id,
                 type: 'DELETE',
                 data: {
                     _token: '{{ csrf_token() }}'
@@ -309,11 +310,11 @@
                         title: res.message,
                         toast: true,
                         position: "top-end",
-                        timer: 1000,
+                        timer: 1500,
                         showConfirmButton: false,
                         timerProgressBar: true,
                     }).then(()=>{
-                        $('#tableKamar').DataTable().ajax.reload();
+                        $('#TablejenisPembayaran').DataTable().ajax.reload();
                     });
                 },
                 error: function(xhr, error){
@@ -323,7 +324,7 @@
                 }
             });
         }
-    });  --}}
+    });
   </script>
 @endpush
 

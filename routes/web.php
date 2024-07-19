@@ -66,6 +66,8 @@ Route::middleware('role:admin', 'throttle:admin')->group(function(){
     Route::get('/data-jenis-pembayaran', [PembayaranController::class, 'get_all']);
     Route::post('/store-pembayaran', [PembayaranController::class, 'store']);
     Route::get('/id-pembayaran/{id}', [PembayaranController::class, 'getById']);
+    Route::post('/update-pembayaran', [PembayaranController::class, 'update_pembayaran']);
+    Route::delete('/delete-pembayaran/{id}', [PembayaranController::class, 'deletePembayaran']);
     // setting kamar
     Route::get('/kamar', [KamarController::class, 'index'])->name('kamar');
     Route::get('/data-kamar', [KamarController::class, 'getKamar']);
