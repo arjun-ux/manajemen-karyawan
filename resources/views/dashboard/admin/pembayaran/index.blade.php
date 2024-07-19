@@ -17,7 +17,7 @@
                 </div>
                 <div class="col-md-12">
                     <div class="table-responsive">
-                        <table class="table table-bordered table-stripped" id="TablejenisPembayaran" style="width: 100%; height: 50%">
+                        <table class="table table-bordered table-stripped " id="TablejenisPembayaran" style="width: 100%; height: 50%">
                             <thead class="bg-dark">
                                 <tr>
                                     <th class="text-center text-light">NO</th>
@@ -40,7 +40,7 @@
     <div class="modal fade" id="addJenisPembayaran">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header card-outline">
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Pembayaran</h1>
                     <button type="button" class="btn-close xeditmodal" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -81,7 +81,7 @@
     <div class="modal fade" id="modalFormEdit" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header card-outline">
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Pembayaran</h1>
                     <button type="button" class="btn-close xeditmodal" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>

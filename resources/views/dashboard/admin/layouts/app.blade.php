@@ -10,10 +10,20 @@
     <link rel="stylesheet" href="{{ asset('dist/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('dist/css/datatable/dataTables.bootstrap5.css') }}">
     <link rel="stylesheet" href="{{ asset('dist/css/sweetalert2.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('dist/css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('dist/css/loader.css') }}">
     <link rel="stylesheet" href="{{ asset('dist/css/toastr.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('dist/css/main.css') }}">
 </head>
+<style>
+.btn {
+    font-weight: bold;
+    border-radius: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+</style>
 <body>
     <div class="wrapper">
         <div class="loader-container" id="loader-container" style="display: none"></div>

@@ -4,23 +4,32 @@
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
-            <h4>User Admin</h4>
-            <hr>
-            <a href="#" id="btn-add" class="btn btn-outline-success btn-sm"><i class="lni lni-user"></i></a>
-            <div class="table-responsive">
-                <table class="table table-bordered table-stripped" id="tableUserAdmin" style="width: 100%; height: 50%">
-                    <thead class="bg-dark">
-                        <tr>
-                            <th class="text-center text-light">NO</th>
-                            <th class="text-center text-light">USERNAME</th>
-                            <th class="text-center text-light">NAMA</th>
-                            <th class="text-center text-light">NO WHATSAPP</th>
-                            <th class="text-center text-light">ACTION</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <th style="background-color: rgb(233, 246, 232)">Data Admin</th>
+                            <th class="text-end" style="background-color: rgb(233, 246, 232)">
+                                <a href="#" id="btn-add" class="btn btn-outline-success btn-sm"><i class="lni lni-user"></i></a>
+                            </th>
+                        </table>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-stripped" id="tableUserAdmin" style="width: 100%; height: 50%">
+                        <thead class="bg-dark">
+                            <tr>
+                                <th class="text-center text-light">NO</th>
+                                <th class="text-center text-light">USERNAME</th>
+                                <th class="text-center text-light">NAMA</th>
+                                <th class="text-center text-light">NO WHATSAPP</th>
+                                <th class="text-center text-light">ACTION</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
             </div>
       </div><!-- /.container-fluid -->
     </section>
@@ -29,7 +38,7 @@
     <div class="modal fade" id="modalAddUser">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header card-outline">
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Admin</h1>
                     <button type="button" class="btn-close xeditmodal" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -79,7 +88,7 @@
     <div class="modal fade" id="modalFormEdit" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header card-outline">
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Edit User Admin</h1>
                     <button type="button" class="btn-close xeditmodal" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
