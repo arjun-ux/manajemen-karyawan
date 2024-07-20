@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SantriRequest;
 use App\Models\Pekerjaan;
 use App\Models\Pendidikan;
 use App\Models\Saba;
@@ -74,7 +75,8 @@ class AdminSabaController extends Controller
         return response()->json(['message' => 'Berhasil Update Data Saudara', 'item'=>$items]);
     }
     // store santri
-    public function store(Request $request){
+    public function store(SantriRequest $request){
+        $request->validated();
         $data = $this->santri->StoreSantri($request);
         return $data;
     }
@@ -96,7 +98,8 @@ class AdminSabaController extends Controller
         return view('dashboard.admin.data-saba-all.edit', compact('provinsi', 'results'));
     }
     // update saba
-    public function updateSaba(Request $request, $id){
+    public function updateSaba(SantriRequest $request, $id){
+        $request->validated();
         $data = $this->santri->updateSantri($request,$id);
         return $data;
     }

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('jenis_pembayaran')->nullable();
             $table->string('jumlah')->nullable();
             $table->string('keterangan')->nullable();
+            $table->string('saudara_kandung')->default('TIDAK');
             $table->timestamps();
         });
     }

@@ -15,20 +15,22 @@
                         </table>
                     </div>
                 </div>
-                <div class="table-responsive">
-                    <table class="table table-bordered table-stripped" id="tableUserAdmin" style="width: 100%; height: 50%">
-                        <thead class="bg-dark">
-                            <tr>
-                                <th class="text-center text-light">NO</th>
-                                <th class="text-center text-light">USERNAME</th>
-                                <th class="text-center text-light">NAMA</th>
-                                <th class="text-center text-light">NO WHATSAPP</th>
-                                <th class="text-center text-light">ACTION</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-stripped" id="tableUserAdmin" style="width: 100%; height: 50%">
+                            <thead class="bg-dark">
+                                <tr>
+                                    <th class="text-center text-light">NO</th>
+                                    <th class="text-center text-light">USERNAME</th>
+                                    <th class="text-center text-light">NAMA</th>
+                                    <th class="text-center text-light">NO WHATSAPP</th>
+                                    <th class="text-center text-light">ACTION</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
       </div><!-- /.container-fluid -->

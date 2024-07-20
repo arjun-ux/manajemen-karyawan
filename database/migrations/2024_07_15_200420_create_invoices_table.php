@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('pembayaran_id')->nullable();
+            $table->unsignedBigInteger('tahun_ajaran_id')->nullable();
             $table->unsignedBigInteger('saba_id')->nullable();
             $table->string('jumlah')->nullable();
             $table->string('status_pembayaran')->default('Belum Lunas');

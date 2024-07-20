@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\UserController;
 use App\Http\Controllers\Dashboard\Admin\AdminController;
 use App\Http\Controllers\Dashboard\Admin\AdminSabaController;
+use App\Http\Controllers\Dashboard\InvoiceController;
 use App\Http\Controllers\Dashboard\KamarController;
 use App\Http\Controllers\Dashboard\PdfController;
 use App\Http\Controllers\Dashboard\PembayaranController;
@@ -15,18 +16,9 @@ use App\Http\Controllers\Dashboard\Saba\SabaController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PekerjaanController;
 use App\Http\Controllers\PendidikanController;
+use App\Http\Controllers\TahunAjaranController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
 
 Route::get('/unauthorize', function() {
     return view('auth.unathorize');
@@ -60,7 +52,7 @@ Route::middleware('role:saba','throttle:saba')->group(function(){
 Route::middleware('role:admin', 'throttle:admin')->group(function(){
     // dashboard
     Route::get('/dashmin',[AdminController::class, 'index'])->name('dashmin');
-    // settings---------------------------------------------------------------------------------------
+    // settings----------------------------------------------------------------------------------------------------------
     // setting jenis pembayaran
     Route::get('/jenis-pembayaran', [PembayaranController::class, 'index'])->name('jenis_pembayaran');
     Route::get('/data-jenis-pembayaran', [PembayaranController::class, 'get_all']);
@@ -76,7 +68,12 @@ Route::middleware('role:admin', 'throttle:admin')->group(function(){
     Route::post('/update-kamar', [KamarController::class, 'update_kamar']);
     Route::delete('/delete-kamar/{id}', [KamarController::class, 'delete_kamar']);
     Route::post('/set-kamar-santri/{id}', [KamarController::class, 'setKamarSantri']);
-
+    // invoice-----------------------------------------------------------------------------------------------------------
+    // spp tahun ajaran
+    Route::get('/tahun-ajaran', [TahunAjaranController::class, 'index'])->name('tahun.ajaran');
+    Route::post('/store-spp-tahun', [TahunAjaranController::class, 'store']);
+    Route::get('/data-tahun-ajaran', [TahunAjaranController::class, 'dataTahunAjaran']);
+    Route::get('/set-tagihan/{id}', [TahunAjaranController::class, 'set_tagihan']);
     // data santri
     Route::get('/saba-all', [AdminSabaController::class,'index'])->name('data_saba_all');
     Route::get('/getAllSantri', [AdminSabaController::class, 'getAllSantri']);

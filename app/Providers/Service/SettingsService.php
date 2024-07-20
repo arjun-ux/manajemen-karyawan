@@ -62,6 +62,7 @@ class SettingsService extends ServiceProvider
             'jenis_pembayaran'=>$request->jenis_pembayaran,
             'jumlah'=>$request->jumlah,
             'keterangan'=>$request->keterangan,
+            'saudara_kandung'=>$request->saudara_kandung,
         ]);
         return response()->json(['message'=>'Data Berhasil DiInput']);
     }

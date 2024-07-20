@@ -35,10 +35,10 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-          <div class="row">
-            <div class="alert alert-warning fw-bold">
+          <div class="row p-0">
+            {{--  <div class="alert alert-warning fw-bold">
                 Aplikasi Dalam Pengembangan
-            </div>
+            </div>  --}}
             <div class="col-xl-3 col-md-6 mb-4 ">
                 <div class="card py-2">
                     <div class="card-body">

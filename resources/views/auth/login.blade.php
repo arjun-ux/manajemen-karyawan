@@ -35,7 +35,6 @@
                                 </div>
                             </div>
                         </div>
-
                     <button class="btn btn-success" type="submit">Log In</button>
                 </form>
                 </div>

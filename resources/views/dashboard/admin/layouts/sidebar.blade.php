@@ -21,12 +21,24 @@
             </a>
         </li>
         <li class="sidebar-item ">
-            <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-                data-bs-target="#pembayaran" aria-expanded="false" aria-controls="pembayaran">
+            <a href="#" class="sidebar-link collapsed has-dropdown {{ Route::is('tahun.ajaran') ? 'active' : '' }}"
+            data-bs-toggle="collapse" data-bs-target="#pembayaran" aria-expanded="false" aria-controls="pembayaran">
                 <i class="lni lni-credit-cards"></i>
                 <span>Pembayaran</span>
             </a>
             <ul id="pembayaran" class="sidebar-dropdown collapse" data-bs-parent="#sidebar">
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link">
+                        <i class="lni lni-checkmark-circle"></i>
+                        Biaya Pendaftaran
+                    </a>
+                </li>
+                <li class="sidebar-item {{ Route::is('tahun.ajaran') ? 'active' : '' }}">
+                    <a href="{{ route('tahun.ajaran') }}" class="sidebar-link">
+                        <i class="lni lni-checkmark-circle"></i>
+                        SPP Tahun Ajaran
+                    </a>
+                </li>
                 <li class="sidebar-item">
                     <a href="#" class="sidebar-link">
                         <i class="lni lni-checkmark-circle"></i>

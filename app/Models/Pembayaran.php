@@ -15,4 +15,5 @@ class Pembayaran extends Model
     {
         return $this->belongsTo(Invoice::class, 'pembayaran_id', 'id');
     }
+
 }

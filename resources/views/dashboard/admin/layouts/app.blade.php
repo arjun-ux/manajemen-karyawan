@@ -17,7 +17,7 @@
 <style>
 .btn {
     font-weight: bold;
-    border-radius: 24px;
+    border-radius: 20px;
     cursor: pointer;
     text-align: center;
     text-decoration: none;
@@ -30,7 +30,7 @@
         @include('dashboard.admin.layouts.sidebar')
         <div class="main">
             @include('dashboard.admin.layouts.navbar')
-            <main class="content px-3 py-4">
+            <main class="content py-4">
                 <div id="loader" class="loader"></div>
                 <div class="container-fluid">
                     @yield('content')

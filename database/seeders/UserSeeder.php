@@ -16,19 +16,21 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         DB::table('users')->insert([
-            'username' => 'superadmin',
-            'name' => 'Superadmin',
+            'username' => 'dev',
+            'name' => 'Developer',
+            'no_wa' => '082336659202',
+            'password'=> Hash::make('arjun'),
+            'role' => 'admin'
+        ]);
+        DB::table('users')->insert([
+            'username' => 'admin',
+            'name' => 'Admin',
             'no_wa' => '082336659202',
             'password'=> Hash::make('asdasd'),
             'role' => 'admin'
         ]);
-        User::factory()->count(10000)->create();
-        Saba::factory()->count(10000)->create();
         // User::factory()->count(10000)->create();
-        // User::factory()->count(10000)->create();
-        // User::factory()->count(10000)->create();
-        // User::factory()->count(10000)->create();
-        // User::factory()->count(10000)->create();
+        // Saba::factory()->count(10000)->create();
 
     }
 }

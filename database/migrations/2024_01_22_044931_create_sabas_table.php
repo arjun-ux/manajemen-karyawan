@@ -25,7 +25,7 @@ return new class extends Migration
             $table->enum('jenis_kelamin',['laki-laki','perempuan'])->nullable();
             $table->integer('anak_ke')->nullable();
             $table->integer('jumlah_saudara')->nullable();
-            $table->string('saudara_kandung')->nullable();
+            $table->string('saudara_kandung')->default('TIDAK')->nullable();
             $table->string('provinsi')->nullable();
             $table->string('kabupaten')->nullable();
             $table->string('kecamatan')->nullable();
