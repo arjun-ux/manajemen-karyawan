@@ -31,11 +31,6 @@ class PembayaranController extends Controller
                         ->addIndexColumn()
                         ->toJson();
     }
-    // store pembayaran controller
-    public function store(PembayaranRequest $request){
-        $valid = $request->validated();
-        return $this->Settings->store_pembayaran($request);
-    }
     // get by id
     public function getById($id){
         $result = $this->Settings->get_pembayaran_by_id($id);

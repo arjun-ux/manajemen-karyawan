@@ -11,7 +11,6 @@ class PembayaranRequest extends FormRequest
         return [
             'nama_pembayaran'=>'required',
             'nominal_pembayaran'=>'required',
-            'jenis_pembayaran'=>'required',
         ];
     }
     public function messages()
@@ -19,7 +18,6 @@ class PembayaranRequest extends FormRequest
         return [
             'nama_pembayaran.required' => 'Nama Pembayaran Wajib di isi',
             'nominal_pembayaran.required' => 'Nominal Wajib di isi',
-            'jenis_pembayaran.required' => 'Jenis Pembayaran Wajib di isi',
         ];
     }
 }

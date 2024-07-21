@@ -61,7 +61,7 @@
                                 <input type="text" id="nominal" class="form-control" name="nominal_pembayaran" onkeyup="InputRupiah(this)">
                             </div>
                         </div>
-                        <div class="row mb-2">
+                        {{--  <div class="row mb-2">
                             <div class="col-md-4">
                                 <label for="jenis" class="col-form-label">Jenis Pembayaran</label>
                             </div>
@@ -73,7 +73,7 @@
                                     <option value="SAUDARA KK">SAUDARA KK</option>
                                 </select>
                             </div>
-                        </div>
+                        </div>  --}}
                         <button type="submit" class="btn btn-success">Submit</button>
                     </form>
                 </div>
@@ -119,9 +119,9 @@
                     $('#dataId').val(res.id);
                     $('#nama').val(res.nama_pembayaran);
                     $('#nominal').val(res.nominal_pembayaran);
-                    $('#jenis option').filter(function(){
+                    {{--  $('#jenis option').filter(function(){
                         return this.value == res.jenis_pembayaran;
-                    }).prop('selected', true);
+                    }).prop('selected', true);  --}}
                     $('#modalFormEdit').modal('show');
                 },
                 error: function(xhr, error){

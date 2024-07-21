@@ -49,9 +49,17 @@ class InvoiceService extends ServiceProvider
             'tahun_ajaran' => $tahun,
             'bulan_ajaran' => $bulanHuruf,
         ]);
-        return response()->json([
-            'message' => 'Berhasil Membuat Tagihan',
-        ]);
+        return response()->json(['message' => 'Berhasil Membuat Tagihan']);
+    }
+    // store invoice spp
+    public static function set_invoice_spp(InvoiceRequest $request){
+        $santris = SantriService::get_santri_not_saudaraKK();
+        return response()->json([$santris]);
+    }
 
+    // store invoice spp kk
+    public static function set_invoice_sppKK(InvoiceRequest $request){
+        $santris = SantriService::get_santri_saudaraKK();
+        return response()->json([$santris]);
     }
 }

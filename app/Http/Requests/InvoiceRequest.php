@@ -9,7 +9,7 @@ class InvoiceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nis' => 'required',
+            'nis' => 'sometimes',
             'nama_tagihan' => 'required',
             'nominal_tagihan' => 'required',
             'bulanTahun' => 'required'
@@ -18,7 +18,7 @@ class InvoiceRequest extends FormRequest
     public function messages()
     {
         return [
-            'nis.required' => 'Nis Wajib Di isi',
+            'nis.sometimes' => 'Nis Wajib Di isi',
             'nama_tagihan.required' => 'Pilih Tagihan',
             'nominal_tagihan.required' => 'Nominal Jangan Dihapus',
             'bulanTahun.required' => 'Bulan/Tahun Wajib Di isi',

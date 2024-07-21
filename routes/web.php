@@ -56,7 +56,6 @@ Route::middleware('role:admin', 'throttle:admin')->group(function(){
     // setting jenis pembayaran
     Route::get('/pembayaran', [PembayaranController::class, 'index'])->name('pembayaran');
     Route::get('/data-pembayaran', [PembayaranController::class, 'get_all']);
-    Route::post('/store-pembayaran', [PembayaranController::class, 'store']);
     Route::get('/id-pembayaran/{id}', [PembayaranController::class, 'getById']);
     Route::post('/update-pembayaran', [PembayaranController::class, 'update_pembayaran']);
     Route::delete('/delete-pembayaran/{id}', [PembayaranController::class, 'deletePembayaran']);

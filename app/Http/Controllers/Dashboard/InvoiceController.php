@@ -9,6 +9,7 @@ use App\Providers\Service\InvoiceService;
 use App\Providers\Service\SantriService;
 use App\Providers\Service\SettingsService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Yajra\DataTables\Facades\DataTables;
 
 class InvoiceController extends Controller
@@ -50,13 +51,30 @@ class InvoiceController extends Controller
     }
     // store invoice
     public function storeInvoicePendaftaran(InvoiceRequest $request){
-        $request->validated();
-        $nis = $request->nis;
-        $santri = $this->Santri->getSantri($nis);
-        if (!$santri) {
-            return response()->json(['message'=>'Nis Tidak DItemukan']);
+        try {
+            $request->validated();
+
+            $nama_tagihan = $request->nama_tagihan;
+            $pembayaran = $this->Setting->get_pembayaran_by_id($nama_tagihan);
+
+            if ($pembayaran->jenis_pembayaran == 'ALL') {
+                $nis = $request->nis;
+                $santri = $this->Santri->getSantri($nis);
+                if (!$santri) {
+                    return response()->json(['message'=>'Nis Tidak DItemukan'],404);
+                }elseif ($santri->status == 'Aktif') {
+                    return response()->json(['message'=>'Nis Sudah Aktif'],404);
+                }
+                $results = $this->Invoice->store_pendataran_invoice($request, $santri);
+                return $results;
+            }elseif ($pembayaran->jenis_pembayaran == 'REGULAR') {
+                return $this->Invoice->set_invoice_spp($request);
+            }else{
+                return $this->Invoice->set_invoice_sppKK($request);
+            }
+        } catch (\Throwable $th) {
+            Log::error($th);
+            throw $th;
         }
-        $results = $this->Invoice->store_pendataran_invoice($request, $santri);
-        return $results;
     }
 }

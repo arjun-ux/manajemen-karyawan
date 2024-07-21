@@ -22,6 +22,14 @@ use Carbon\Carbon;
 class SantriService extends ServiceProvider
 {
     protected $request;
+    // get santri bukan saudara kandung untuk invoice spp
+    public static function get_santri_saudaraKK(){
+        return Saba::query()->where('saudara_kandung', 'YA')->get(['id','nis','nama_lengkap','status']);
+    }
+    // get santri bukan saudara kandung untuk invoice spp
+    public static function get_santri_not_saudaraKK(){
+        return Saba::query()->where('saudara_kandung', 'TIDAK')->get(['id','nis','nama_lengkap','status']);
+    }
     // get santri for create tagihan
     public static function getSantri($nis){
         $data = Saba::query()->where('nis', $nis)->first(['id','nis','nama_lengkap','status']);
@@ -162,7 +170,7 @@ class SantriService extends ServiceProvider
                 'tempat_lahir' => $request->tempat_lahir,
                 'tanggal_lahir' => $request->tanggal_lahir,
                 'jenis_kelamin' => $request->jenis_kelamin,
-                'saudara_kandung' => $request->saudara_kandung,
+                'saudara_kandung' => $request->saudara_kandung ? $request->saudara_kandung : 'TIDAK',
                 'anak_ke' => $request->anak_ke,
                 'jumlah_saudara' => $request->jumlah_saudara,
                 'provinsi' => $request->provinsi,

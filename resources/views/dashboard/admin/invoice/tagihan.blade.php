@@ -17,14 +17,11 @@
                 </div>
                 <div class="col-md-12" style="display: none" id="addTagihan">
                     <div class="card card-outline">
-                        <div class="card-header">Tambah Tagihan Pendaftaran</div>
+                        <div class="card-header">Tambah Tagihan</div>
                         <div class="card-body">
                             <form id="formTagihanPendaftaran">
                                 @csrf
                                 <div class="row">
-                                    <div class="col-md-2 mb-1 mt-1">
-                                        <input type="text" name="nis" id="nis" placeholder="NIS" class="form-control">
-                                    </div>
                                     <div class="col-md-3 mb-1 mt-1">
                                         <select name="nama_tagihan" id="nama_tagihan" class="form-select">
                                             <option value="">Pilih Tagihan</option>
@@ -35,6 +32,9 @@
                                     </div>
                                     <div class="col-md-3 mb-1 mt-1">
                                         <input type="text" name="nominal_tagihan" id="nominal" placeholder="NOMINAL" class="form-control" onkeyup="InputRupiah(this)" >
+                                    </div>
+                                    <div class="col-md-2 mb-1 mt-1" style="display: none" id="inputNis">
+                                        <input type="text" name="nis" id="nis" placeholder="NIS" class="form-control">
                                     </div>
                                     <div class="col-md-2 mb-1 mt-1">
                                         <input type="month" id="bulanTahun" name="bulanTahun" class="form-control">
@@ -104,37 +104,23 @@
             },
             error: function(xhr, error){
                 $('#loader').hide();
-                let errorMessages = xhr.responseJSON.errors;
-                Object.keys(errorMessages).forEach((key) => {
-                    errorMessages[key].forEach((errorMessage) => {
-                        toastr.error(errorMessage);
-                    });
-                });
+                if (xhr.status === 404) {
+                    toastr.error(xhr.responseJSON.message);
+                } else {
+                    let errorMessages = xhr.responseJSON.errors;
+                    if (errorMessages) {
+                        Object.keys(errorMessages).forEach((key) => {
+                            errorMessages[key].forEach((errorMessage) => {
+                                toastr.error(errorMessage);
+                            });
+                        });
+                    } else {
+                        toastr.error('Terjadi kesalahan: ' + xhr.status + ' ' + xhr.statusText);
+                    }
+                }
             }
         });
     });
-    function bulanKeHuruf(bulan) {
-        const bulanMap = {
-            '01': 'Januari',
-            '02': 'Februari',
-            '03': 'Maret',
-            '04': 'April',
-            '05': 'Mei',
-            '06': 'Juni',
-            '07': 'Juli',
-            '08': 'Agustus',
-            '09': 'September',
-            '10': 'Oktober',
-            '11': 'November',
-            '12': 'Desember',
-        };
-
-        if (bulanMap[bulan]) {
-            return bulanMap[bulan];
-        } else {
-            return '';
-        }
-    }
 
     $('#createInvoice').click(function(){
         $('#addTagihan').show();
@@ -146,6 +132,11 @@
             type: 'GET',
             success: function(res){
                 $('#nominal').val(res.nominal_pembayaran);
+                if(res.jenis_pembayaran == 'ALL'){
+                    $('#inputNis').show();
+                }else{
+                    $('#inputNis').hide();
+                }
             },
             error: function(xhr, error){
                 console.log(xhr)
