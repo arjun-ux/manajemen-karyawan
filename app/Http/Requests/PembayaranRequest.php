@@ -9,17 +9,17 @@ class PembayaranRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'nama_pembayaran'=>'required',
+            'nominal_pembayaran'=>'required',
             'jenis_pembayaran'=>'required',
-            'jumlah'=>'required',
-            'keterangan'=>'required',
         ];
     }
     public function messages()
     {
         return [
+            'nama_pembayaran.required' => 'Nama Pembayaran Wajib di isi',
+            'nominal_pembayaran.required' => 'Nominal Wajib di isi',
             'jenis_pembayaran.required' => 'Jenis Pembayaran Wajib di isi',
-            'jumlah.required' => 'Jumlah Wajib di isi',
-            'keterangan.required' => 'Keterangan Wajib di isi',
         ];
     }
 }

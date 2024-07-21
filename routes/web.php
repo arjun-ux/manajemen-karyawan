@@ -54,8 +54,8 @@ Route::middleware('role:admin', 'throttle:admin')->group(function(){
     Route::get('/dashmin',[AdminController::class, 'index'])->name('dashmin');
     // settings----------------------------------------------------------------------------------------------------------
     // setting jenis pembayaran
-    Route::get('/jenis-pembayaran', [PembayaranController::class, 'index'])->name('jenis_pembayaran');
-    Route::get('/data-jenis-pembayaran', [PembayaranController::class, 'get_all']);
+    Route::get('/pembayaran', [PembayaranController::class, 'index'])->name('pembayaran');
+    Route::get('/data-pembayaran', [PembayaranController::class, 'get_all']);
     Route::post('/store-pembayaran', [PembayaranController::class, 'store']);
     Route::get('/id-pembayaran/{id}', [PembayaranController::class, 'getById']);
     Route::post('/update-pembayaran', [PembayaranController::class, 'update_pembayaran']);
@@ -69,11 +69,8 @@ Route::middleware('role:admin', 'throttle:admin')->group(function(){
     Route::delete('/delete-kamar/{id}', [KamarController::class, 'delete_kamar']);
     Route::post('/set-kamar-santri/{id}', [KamarController::class, 'setKamarSantri']);
     // invoice-----------------------------------------------------------------------------------------------------------
-    // spp tahun ajaran
-    Route::get('/tahun-ajaran', [TahunAjaranController::class, 'index'])->name('tahun.ajaran');
-    Route::post('/store-spp-tahun', [TahunAjaranController::class, 'store']);
-    Route::get('/data-tahun-ajaran', [TahunAjaranController::class, 'dataTahunAjaran']);
-    Route::get('/set-tagihan/{id}', [TahunAjaranController::class, 'set_tagihan']);
+    Route::get('/invoice', [InvoiceController::class, 'indexInvoice'])->name('index.invoice');
+    Route::get('/allInvoice', [InvoiceController::class, 'allInvoice']);
     // data santri
     Route::get('/saba-all', [AdminSabaController::class,'index'])->name('data_saba_all');
     Route::get('/getAllSantri', [AdminSabaController::class, 'getAllSantri']);

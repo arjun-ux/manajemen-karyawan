@@ -11,15 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('invoices', function (Blueprint $table) {
+        Schema::create('transaksis', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('saba_id')->nullable();
-            $table->string('nama_tagihan')->nullable();
-            $table->string('jenis_tagihan')->nullable();
-            $table->string('nominal_tagihan')->nullable();
-            $table->string('tahun_ajaran')->nullable();
-            $table->string('bulan_ajaran')->nullable();
-            $table->string('status_tagihan')->default('Belum Lunas');
+            $table->unsignedBigInteger('tagihan_id')->nullable();
+            $table->string('nominal')->nullable();
+            $table->date('tgl_transaksi');
             $table->timestamps();
         });
     }
@@ -29,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('invoices');
+        Schema::dropIfExists('transaksis');
     }
 };

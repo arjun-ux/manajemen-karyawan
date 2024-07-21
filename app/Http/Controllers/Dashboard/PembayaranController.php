@@ -26,7 +26,6 @@ class PembayaranController extends Controller
         return DataTables::eloquent($results)
                         ->addColumn('action', function($row){
                             $btn = '<a href="#" data-id="'.$row->id.'" class="btn_edit btn btn-outline-primary btn-sm mt-1"><i class="lni lni-pencil-alt"></i></a>';
-                            $btn .= ' <a href="#" data-id="'.$row->id.'" class="btn_delete btn btn-outline-danger btn-sm mt-1"><i class="lni lni-trash-can"></i></a>';
                             return $btn;
                         })
                         ->addIndexColumn()

@@ -21,34 +21,22 @@
             </a>
         </li>
         <li class="sidebar-item ">
-            <a href="#" class="sidebar-link collapsed has-dropdown {{ Route::is('tahun.ajaran') ? 'active' : '' }}"
+            <a href="#" class="sidebar-link collapsed has-dropdown {{ Route::is('index.invoice') ? 'active' : '' }}"
             data-bs-toggle="collapse" data-bs-target="#pembayaran" aria-expanded="false" aria-controls="pembayaran">
                 <i class="lni lni-credit-cards"></i>
                 <span>Pembayaran</span>
             </a>
             <ul id="pembayaran" class="sidebar-dropdown collapse" data-bs-parent="#sidebar">
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
+                    <a href="{{ route('index.invoice') }}" class="sidebar-link">
                         <i class="lni lni-checkmark-circle"></i>
-                        Biaya Pendaftaran
-                    </a>
-                </li>
-                <li class="sidebar-item {{ Route::is('tahun.ajaran') ? 'active' : '' }}">
-                    <a href="{{ route('tahun.ajaran') }}" class="sidebar-link">
-                        <i class="lni lni-checkmark-circle"></i>
-                        SPP Tahun Ajaran
+                        Tagihan
                     </a>
                 </li>
                 <li class="sidebar-item">
                     <a href="#" class="sidebar-link">
                         <i class="lni lni-checkmark-circle"></i>
-                        Lunas
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
-                        <i class="lni lni-circle-minus"></i>
-                        Belum Lunas
+                        Daftar Transaksi
                     </a>
                 </li>
             </ul>
@@ -96,14 +84,14 @@
             </ul>
         </li>
         <li class="sidebar-item">
-            <a href="#" class="sidebar-link collapsed has-dropdown {{ Route::is('jenis_pembayaran')|| Route::is('kamar') ? 'active' : '' }}" data-bs-toggle="collapse"
+            <a href="#" class="sidebar-link collapsed has-dropdown {{ Route::is('pembayaran')|| Route::is('kamar') ? 'active' : '' }}" data-bs-toggle="collapse"
                 data-bs-target="#settings" aria-expanded="false" aria-controls="settings">
                 <i class="lni lni-cog"></i>
                 <span>Settings</span>
             </a>
             <ul id="settings" class="sidebar-dropdown collapse" data-bs-parent="#sidebar">
-                <li class="sidebar-item {{ Route::is('jenis_pembayaran') ? 'active' : '' }}">
-                    <a href="{{ route('jenis_pembayaran') }}" class="sidebar-link">
+                <li class="sidebar-item {{ Route::is('pembayaran') ? 'active' : '' }}">
+                    <a href="{{ route('pembayaran') }}" class="sidebar-link">
                         <i class="lni lni-wallet"></i>
                         Jenis Pembayaran
                     </a>

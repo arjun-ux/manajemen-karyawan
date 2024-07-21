@@ -98,7 +98,7 @@
                         </a>
                         <ul id="settings" class="sidebar-dropdown collapse" data-bs-parent="#sidebar">
                             <li class="li_pro">
-                                <a class="pro" href="{{ route('jenis_pembayaran') }}">
+                                <a class="pro" href="{{ route('pembayaran') }}">
                                     <i class="lni lni-wallet"></i>
                                     Jenis Pembayaran
                                 </a>

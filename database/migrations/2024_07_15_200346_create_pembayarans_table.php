@@ -13,10 +13,9 @@ return new class extends Migration
     {
         Schema::create('pembayarans', function (Blueprint $table) {
             $table->id();
-            $table->string('jenis_pembayaran')->nullable();
-            $table->string('jumlah')->nullable();
-            $table->string('keterangan')->nullable();
-            $table->string('saudara_kandung')->default('TIDAK');
+            $table->string('nama_pembayaran')->nullable();
+            $table->string('nominal_pembayaran')->nullable();
+            $table->enum('jenis_pembayaran', ['ALL','REGULAR','SAUDARA KK']);
             $table->timestamps();
         });
     }

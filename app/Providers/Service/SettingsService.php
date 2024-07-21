@@ -54,7 +54,7 @@ class SettingsService extends ServiceProvider
 
     // setting pembayaran -------------------------------------------------------------------------
     public static function getAllPemba(){
-        return Pembayaran::query(['id','jenis_pembayaran','jumlah','keterangan']);
+        return Pembayaran::query(['id','nama_pembayaran','nominal_pembayaran','jenis_pembayaran']);
     }
     // store
     public static function store_pembayaran(PembayaranRequest $request){
@@ -74,9 +74,9 @@ class SettingsService extends ServiceProvider
     public static function updatePembayaran(PembayaranRequest $request){
         $data = Pembayaran::query()->firstWhere('id', $request->id);
         $data->update([
+            'nama_pembayaran'=>$request->nama_pembayaran,
+            'nominal_pembayaran'=>$request->nominal_pembayaran,
             'jenis_pembayaran'=>$request->jenis_pembayaran,
-            'jumlah'=>$request->jumlah,
-            'keterangan'=>$request->keterangan,
         ]);
         return response()->json(['message'=>'Berhasil Update Pembayaran']);
     }

@@ -15,8 +15,8 @@ class Invoice extends Model
     {
         return $this->hasMany(Pembayaran::class);
     }
-    public function saba(): HasMany
+    public function saba()
     {
-        return $this->hasMany(Saba::class);
+        return $this->belongsTo(Saba::class);
     }
 }

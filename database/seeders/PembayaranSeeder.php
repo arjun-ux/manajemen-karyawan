@@ -14,20 +14,19 @@ class PembayaranSeeder extends Seeder
     public function run(): void
     {
         DB::table('pembayarans')->insert([
-            'jenis_pembayaran' => 'Pendaftaran',
-            'jumlah' => 3180000,
-            'keterangan' => 'Administrasi Awal Masuk Pesantren',
+            'nama_pembayaran' => 'PSB 2024-2025',
+            'nominal_pembayaran' => 3300000,
+            'jenis_pembayaran' => 'ALL',
         ]);
         DB::table('pembayarans')->insert([
-            'jenis_pembayaran' => 'SPP',
-            'jumlah' => 975000,
-            'keterangan' => 'Sumbangan Pembinaan Pendidikan',
+            'nama_pembayaran' => 'SPP',
+            'nominal_pembayaran' => 975000,
+            'jenis_pembayaran' => 'REGULAR',
         ]);
         DB::table('pembayarans')->insert([
-            'jenis_pembayaran' => 'SPP Saudara Kandung',
-            'jumlah' => 750000,
-            'keterangan' => 'Sumbangan Pembinaan Pendidikan',
-            'saudara_kandung' => 'YA',
+            'nama_pembayaran' => 'SPP SAUDARA KK',
+            'nominal_pembayaran' => 750000,
+            'jenis_pembayaran' => 'SAUDARA KK',
         ]);
     }
 }
