@@ -6,23 +6,22 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class InvoiceRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        return false;
-    }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
         return [
-            //
+            'nis' => 'required',
+            'nama_tagihan' => 'required',
+            'nominal_tagihan' => 'required',
+            'bulanTahun' => 'required'
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'nis.required' => 'Nis Wajib Di isi',
+            'nama_tagihan.required' => 'Pilih Tagihan',
+            'nominal_tagihan.required' => 'Nominal Jangan Dihapus',
+            'bulanTahun.required' => 'Bulan/Tahun Wajib Di isi',
         ];
     }
 }

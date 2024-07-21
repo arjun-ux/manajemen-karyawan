@@ -38,7 +38,8 @@ class AdminSabaController extends Controller
         return DataTables::eloquent($data)
             ->addColumn('action', function($row){
                 $btn = '<a href="/show-saba/'.routeParam::encode($row->id).'" class="btn_edit btn btn-outline-primary btn-sm mt-1"><i class="lni lni-pencil-alt"></i></a>';
-                $btn .= ' <a href="/lihat-santri/'.routeParam::encode($row->id).' " class="btn_pembayaran btn btn-outline-warning btn-sm mt-1"><i class="lni lni-empty-file"></i></a>';
+                $btn .= ' <a href="/lihat-santri/'.routeParam::encode($row->id).' " class="btn btn-outline-warning btn-sm mt-1"><i class="lni lni-empty-file"></i></a>';
+                $btn .= ' <a href="#" class="btn-nonAktif btn btn-outline-danger btn-sm mt-1"><i class="lni lni-trash-can"></i></a>';
                 return $btn;
             })
             ->rawColumns(['action'])

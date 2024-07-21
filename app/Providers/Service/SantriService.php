@@ -23,8 +23,8 @@ class SantriService extends ServiceProvider
 {
     protected $request;
     // get santri for create tagihan
-    public static function getSantri(){
-        $data = Saba::query()->where('status','Aktif')->get(['id','nis','nama_lengkap', 'saudara_kandung']);
+    public static function getSantri($nis){
+        $data = Saba::query()->where('nis', $nis)->first(['id','nis','nama_lengkap','status']);
         return $data;
     }
     // getAllData

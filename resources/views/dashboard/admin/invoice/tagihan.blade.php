@@ -9,7 +9,42 @@
                     <div class="table-responsive">
                         <table class="table">
                             <th style="background-color: rgb(233, 246, 232)">Tagihan</th>
+                            <th class="text-end" style="background-color: rgb(233, 246, 232)">
+                                <a id="createInvoice" class="btn btn-outline-success btn-sm" href="#"><i class="lni lni-plus"></i></a>
+                            </th>
                         </table>
+                    </div>
+                </div>
+                <div class="col-md-12" style="display: none" id="addTagihan">
+                    <div class="card card-outline">
+                        <div class="card-header">Tambah Tagihan Pendaftaran</div>
+                        <div class="card-body">
+                            <form id="formTagihanPendaftaran">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-md-2 mb-1 mt-1">
+                                        <input type="text" name="nis" id="nis" placeholder="NIS" class="form-control">
+                                    </div>
+                                    <div class="col-md-3 mb-1 mt-1">
+                                        <select name="nama_tagihan" id="nama_tagihan" class="form-select">
+                                            <option value="">Pilih Tagihan</option>
+                                            @foreach ($pembayaran as $val)
+                                                <option value="{{ $val->id }}">{{ $val->nama_pembayaran }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3 mb-1 mt-1">
+                                        <input type="text" name="nominal_tagihan" id="nominal" placeholder="NOMINAL" class="form-control" onkeyup="InputRupiah(this)" >
+                                    </div>
+                                    <div class="col-md-2 mb-1 mt-1">
+                                        <input type="month" id="bulanTahun" name="bulanTahun" class="form-control">
+                                    </div>
+                                    <div class="col-md-2 mb-1 mt-1">
+                                        <button type="submit" class="form-control" style="background-color: green; color: white;">Simpan</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-12">
@@ -42,6 +77,83 @@
 @push('script')
   <script>
 
+    $('#formTagihanPendaftaran').submit(function(e){
+        e.preventDefault();
+
+        $.ajax({
+            url: '/store-tagihan-pendaftaran',
+            type: 'POST',
+            data: $('#formTagihanPendaftaran').serialize(),
+            success: function(res){
+                console.log(res)
+                Swal.fire({
+                    icon: "success",
+                    title: res.message,
+                    toast: true,
+                    position: "top-end",
+                    timer: 1500,
+                    showConfirmButton: false,
+                    timerProgressBar: true,
+                }).then(()=>{
+                    $('#nis').val(null);
+                    $('#nama_tagihan').val(null);
+                    $('#nominal').val(null);
+                    $('#bulanTahun').val(null);
+                    $('#tableTagihan').DataTable().ajax.reload();
+                });
+            },
+            error: function(xhr, error){
+                $('#loader').hide();
+                let errorMessages = xhr.responseJSON.errors;
+                Object.keys(errorMessages).forEach((key) => {
+                    errorMessages[key].forEach((errorMessage) => {
+                        toastr.error(errorMessage);
+                    });
+                });
+            }
+        });
+    });
+    function bulanKeHuruf(bulan) {
+        const bulanMap = {
+            '01': 'Januari',
+            '02': 'Februari',
+            '03': 'Maret',
+            '04': 'April',
+            '05': 'Mei',
+            '06': 'Juni',
+            '07': 'Juli',
+            '08': 'Agustus',
+            '09': 'September',
+            '10': 'Oktober',
+            '11': 'November',
+            '12': 'Desember',
+        };
+
+        if (bulanMap[bulan]) {
+            return bulanMap[bulan];
+        } else {
+            return '';
+        }
+    }
+
+    $('#createInvoice').click(function(){
+        $('#addTagihan').show();
+    });
+    $('#nama_tagihan').change(function(){
+        var id = $('#nama_tagihan').val();
+        $.ajax({
+            url: '/get-pembayaran/'+id,
+            type: 'GET',
+            success: function(res){
+                $('#nominal').val(res.nominal_pembayaran);
+            },
+            error: function(xhr, error){
+                console.log(xhr)
+                console.log(error)
+            }
+        });
+    });
+
     $(document).ready(function(){
         $('#tableTagihan').DataTable({
             "processing": false,
@@ -71,9 +183,9 @@
                     name: 'status_tagihan',
                     render: function(data, type, full, meta) {
                         if (data === 'Belum Lunas') {
-                            return '<span style="color: red;">Belum Lunas</span>';
+                            return '<span class="btn btn-sm btn-danger">Belum Lunas</span>';
                         } else if (data === 'Lunas') {
-                            return '<span style="color: green;">Lunas</span>';
+                            return '<span class="btn btn-sm btn-success">Lunas</span>';
                         } else {
                             return data; // Handle other cases or return data as-is
                         }
