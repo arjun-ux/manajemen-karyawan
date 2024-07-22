@@ -1,70 +1,48 @@
-<nav class="navbar navbar-expand-lg">
-    <div class="container">
-        <a class="navbar-brand" href="/"><img height="38"
-                src="{{ asset('img/log.png') }}" width="38"></a>
-        <button class="navbar-toggler" data-bs-target="#navbarNav" data-bs-toggle="collapse" type="button">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="hover" href="#kegiatan-pesantren">PONPES</a>
-                </li>
-                <li class="nav-item">
-                    <a class="hover" href="#">TENTANG KAMI</a>
-                    <div class="dropdown">
-
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="hover" href="#">ASRAMA</a>
-                    <div class="dropdown">
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="hover" href="#">PSB</a>
-                    <div class="dropdown">
-                        <a class="hover" href="#jalur-pendaftaran">BIAYA PENDAFTARAN</a>
-                        <a class="hover" href="#alur-pendaftaran">ALUR PENDAFTARAN</a>
-                        <a class="hover" href="#faq">FAQ</a>
-                    </div>
-                </li>
-
-
-            </ul>
-            <ul class="navbar-nav ">
-
-                @guest
-                    <li>
-                        <a class="hover" href="{{ route('login') }}">Login</a>
-                    </li>
-                    <li>
-                        <a class="hover" href="{{ route('register') }}">Register</a>
-                    </li>
-                @else
-                    <li>
-                        <a class="hover" href="#"><img src="{{ asset('img/pp.png') }}" alt="profil" class="rounded-circle img-fluid p-0"
-                                src="{{ asset('iaida/profile.jpg') }}" width="30"></a>
-                        <div class="dropdown">
-                            @if (Auth::user()->role === 'saba')
-                                <a class="hover" href="/dashba">My Profile</a>
-                                <a class="hover" data-bs-target="#modalMaba" data-bs-toggle="modal" href="#">Log
-                                    Out</a>
-                            @elseif (Auth::user()->role === 'admin')
-                                <a class="hover" href="/dashmin">Dashboard</a>
-                                <a class="hover" href="#" id="logout">Log Out</a>
-
-                            @endif
-                        </div>
-                    </li>
-                @endguest
-            </ul>
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="navbar">
+            <div class="navbar-logo">
+                <a href="{{ route('home') }}">
+                    <img src="img/log.png" alt="Logo" height="40">
+                </a>
+            </div>
+            @guest
+                <div class="toggle-button" onclick="toggleMenu()">
+                    <a href="#">&#9776;</a>
+                </div>
+                <div class="navbar-actions" id="navbarAction">
+                    <a href="{{ route('register') }}">Daftar</a>
+                    <a href="{{ route('login') }}">Masuk</a>
+                </div>
+            @else
+                <div class="toggle-drop" onclick="toggleDrop()">
+                    <a href="#">
+                        <img src="img/pp.png" alt="pp" height="40">
+                    </a>
+                </div>
+                <div class="dropdown-action" id="dropdownAction">
+                    @if (Auth::user()->role === 'saba')
+                    <a href="/dashba">My Profile</a>
+                    <a href="#">Log Out</a>
+                    @elseif (Auth::user()->role === 'admin')
+                    <a href="/dashmin">Dashboard</a>
+                    <a href="#" id="logout">Log Out</a>
+                    @endif
+                </div>
+            @endguest
         </div>
     </div>
-</nav>
+</div>
 @push('script')
     <script>
+        function toggleMenu() {
+            var navbarActions = document.getElementById('navbarAction');
+            navbarActions.classList.toggle('show');
+        }
+        function toggleDrop(){
+            var dropdownAction = document.getElementById('dropdownAction');
+            dropdownAction.classList.toggle('show');
+        }
         $('#logout').click(function(e){
             e.preventDefault();
             Swal.fire({

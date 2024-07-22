@@ -9,41 +9,57 @@
     <link rel="stylesheet" href="{{ asset('css/mystyle.css') }}">
     <link rel="stylesheet" href="{{ asset('dist/css/loader.css') }}">
 </head>
+<style>
+    .bg-body{
+        background-image: url('img/home.jpg'); /* Ganti dengan URL gambar latar belakang Anda */
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 100vh;
+        width: 100%;
+        display: block;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
 <body>
-    <div class="loader-container" id="loader-container" style="display: none"></div>
-    <div id="loader" class="loader"></div>
-    @include('layouts.navbar')
-    @yield('content')
+    <div class="bg-body">
+        <div class="loader-container" id="loader-container" style="display: none"></div>
+        <div id="loader" class="loader"></div>
+        @include('layouts.navbar')
+        @yield('content')
 
-    {{--  jquery 3.7  --}}
-    <script src="{{ asset('dist/js/jquery.min.js') }}"></script>
-    <script src="{{ asset('dist/js/bootstrap.bundle.min.js') }}"></script>
-    {{--  sweet  --}}
-    <script src="{{ asset('dist/js/sweetalert2.all.min.js') }}"></script>
-    @stack('script')
-    @stack('scroll')
-    <script>
-        // loader when location reload
-        window.onbeforeunload = function() {
-            isLoading = true;
-            document.getElementById('loader').style.display = 'block';
-            document.getElementById('loader-container').style.display = 'block';
-        };
-        // Hide loader when page is loaded
-        window.onload = function() {
-            document.getElementById('loader').style.display = 'none';
-            document.getElementById('loader-container').style.display = 'none';
-        };
-        // navigation history or back to page before
-        window.addEventListener('pageshow', function(event) {
-            // Cek apakah event.persisted adalah true, menunjukkan bahwa halaman dimuat kembali dari cache browser
-            if (event.persisted) {
-                // Tampilkan loader atau lakukan tindakan lain sesuai kebutuhan Anda
-                console.log('kembali ke halaman sebelum');
+        {{--  jquery 3.7  --}}
+        <script src="{{ asset('dist/js/jquery.min.js') }}"></script>
+        <script src="{{ asset('dist/js/bootstrap.bundle.min.js') }}"></script>
+        {{--  sweet  --}}
+        <script src="{{ asset('dist/js/sweetalert2.all.min.js') }}"></script>
+        @stack('script')
+        @stack('scroll')
+        <script>
+            // loader when location reload
+            window.onbeforeunload = function() {
+                isLoading = true;
+                document.getElementById('loader').style.display = 'block';
+                document.getElementById('loader-container').style.display = 'block';
+            };
+            // Hide loader when page is loaded
+            window.onload = function() {
                 document.getElementById('loader').style.display = 'none';
                 document.getElementById('loader-container').style.display = 'none';
-            }
-        });
-    </script>
+            };
+            // navigation history or back to page before
+            window.addEventListener('pageshow', function(event) {
+                // Cek apakah event.persisted adalah true, menunjukkan bahwa halaman dimuat kembali dari cache browser
+                if (event.persisted) {
+                    // Tampilkan loader atau lakukan tindakan lain sesuai kebutuhan Anda
+                    console.log('kembali ke halaman sebelum');
+                    document.getElementById('loader').style.display = 'none';
+                    document.getElementById('loader-container').style.display = 'none';
+                }
+            });
+        </script>
+
+    </div>
 </body>
 </html>
