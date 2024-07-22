@@ -29,7 +29,7 @@ class InvoiceController extends Controller
         return view('dashboard.admin.invoice.tagihan', compact('pembayaran'));
     }
     // datatable invoice
-    public function allInvoice(){
+    public function allInvoice(Request $request){
         $results = $this->Invoice->all_invoice();
         return DataTables::eloquent($results)
                 ->addColumn('nis', function($row){
@@ -39,10 +39,20 @@ class InvoiceController extends Controller
                     return $row->saba->nama_lengkap;
                 })
                 ->addColumn('action', function($row){
-                    $btn = '<a href="#" data-id="'.$row->id.'" class="btn btn-outline-primary btn-sm mt-1"><i class="lni lni-pencil-alt"></i></a>';
+                    $btn = '<a href="#" data-id="'.$row->id.'" class="setActive btn btn-outline-primary btn-sm mt-1"><i class="lni lni-pencil-alt"></i></a>';
                     return $btn;
                 })
                 ->addIndexColumn()
+                ->filter(function ($query) use ($request) {
+                    // Implementasi pencarian manual untuk kolom-kolom yang menggunakan relasi
+                    if ($request->has('search.value')) {
+                        $value = $request->input('search.value');
+                        $query->whereHas('saba', function ($query) use ($value) {
+                            $query->where('nis', 'like', '%' . $value . '%')
+                                  ->orWhere('nama_lengkap', 'like', '%' . $value . '%');
+                        });
+                    }
+                })
                 ->toJson();
     }
     // get id pembayaran
@@ -76,5 +86,9 @@ class InvoiceController extends Controller
             Log::error($th);
             throw $th;
         }
+    }
+    // set active santri
+    public function setActiveSantri($id){
+        return $this->Invoice->set_active($id);
     }
 }

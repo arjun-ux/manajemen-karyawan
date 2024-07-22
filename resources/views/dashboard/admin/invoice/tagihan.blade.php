@@ -76,6 +76,43 @@
 @endsection
 @push('script')
   <script>
+    $('body').on('click', '.setActive', function(){
+        var id = $(this).data("id");
+        Swal.fire({
+            icon: 'question',
+            title: 'Apakah Anda Akan Mengaktifkan Santri Terkait? Jika Iya, Maka Biaya Pendaftaran Akan Lunas!',
+            toast: true,
+            position: 'center',
+            showCancelButton: true,
+        }).then((value)=>{
+            if(value.isConfirmed){
+                setActive(id);
+            }
+        });
+        function setActive(id){
+            $.ajax({
+                url: '/set-active-santri/'+id,
+                type: 'GET',
+                success: function(res){
+                    Swal.fire({
+                        icon: 'success',
+                        title: res.message,
+                        toast: true,
+                        position: 'top-end',
+                        timer: 1500,
+                        showConfirmButton: false,
+                        timerProgressBar: true,
+                    }).then((value)=>{
+                        $('#tableTagihan').DataTable().ajax.reload();
+                    });
+                },
+                error: function(xhr, error){
+                    console.log(xhr)
+                    console.log(error)
+                }
+            });
+        }
+    });
 
     $('#formTagihanPendaftaran').submit(function(e){
         e.preventDefault();

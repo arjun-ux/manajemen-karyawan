@@ -72,6 +72,7 @@ Route::middleware('role:admin', 'throttle:admin')->group(function(){
     Route::get('/allInvoice', [InvoiceController::class, 'allInvoice']);
     Route::get('/get-pembayaran/{id}', [InvoiceController::class, 'getPembayaranId']);
     Route::post('/store-tagihan-pendaftaran', [InvoiceController::class, 'storeInvoicePendaftaran']);
+    Route::get('/set-active-santri/{id}', [InvoiceController::class, 'setActiveSantri']);
     // data santri
     Route::get('/saba-all', [AdminSabaController::class,'index'])->name('data_saba_all');
     Route::get('/getAllSantri', [AdminSabaController::class, 'getAllSantri']);

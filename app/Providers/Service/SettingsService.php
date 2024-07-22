@@ -56,6 +56,7 @@ class SettingsService extends ServiceProvider
     public static function getAllPemba(){
         return Pembayaran::query(['id','nama_pembayaran','nominal_pembayaran','jenis_pembayaran']);
     }
+
     // get pembayaran by id
     public static function get_pembayaran_by_id($id){
         return Pembayaran::query()->firstWhere('id',$id);
