@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\InvoiceRequest;
+use App\Models\Invoice;
 use App\Models\Pembayaran;
 use App\Providers\Service\InvoiceService;
 use App\Providers\Service\SantriService;
@@ -34,12 +35,17 @@ class InvoiceController extends Controller
         return DataTables::eloquent($results)
                 ->addColumn('nis', function($row){
                     return $row->saba->nis;
-                })
+                },true)
                 ->addColumn('nama_lengkap', function($row){
                     return $row->saba->nama_lengkap;
-                })
+                },true)
                 ->addColumn('action', function($row){
-                    $btn = '<a href="#" data-id="'.$row->id.'" class="setActive btn btn-outline-primary btn-sm mt-1"><i class="lni lni-pencil-alt"></i></a>';
+                    $btn = '';
+                    if ($row->status_tagihan == 'Lunas') {
+                        $btn = '<a href="#" data-id="'.$row->id.'" class="btn btn-success btn-sm mt-1"><i class="lni lni-checkmark"></i></a>';
+                    } else {
+                        $btn = '<a href="#" data-id="'.$row->id.'" class="setActive btn btn-danger btn-sm mt-1"><i class="lni lni-checkmark"></i></a>';
+                    }
                     return $btn;
                 })
                 ->addIndexColumn()
@@ -47,9 +53,15 @@ class InvoiceController extends Controller
                     // Implementasi pencarian manual untuk kolom-kolom yang menggunakan relasi
                     if ($request->has('search.value')) {
                         $value = $request->input('search.value');
-                        $query->whereHas('saba', function ($query) use ($value) {
-                            $query->where('nis', 'like', '%' . $value . '%')
-                                  ->orWhere('nama_lengkap', 'like', '%' . $value . '%');
+                        $query->where(function ($query) use ($value) {
+                            $query->whereHas('saba', function ($query) use ($value) {
+                                $query->where('nis', 'like', '%' . $value . '%')
+                                      ->orWhere('nama_lengkap', 'like', '%' . $value . '%');
+                            })
+                            ->orWhere('nama_tagihan', 'like', '%' . $value . '%')
+                            ->orWhere('jenis_tagihan', 'like', '%' . $value . '%')
+                            ->orWhere('tahun_ajaran', 'like', '%' . $value . '%')
+                            ->orWhere('bulan_ajaran', 'like', '%' . $value . '%');
                         });
                     }
                 })
@@ -70,13 +82,15 @@ class InvoiceController extends Controller
             if ($pembayaran->jenis_pembayaran == 'ALL') {
                 $nis = $request->nis;
                 $santri = $this->Santri->getSantri($nis);
+                $nisSudahAda = Invoice::query()->firstWhere('saba_id', $santri->id);
                 if (!$santri) {
                     return response()->json(['message'=>'Nis Tidak DItemukan'],404);
                 }elseif ($santri->status == 'Aktif') {
                     return response()->json(['message'=>'Nis Sudah Aktif'],404);
+                }elseif ($nisSudahAda) {
+                    return response()->json(['message'=>'Sudah Terdapata Tagihan Untuk Nis Tersebut'],404);
                 }
-                $results = $this->Invoice->store_pendataran_invoice($request, $santri);
-                return $results;
+                return $this->Invoice->store_pendataran_invoice($request, $santri);
             }elseif ($pembayaran->jenis_pembayaran == 'REGULAR') {
                 return $this->Invoice->set_invoice_spp($request);
             }else{

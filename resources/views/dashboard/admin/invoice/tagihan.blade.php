@@ -58,8 +58,8 @@
                                     <th class="text-center text-light">Nama</th>
                                     <th class="text-center text-light">Jenis</th>
                                     <th class="text-center text-light">Nominal</th>
-                                    <th class="text-center text-light">Tahun</th>
                                     <th class="text-center text-light">Bulan</th>
+                                    <th class="text-center text-light">Tahun</th>
                                     <th class="text-center text-light">Status</th>
                                     <th class="text-center text-light">Action</th>
                                 </tr>
@@ -204,8 +204,8 @@
                         return formatRupiah(data);
                     }
                 },
-                {data: 'tahun_ajaran', name: 'tahun_ajaran'},
                 {data: 'bulan_ajaran', name: 'bulan_ajaran'},
+                {data: 'tahun_ajaran', name: 'tahun_ajaran'},
                 {
                     data: 'status_tagihan',
                     name: 'status_tagihan',

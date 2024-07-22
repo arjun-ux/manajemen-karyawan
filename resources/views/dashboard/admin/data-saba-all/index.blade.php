@@ -23,6 +23,7 @@
                                     <th class="text-center text-light">NO</th>
                                     <th class="text-center text-light">NIS</th>
                                     <th class="text-center text-light">NAMA</th>
+                                    <th class="text-center text-light">STATUS</th>
                                     <th class="text-center text-light">ACTION</th>
                                 </tr>
                             </thead>
@@ -51,6 +52,19 @@
                 {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
                 {data: 'nis', name: 'nis'},
                 {data: 'nama_lengkap', name: 'nama_lengkap'},
+                {
+                    data: 'status',
+                    name: 'status',
+                    render: function(data, type, full, meta) {
+                        if (data === 'Register') {
+                            return '<span class="btn btn-sm btn-danger">Register</span>';
+                        } else if (data === 'Aktif') {
+                            return '<span class="btn btn-sm btn-success">Aktif</span>';
+                        } else {
+                            return data; // Handle other cases or return data as-is
+                        }
+                    }
+                },
                 {data: 'action', orderable: false, searchable: false}
 
             ]

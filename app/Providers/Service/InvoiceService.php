@@ -32,7 +32,7 @@ class InvoiceService extends ServiceProvider
     }
     // all Invoice
     public static function all_invoice(){
-        $datas = Invoice::query()->orderBy('created_at','desc');
+        $datas = Invoice::query()->orderBy('id','desc');
         return $datas;
     }
     // store invoice pendaftaran
@@ -103,7 +103,7 @@ class InvoiceService extends ServiceProvider
                 'bulan_ajaran' => $bulanHuruf,
             ]);
         }
-        return response()->json(['message'=>'Berhasil Membuat Tagihan']);
+        return response()->json(['message'=>'Berhasil Membuat Tagihan Spp Regular']);
     }
 
     // store invoice spp kk
@@ -112,6 +112,36 @@ class InvoiceService extends ServiceProvider
         if ($santris->isEmpty()) {
             return response()->json(['message'=>'Data Tidak Ditemukan'], 404);
         }
-        return response()->json([$santris]);
+        // ambil pembayaran jenis saudara kk
+        $pembayaran = SettingsService::get_pembayaran_by_id($request->nama_tagihan);
+        $bulanTahun = $request->bulanTahun;
+        list($tahun, $bulan) = explode('-', $bulanTahun);
+        // Array untuk mengubah angka bulan menjadi huruf
+        $namaBulan = [
+            '01' => 'Januari',
+            '02' => 'Februari',
+            '03' => 'Maret',
+            '04' => 'April',
+            '05' => 'Mei',
+            '06' => 'Juni',
+            '07' => 'Juli',
+            '08' => 'Agustus',
+            '09' => 'September',
+            '10' => 'Oktober',
+            '11' => 'November',
+            '12' => 'Desember',
+        ];
+        $bulanHuruf = $namaBulan[$bulan];
+        foreach ($santris as $santri) {
+            Invoice::create([
+                'saba_id' => $santri->id,
+                'nama_tagihan' => $pembayaran->nama_pembayaran,
+                'jenis_tagihan' => $pembayaran->jenis_pembayaran,
+                'nominal_tagihan' => $pembayaran->nominal_pembayaran,
+                'tahun_ajaran' => $tahun,
+                'bulan_ajaran' => $bulanHuruf,
+            ]);
+        }
+        return response()->json(['message'=>'Berhasil Membuat Tagihan Spp Saudara']);
     }
 }
