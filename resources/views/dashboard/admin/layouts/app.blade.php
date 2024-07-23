@@ -36,7 +36,7 @@
                     @yield('content')
                 </div>
             </main>
-            @include('dashboard.admin.layouts.footer')
+            {{--  @include('dashboard.admin.layouts.footer')  --}}
         </div>
     </div>
 

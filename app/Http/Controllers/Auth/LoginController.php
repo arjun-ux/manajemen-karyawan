@@ -21,16 +21,17 @@ class LoginController extends Controller
             'username' => 'required',
             'password' => 'required',
         ]);
-        // dd($credential);
         if (auth()->attempt($credential)) {
             if (auth()->user()->role === 'admin') {
-                session()->regenerate();
+                $request->session()->regenerate();
                 return redirect()->route('dashmin');
             }
-            session()->regenerate();
+            $request->session()->regenerate();
             return redirect()->route('dashba');
         }
-        return back()->with('error', 'Email atau Password Salah..!!!');
+        return redirect()->back()->withInput()->withErrors([
+            'errors' => 'Username Atau Password Salah.',
+        ]);
     }
     public function logout(Request $request)
     {

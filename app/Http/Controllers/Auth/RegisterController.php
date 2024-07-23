@@ -18,7 +18,8 @@ class RegisterController extends Controller
     // index register
     public function register()
     {
-        return view('auth.register');
+        return view('cadangan');
+        // return view('auth.register');
     }
     // function doRegister santri baru
     public function doRegister(Request $request)
@@ -29,6 +30,7 @@ class RegisterController extends Controller
             'password' => 'required|min:6',
         ],[
             'nama_lengkap.required' => 'Nama Lengkap Wajib Di Isi',
+            'no_wa.required' => 'Nama Lengkap Wajib Di Isi',
             'password.required' => 'Password Wajib Di Isi',
             'password.min' => 'Password Minimal 6 Karakter',
         ]);
