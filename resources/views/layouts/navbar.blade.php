@@ -17,7 +17,7 @@
             @else
                 <div class="toggle-drop" onclick="toggleDrop()">
                     <a href="#">
-                        {{ Auth::user()->name }},
+                        {{ Auth::user()->name }}
                         <img src="img/pp.png" alt="pp" height="40">
                     </a>
                 </div>

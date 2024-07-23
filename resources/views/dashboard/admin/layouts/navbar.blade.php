@@ -34,15 +34,15 @@
                         </a>
                         <ul id="pembayaran" class="sidebar-dropdown collapse" data-bs-parent="#sidebar">
                             <li class="li_pro">
-                                <a class="pro" href="#">
+                                <a class="pro" href="{{ route('index.invoice') }}">
                                     <i class="lni lni-checkmark-circle"></i>
-                                    Lunas
+                                    Tagihan
                                 </a>
                             </li>
                             <li class="li_pro">
                                 <a class="pro" href="#">
                                     <i class="lni lni-checkmark-circle"></i>
-                                    Belum Lunas
+                                    Daftar Transaksi
                                 </a>
                             </li>
                         </ul>
