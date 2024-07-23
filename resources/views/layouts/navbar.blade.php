@@ -17,13 +17,14 @@
             @else
                 <div class="toggle-drop" onclick="toggleDrop()">
                     <a href="#">
+                        {{ Auth::user()->name }},
                         <img src="img/pp.png" alt="pp" height="40">
                     </a>
                 </div>
                 <div class="dropdown-action" id="dropdownAction">
                     @if (Auth::user()->role === 'saba')
                     <a href="/dashba">My Profile</a>
-                    <a href="#">Log Out</a>
+                    <a href="#" id="logout">Log Out</a>
                     @elseif (Auth::user()->role === 'admin')
                     <a href="/dashmin">Dashboard</a>
                     <a href="#" id="logout">Log Out</a>

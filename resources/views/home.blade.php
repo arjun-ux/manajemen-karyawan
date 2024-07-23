@@ -1,20 +1,9 @@
 @extends('layouts.main')
 @section('content')
-<div class="container" style="padding-top: 60px">
-    <div class="row justify-content-center m-0">
-        <div class="col-md-8 text-center">
-            <div class="maskot">
-                SELAMAT DATANG
-            </div>
-        </div>
-    </div>
-    <div class="row justify-content-center m-0">
-        <div class="col-md-12 text-center">
-            <div class="ponpes">
-                PONPES KANAK KANAK DARUSSALAM BLOKAGUNG
-            </div>
-        </div>
-    </div>
+<div class="home">
+    <h1>Selamat Datang</h1>
+    <h4>Di Ponpes Kanak-Kanak Darussalam Blokagung.</h4>
+    <h5>Tegalsari-Banyuwangi</h5>
 </div>
 @endsection
 @push('scroll')

@@ -24,12 +24,11 @@ class Saba extends Model
         $lastSiswa = self::latest()->first();
         if ($lastSiswa == null) {
             // jika datanya kosong maka buatkan 0001
-            $noUrut = '0001';
+            $noUrut = 0001;
         } else {
             $noUrut = substr($lastSiswa->nis, 2, 4) + 1;
-            // $noUrut ='000' . $noUrut;
-            $noUrut = str_pad($noUrut, 4, '0', STR_PAD_LEFT);
         }
+        $noUrut = str_pad($noUrut, 4, '0', STR_PAD_LEFT);
         $nis = $getDuaAngka . $noUrut;
         return $nis;
     }

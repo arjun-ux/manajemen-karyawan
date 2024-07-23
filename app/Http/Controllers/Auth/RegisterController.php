@@ -43,7 +43,8 @@ class RegisterController extends Controller
                 'nis' => Saba::generateNis(),
                 'user_id' => $sabaUser->id,
                 'nama_lengkap' => $request->nama_lengkap,
-                // 'status' => 'Register',
+                'status' => 'Register',
+                'saudara_kandung' => 'TIDAK',
             ]);
             // Notif Wa
             $numberTarget = $request->no_wa;

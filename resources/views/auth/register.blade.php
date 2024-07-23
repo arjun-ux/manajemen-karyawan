@@ -1,54 +1,19 @@
 @extends('layouts.main')
 @section('content')
-<style>
-    body {
-        background-color: #b2d8d8;
-    }
-    .card-outline{
-    border-top: green solid 5px;
-}
-</style>
-<div class="container py-5">
-    <div class="row justify-content-center py-3">
-        <div class="col-md-4 col-sm-8 col-lg-4">
-            <div class="card card-outline">
-                <div class="card-header text-center border-light bg-white">
-                    <img class="mb-3" src="{{ asset('img/log.png') }}" alt="" width="90px">
-                    <p>REGISTRASI SANTRI BARU</p>
-                </div>
-                <div class="card-body text-center">
-                    <form action="{{ route('doRegister') }}" method="post">
-                        @csrf
-                        <div class="row mb-3">
-                            <div class="col-md-12">
-                                <div class="mt-2">
-                                    <input type="text" class="form-control @error('nama_lengkap') is-invalid @enderror" name="nama_lengkap" placeholder="Nama Lengkap" required
-                                    value="{{ old('nama_lengkap') }}" autofocus>
-                                    @error('nama_lengkap')
-                                        {{ $message }}
-                                    @enderror
-                                </div>
-                                <div class="mt-2">
-                                    <input type="text" class="form-control @error('no_wa') is-invalid @enderror" name="no_wa" placeholder="Nomor WhatsApp" required
-                                    value="{{ old('no_wa') }}">
-                                    @error('no_wa')
-                                        {{ $message }}
-                                    @enderror
-                                </div>
-                                <div class="mt-2">
-                                    <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Password" required>
-                                    @error('password')
-                                        {{ $message }}
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-
-                    <button class="btn btn-success" type="submit">Daftar</button>
-                </form>
-                </div>
-            </div>
+<div class="container-login">
+    <form class="login-form" action="{{ route('doRegister') }}" method="post">
+        @csrf
+        <div class="title">REGISTER</div>
+        <div class="form-group">
+            <input type="text" id="inputNo" name="no_wa" required placeholder="NO WhatsApp">
         </div>
-    </div>
+        <div class="form-group">
+            <input type="text" id="inputName" name="nama_lengkap" required placeholder="Nama Lengkap">
+        </div>
+        <div class="form-group">
+            <input type="password" id="password" name="password" required placeholder="Password">
+        </div>
+        <button type="submit">Daftar</button>
+    </form>
 </div>
 @endsection

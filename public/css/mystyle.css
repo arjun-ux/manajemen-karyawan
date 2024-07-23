@@ -1,12 +1,65 @@
-body {
+/* Reset CSS */
+* {
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
-
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
 }
+
+body {
+    position: relative;
+    /* display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; */
+}
+.home {
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 7rem;
+    padding: 20px;
+  }
+
+  .home h1 {
+    font-size: 40px;
+    color: #ffffff;
+    margin-bottom: 10px;
+    font-weight: 500;
+  }
+
+  .home h4 {
+    font-size: 40px;
+    color: #fdfdfd;
+    margin-bottom: 5px;
+    font-weight: 700;
+  }
+
+  .home h5 {
+    font-size: 20px;
+    color: #ffffff;
+  }
+
+  .home::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("https://picsum.photos/200/300"); /* replace with your own image */
+    background-size: cover;
+    background-position: center;
+    opacity: 0.2;
+    z-index: -1;
+  }
 .navbar {
     background-color: rgba(255, 255, 255, 0.5);
-    padding: 10px 20px;
+    padding: 8px 10px;
     border-radius: 20px;
     backdrop-filter: blur(10px);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -15,31 +68,37 @@ body {
     justify-content: space-between;
     align-items: center;
     width: 85%;
-}
-.navbar-logo {
+
+  }
+
+  .navbar-logo {
     display: inline-block;
-}
-.navbar-actions {
+  }
+
+  .navbar-actions {
     display: flex;
     align-items: center;
-}
-.navbar-actions a {
+  }
+
+  .navbar-actions a {
     display: block;
-    color: black;
+    color: var(--text-color);
     text-align: center;
     padding: 10px 15px;
     text-decoration: none;
-    /* margin-left: 10px; */
     border-radius: 20px;
-}
-.navbar-actions a:hover{
+    transition: background-color 0.3s ease;
+  }
+
+  .navbar-actions a:hover {
     background-color: #ddd;
-}
+  }
+
 .toggle-button {
     display: none; /* Sembunyikan tombol toggle awalnya */
-    align-items: center;
 }
-.toggle-button a{
+
+.toggle-button a {
     display: block;
     color: black;
     text-align: center;
@@ -48,73 +107,52 @@ body {
     margin-left: 10px;
     border-radius: 20px;
 }
-.toggle-button a:hover{
+
+.toggle-button a:hover {
     background-color: #ddd;
 }
-
-.maskot {
-    font-size: 3vw; /* Ukuran font berbasis viewport width */
-    font-weight: 700;
-    color: #ffffff; /* Warna teks */
-    text-transform: uppercase; /* Huruf kapital semua */
-    transition: all 0.3s ease; /* Animasi perubahan */
-    display: inline-block; /
-}
-.maskot:hover {
-    transform: scale(1.1); /* Perbesar sedikit saat hover */
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Bayangan lebih kuat */
-}
-.ponpes {
-    font-size: 2vw; /* Ukuran font berbasis viewport width */
-    font-weight: 700;
-    color: #333; /* Warna teks */
-    text-transform: uppercase; /* Huruf kapital semua */
-    transition: all 0.3s ease; /* Animasi perubahan */
-    display: inline-block; /
-}
-.ponpes:hover {
-    transform: scale(1.1); /* Perbesar sedikit saat hover */
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Bayangan lebih kuat */
-}
-.toggle-drop{
-    display: block; /* Sembunyikan tombol toggle awalnya */
-    align-items: center;
+.toggle-drop a {
+    text-decoration: none;
+    color: var(--text-color);
 }
 .dropdown-action {
     display: none;
     flex-direction: column;
     align-items: flex-end;
-    margin-top: 8px;
     position: absolute;
     top: 100%;
     right: 20px;
     background-color: rgba(255, 255, 255, 0.846);
     padding: 10px;
     border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    z-index: 1000;
-    opacity: 1;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease;
 }
+
 .dropdown-action.show {
-    display: flex !important; /* Mengesampingkan display: none; */
-    animation: fadeIn 0.5s ease; /* Animasi untuk muncul */
+    display: flex !important;
+    animation: fadeIn 0.5s ease;
     opacity: 1;
     pointer-events: auto;
 }
-.dropdown-action.show a{
-    border-radius: 10px;
-    display: flex;
+
+.dropdown-action.show a {
+    display: block;
     color: black;
     text-align: center;
     padding: 10px 15px;
     text-decoration: none;
+    border-radius: 10px;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
-.dropdown-action.show a:hover{
+
+.dropdown-action.show a:hover {
     background-color: #6b6b6b;
     color: white;
 }
+
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -123,15 +161,15 @@ body {
         opacity: 1;
     }
 }
+
 @media screen and (max-width: 768px) {
     .navbar {
         flex-wrap: wrap;
     }
 
     .navbar-actions {
-        display: none; /* Sembunyikan .navbar-actions di layar kecil */
+        display: none;
         flex-direction: column;
-        /* align-items: flex-end; */
         margin-top: 8px;
         position: absolute;
         top: 100%;
@@ -139,44 +177,119 @@ body {
         background-color: rgba(255, 255, 255, 0.846);
         padding: 10px;
         border-radius: 5px;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        z-index: 1000;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         opacity: 1;
         pointer-events: none;
         transition: opacity 0.3s ease;
     }
+
     .navbar-actions.show {
-        display: flex !important; /* Mengesampingkan display: none; */
-        animation: fadeIn 0.5s ease; /* Animasi untuk muncul */
+        display: flex !important;
+        animation: fadeIn 0.5s ease;
         opacity: 1;
         pointer-events: auto;
     }
-    .navbar-actions.show a{
+
+    .navbar-actions.show a {
         border-radius: 10px;
     }
-    .navbar-actions.show a:hover{
+
+    .navbar-actions.show a:hover {
         background-color: #6b6b6b;
         color: white;
     }
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-        }
-        to {
-            opacity: 1;
-        }
-    }
+
     .toggle-button {
         display: block;
     }
-    .maskot {
-        font-size: 26px; /* Ukuran font berbasis viewport width */
-        font-weight: 700;
-        color: #444444; /* Warna teks */
-    }
-    .ponpes {
-        font-size: 18px; /* Ukuran font berbasis viewport width */
-        font-weight: 700;
-        color: #fcfcfc; /* Warna teks */
-    }
+
 }
+
+.card-outline {
+    border-top: green solid 5px;
+}
+
+.container-login{
+    width: 300px; /* adjust the width to your liking */
+    margin: 70px auto; /* add some margin to create space around the container */
+    text-align: center;
+}
+
+.login-form {
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+}
+
+.login-form .title {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 25px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #c6c6c6;
+    border-radius: 5px;
+    outline: none;
+}
+
+.login-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.login-form button:hover {
+    background-color: #45a049;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    /* background-color: rgba(255, 255, 255, 0.5); */
+    padding: 10px 10px;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    margin-top: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  footer ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    /* justify-content: space-between; */
+  }
+
+  footer li {
+    margin-right: 20px;
+  }
+
+  footer a {
+    color: #666;
+    text-decoration: none;
+  }
+
+  footer a:hover {
+    color: #333;
+  }
