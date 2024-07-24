@@ -606,6 +606,7 @@
         });
         function updateSaudaraKandung(id_saudara){
             $('#loader').show();
+            $('#loader-container').show();
             $.ajax({
                 url: '/updateSaudaraKandung',
                 type: 'POST',
@@ -615,10 +616,12 @@
                 },
                 success: function(res){
                     $('#loader').hide();
+                    $('#loader-container').hide();
                     console.log(res)
                 },
                 error: function(xhr, error){
                     $('#loader').hide();
+                    $('#loader-container').hide();
                     console.log(xhr)
                     console.log(error)
                 }
