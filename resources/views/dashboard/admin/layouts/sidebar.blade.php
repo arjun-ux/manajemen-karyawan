@@ -34,6 +34,12 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
+                    <a href="{{ route('transaksi') }}" class="sidebar-link">
+                        <i class="lni lni-checkmark-circle"></i>
+                        Transaksi
+                    </a>
+                </li>
+                <li class="sidebar-item">
                     <a href="#" class="sidebar-link">
                         <i class="lni lni-checkmark-circle"></i>
                         Daftar Transaksi

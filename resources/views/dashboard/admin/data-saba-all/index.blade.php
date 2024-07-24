@@ -58,6 +58,8 @@
                     render: function(data, type, full, meta) {
                         if (data === 'Register') {
                             return '<span class="btn btn-sm btn-danger">Register</span>';
+                        } else if (data === 'Pending') {
+                            return '<span class="btn btn-sm btn-warning">Pending</span>';
                         } else if (data === 'Aktif') {
                             return '<span class="btn btn-sm btn-success">Aktif</span>';
                         } else {

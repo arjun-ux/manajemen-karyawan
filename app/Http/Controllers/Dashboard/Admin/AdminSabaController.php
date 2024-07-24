@@ -12,6 +12,7 @@ use App\Providers\RouteParamService as routeParam;
 use App\Providers\Service\IndoRegionService;
 use App\Providers\Service\SantriService;
 use App\Providers\Service\WhatsAppService;
+use Illuminate\Support\Facades\Log;
 use Yajra\DataTables\Facades\DataTables;
 
 
@@ -33,19 +34,28 @@ class AdminSabaController extends Controller
         return view('dashboard.admin.data-saba-all.index');
     }
     // datatable santri all
-    public function getAllSantri(){
-        $data = $this->santri->getAll();
-        return DataTables::eloquent($data)
-            ->addColumn('action', function($row){
-                $btn = '<a href="/show-saba/'.routeParam::encode($row->id).'" class="btn_edit btn btn-outline-primary btn-sm mt-1"><i class="lni lni-pencil-alt"></i></a>';
-                $btn .= ' <a href="/lihat-santri/'.routeParam::encode($row->id).' " class="btn btn-outline-warning btn-sm mt-1"><i class="lni lni-empty-file"></i></a>';
-                $btn .= ' <a href="#" class="btn-nonAktif btn btn-outline-danger btn-sm mt-1"><i class="lni lni-trash-can"></i></a>';
-                return $btn;
-            })
-            ->rawColumns(['action'])
-            ->addIndexColumn()
-            ->toJson();
+    public function getAllSantri()
+    {
+        try {
+            $data = $this->santri->getAll(); // Memanggil metode optimasi getAll() yang telah diperbaiki
+
+            return DataTables::eloquent($data)
+                ->addColumn('action', function($row){
+                    $btn = '<a href="/show-saba/'.routeParam::encode($row->id).'" class="btn_edit btn btn-outline-primary btn-sm mt-1"><i class="lni lni-pencil-alt"></i></a>';
+                    $btn .= ' <a href="/lihat-santri/'.routeParam::encode($row->id).' " class="btn btn-outline-warning btn-sm mt-1"><i class="lni lni-empty-file"></i></a>';
+                    $btn .= ' <a href="#" class="btn-nonAktif btn btn-outline-danger btn-sm mt-1"><i class="lni lni-trash-can"></i></a>';
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->addIndexColumn()
+                ->toJson();
+        } catch (\Exception $e) {
+            // Tangani exception dengan pesan yang relevan atau lakukan logging
+            Log::error('Error saat mengambil data santri: ' . $e->getMessage());
+            return response()->json(['error' => 'Terjadi kesalahan saat memproses permintaan.'], 500);
+        }
     }
+
     // create santri
     public function create(){
         $provinsi = $this->indo->Provinsi();

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\InvoiceRequest;
 use App\Models\Invoice;
 use App\Models\Pembayaran;
+use App\Providers\RouteParamService as routeParam;
 use App\Providers\Service\InvoiceService;
 use App\Providers\Service\SantriService;
 use App\Providers\Service\SettingsService;
@@ -29,6 +30,20 @@ class InvoiceController extends Controller
         $pembayaran =  Pembayaran::query()->get();
         return view('dashboard.admin.invoice.tagihan', compact('pembayaran'));
     }
+    // show tagihan by id santri
+    public function DetailtagihanSantri($id){
+        $id = routeParam::decode($id);
+        return view('dashboard.admin.invoice.tagihan_santri_by_id',compact('id'));
+    }
+    public function dataTagihanSantri($id){
+        $tagihan = $this->Invoice->getTagihanSantri($id);
+        $santri = $this->Santri->get_santri_id($tagihan->saba_id);
+        return response()->json([
+            'tagihan'=> $tagihan,
+            'santri' => $santri
+        ]);
+    }
+
     // datatable invoice
     public function allInvoice(Request $request){
         $results = $this->Invoice->all_invoice();
@@ -40,12 +55,7 @@ class InvoiceController extends Controller
                     return $row->saba->nama_lengkap;
                 },true)
                 ->addColumn('action', function($row){
-                    $btn = '';
-                    if ($row->status_tagihan == 'Lunas') {
-                        $btn = '<a href="#" data-id="'.$row->id.'" class="btn btn-success btn-sm mt-1"><i class="lni lni-checkmark"></i></a>';
-                    } else {
-                        $btn = '<a href="#" data-id="'.$row->id.'" class="setActive btn btn-danger btn-sm mt-1"><i class="lni lni-checkmark"></i></a>';
-                    }
+                    $btn = '<a href="/detail-tagihan-santri/'.routeParam::encode($row->id).'" class="btnShow btn btn-outline-primary btn-sm mt-1"><i class="lni lni-empty-file"></i></a>';
                     return $btn;
                 })
                 ->addIndexColumn()
@@ -85,6 +95,8 @@ class InvoiceController extends Controller
                 $nisSudahAda = Invoice::query()->firstWhere('saba_id', $santri->id);
                 if (!$santri) {
                     return response()->json(['message'=>'Nis Tidak DItemukan'],404);
+                }elseif ($santri->status == 'Pending') {
+                    return response()->json(['message'=>'Sudah Terdapat Tagihan Tapi Masih Pending'],404);
                 }elseif ($santri->status == 'Aktif') {
                     return response()->json(['message'=>'Nis Sudah Aktif'],404);
                 }elseif ($nisSudahAda) {

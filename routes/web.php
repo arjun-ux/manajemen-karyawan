@@ -13,6 +13,7 @@ use App\Http\Controllers\Dashboard\Saba\AsalSekolahController;
 use App\Http\Controllers\Dashboard\Saba\BerkasController;
 use App\Http\Controllers\Dashboard\Saba\OrtuController;
 use App\Http\Controllers\Dashboard\Saba\SabaController;
+use App\Http\Controllers\Dashboard\TransaksiController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PekerjaanController;
 use App\Http\Controllers\PendidikanController;
@@ -73,6 +74,11 @@ Route::middleware('role:admin', 'throttle:admin')->group(function(){
     Route::get('/get-pembayaran/{id}', [InvoiceController::class, 'getPembayaranId']);
     Route::post('/store-tagihan-pendaftaran', [InvoiceController::class, 'storeInvoicePendaftaran']);
     Route::get('/set-active-santri/{id}', [InvoiceController::class, 'setActiveSantri']);
+    Route::get('/detail-tagihan-santri/{id}', [InvoiceController::class, 'DetailtagihanSantri']);
+    Route::get('/data-tagihan/{id}', [InvoiceController::class, 'dataTagihanSantri']);
+    // transaksi---------------------------------------------------------------------------------------------------------
+    Route::get('/transaksi', [TransaksiController::class, 'index'])->name('transaksi');
+    Route::get('/tagihan-psb-by-nis/{nis}', [TransaksiController::class, 'cekTagihanPSB']);
     // data santri
     Route::get('/saba-all', [AdminSabaController::class,'index'])->name('data_saba_all');
     Route::get('/getAllSantri', [AdminSabaController::class, 'getAllSantri']);

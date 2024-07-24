@@ -22,13 +22,25 @@ use Carbon\Carbon;
 class SantriService extends ServiceProvider
 {
     protected $request;
+    // get santri by nis
+    public static function get_santri_nis($nis){
+        $data = Saba::query()->firstWhere('nis',$nis);
+        if ($data == null) {
+            return response()->json(['message'=>'Data Tidak Ditemukan']);
+        }
+        return $data;
+    }
+    // get santri by id nya saja
+    public static function get_santri_id($id){
+        return Saba::query()->firstWhere('id', $id);
+    }
     // get santri saudara kandung untuk invoice spp
     public static function get_santri_SPP(){
-        return Saba::query()->where('saudara_kandung', 'TIDAK')->where('status','Aktif')->get(['id','nis','nama_lengkap','status']);
+        return Saba::query()->where('saudara_kandung', 'TIDAK')->where('status','Pending')->get(['id','nis','nama_lengkap','status']);
     }
     // get santri bukan saudara kandung untuk invoice spp
     public static function santriSPPKK(){
-        return Saba::query()->where('saudara_kandung', 'YA')->where('status','Aktif')->get(['id','nis','nama_lengkap','status']);
+        return Saba::query()->where('saudara_kandung', 'YA')->where('status','Pending')->get(['id','nis','nama_lengkap','status']);
     }
     // get santri for create tagihan
     public static function getSantri($nis){

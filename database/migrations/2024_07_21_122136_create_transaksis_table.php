@@ -13,9 +13,11 @@ return new class extends Migration
     {
         Schema::create('transaksis', function (Blueprint $table) {
             $table->id();
+            $table->string('kode_transaksi');
             $table->unsignedBigInteger('saba_id')->nullable();
             $table->unsignedBigInteger('tagihan_id')->nullable();
             $table->string('nominal')->nullable();
+            $table->string('status')->nullable();
             $table->date('tgl_transaksi');
             $table->timestamps();
         });

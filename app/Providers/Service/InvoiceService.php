@@ -12,9 +12,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
 use PhpParser\Node\Stmt\Return_;
+use PhpParser\Node\Stmt\Static_;
+
+use function PHPUnit\Framework\isType;
 
 class InvoiceService extends ServiceProvider
 {
+    // get tagihan Santri
+    public static function getTagihanSantri($id){
+        return Invoice::query()->firstWhere('id',$id);
+    }
     // set active santri
     public static function set_active($id){
         // set active santri
@@ -93,6 +100,15 @@ class InvoiceService extends ServiceProvider
             '12' => 'Desember',
         ];
         $bulanHuruf = $namaBulan[$bulan];
+        // ambil data bulan tahun invoice
+        $bulanTahunInvoice = Invoice::where('bulan_ajaran', $bulanHuruf)
+                            ->where('tahun_ajaran',$tahun)
+                            ->where('nama_tagihan', $pembayaran->nama_pembayaran)
+                            ->first();
+        // cek apakah bulan tahun sudah ada invoice
+        if ($bulanTahunInvoice) { // jika sudah ada, maka kembalikan error
+            return response()->json(['message'=>'Data Bulan Ini Sudah Ada'], 404);
+        }
         foreach ($santris as $santri) {
             Invoice::create([
                 'saba_id' => $santri->id,
@@ -132,6 +148,15 @@ class InvoiceService extends ServiceProvider
             '12' => 'Desember',
         ];
         $bulanHuruf = $namaBulan[$bulan];
+        // ambil data invoice bulan
+        $bulanTahunInvoice = Invoice::where('bulan_ajaran', $bulanHuruf)
+                            ->where('tahun_ajaran',$tahun)
+                            ->where('nama_tagihan', $pembayaran->nama_pembayaran)
+                            ->first();
+        // cek apakah bulan tahun sudah ada invoice
+        if ($bulanTahunInvoice) { // jika sudah ada, maka kembalikan error
+            return response()->json(['message'=>'Data Bulan Ini Sudah Ada'], 404);
+        }
         foreach ($santris as $santri) {
             Invoice::create([
                 'saba_id' => $santri->id,

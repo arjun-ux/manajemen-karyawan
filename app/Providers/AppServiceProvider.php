@@ -10,6 +10,7 @@ use App\Providers\Service\PdfService;
 use App\Providers\Service\PekerjaanService;
 use App\Providers\Service\PendidikanService;
 use App\Providers\Service\SettingsService;
+use App\Providers\Service\TransaksiService;
 use App\Providers\Service\UserService;
 use App\Providers\Service\WhatsAppService;
 use Illuminate\Support\ServiceProvider;
@@ -61,6 +62,10 @@ class AppServiceProvider extends ServiceProvider
         // invoice
         $this->app->singleton(InvoiceService::class, function($app){
             return new InvoiceService($app);
+        });
+        // trasaksi
+        $this->app->singleton(TransaksiService::class, function($app){
+            return new TransaksiService($app);
         });
     }
 
