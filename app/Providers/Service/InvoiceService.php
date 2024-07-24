@@ -11,7 +11,7 @@ class InvoiceService extends ServiceProvider
 {
     // get tagihan Santri
     public static function getTagihanSantri($id){
-        return Invoice::query()->firstWhere('id',$id)->first(['id','saba_id','nama_tagihan','nominal_tagihan']);
+        return Invoice::query()->where('saba_id',$id)->first(['id','saba_id','nama_tagihan','nominal_tagihan']);
     }
     // set active santri
     public static function set_active($id){
@@ -116,6 +116,7 @@ class InvoiceService extends ServiceProvider
     // store invoice spp kk
     public static function set_invoice_sppKK(InvoiceRequest $request){
         $santris = SantriService::santriSPPKK();
+        // return response()->json([$santris]);
         if ($santris->isEmpty()) {
             return response()->json(['message'=>'Data Tidak Ditemukan'], 404);
         }

@@ -152,11 +152,38 @@
                 data: $(this).serialize(),
                 dataType: 'json',
                 success: function(res){
-                    console.log(res);
+                    Swal.fire({
+                        icon: "success",
+                        title: res.message,
+                        toast: true,
+                        position: "top-end",
+                        timer: 1500,
+                        showConfirmButton: false,
+                        timerProgressBar: true,
+                    }).then(()=>{
+                        $('#inputNis').val(null);
+                        $('#inputNama').val(null);
+                        $('#inputTagihan').val(null);
+                        $('#nominalTagihan').val(null);
+                        $('#jumlahDibayar').val(null);
+                    });
                 },
                 error: function(xhr, error){
-                    console.log(xhr)
-                    console.log(error)
+                    $('#loader').hide();
+                    if (xhr.status === 404) {
+                        toastr.error(xhr.responseJSON.message);
+                    } else {
+                        let errorMessages = xhr.responseJSON.errors;
+                        if (errorMessages) {
+                            Object.keys(errorMessages).forEach((key) => {
+                                errorMessages[key].forEach((errorMessage) => {
+                                    toastr.error(errorMessage);
+                                });
+                            });
+                        } else {
+                            toastr.error('Terjadi kesalahan: ' + xhr.status + ' ' + xhr.statusText);
+                        }
+                    }
                 }
             });
         });

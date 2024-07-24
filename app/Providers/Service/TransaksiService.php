@@ -15,10 +15,18 @@ class TransaksiService extends ServiceProvider
         $invoice = InvoiceService::getTagihanSantri($request->sabaId);
         $nt = intval($invoice->nominal_tagihan); // nominal tagihan
 
-        $nominal_cleaned = str_replace(['Rp ', '.'], '', $request['nominal']); //pembersihan Rp
+        // jika datanya sudah 0 maka kembalikan error bahwa sudah lunas
+        if ($nt == 0) {
+            return response()->json(['message'=>'Data Ini Sudah Lunas'],404);
+        }
 
+        $nominal_cleaned = str_replace(['Rp ', '.'], '', $request['nominal']); //pembersihan Rp
         $nb = intval($nominal_cleaned); // nominal bayar
         $n = $nt - $nb; // hasil pengurangan
+
+        if ($nb > $nt) {
+            return response()->json(['message'=>'Jumlah Bayar Tidak Boleh Melebihi Tagihan'],404);
+        }
 
         $santri = SantriService::get_santri_id($request->sabaId);
         // jika ada sisa maka
@@ -62,5 +70,6 @@ class TransaksiService extends ServiceProvider
             ]);
             return response()->json(['message'=>'Transaksi Berhasil']);
         }
+
     }
 }

@@ -84,7 +84,6 @@
             type: 'POST',
             data: $('#formTagihanPendaftaran').serialize(),
             success: function(res){
-                console.log(res)
                 Swal.fire({
                     icon: "success",
                     title: res.message,

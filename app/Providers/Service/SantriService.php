@@ -24,7 +24,7 @@ class SantriService extends ServiceProvider
     protected $request;
     // get santri by nis
     public static function get_santri_nis($nis){
-        $data = Saba::query()->firstWhere('nis',$nis)->first(['id','nama_lengkap','nis']);
+        $data = Saba::query()->where('nis',$nis)->first(['id','nama_lengkap','nis']);
         if ($data == null) {
             return response()->json(['message'=>'Data Tidak Ditemukan']);
         }
@@ -36,11 +36,19 @@ class SantriService extends ServiceProvider
     }
     // get santri saudara kandung untuk invoice spp
     public static function get_santri_SPP(){
-        return Saba::query()->where('saudara_kandung', 'TIDAK')->where('status','Pending')->get(['id','nis','nama_lengkap','status']);
+        return Saba::query()
+                    ->where('saudara_kandung', 'TIDAK')
+                    ->whereNot('status','Register')
+                    // ->where('status','Pending')
+                    ->get(['id','nis','nama_lengkap','status']);
     }
     // get santri bukan saudara kandung untuk invoice spp
     public static function santriSPPKK(){
-        return Saba::query()->where('saudara_kandung', 'YA')->where('status','Pending')->get(['id','nis','nama_lengkap','status']);
+        return Saba::query()
+                    ->where('saudara_kandung', 'YA')
+                    ->whereNot('status','Register')
+                    // ->where('status','Pending')
+                    ->get(['id','nis','nama_lengkap','status']);
     }
     // get santri for create tagihan
     public static function getSantri($nis){
