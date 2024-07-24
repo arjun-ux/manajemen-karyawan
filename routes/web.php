@@ -79,6 +79,7 @@ Route::middleware('role:admin', 'throttle:admin')->group(function(){
     // transaksi---------------------------------------------------------------------------------------------------------
     Route::get('/transaksi', [TransaksiController::class, 'index'])->name('transaksi');
     Route::get('/tagihan-psb-by-nis/{nis}', [TransaksiController::class, 'cekTagihanPSB']);
+    Route::post('/store-transaksi-tagihan-psb', [TransaksiController::class, 'storeTagihanPSB']);
     // data santri
     Route::get('/saba-all', [AdminSabaController::class,'index'])->name('data_saba_all');
     Route::get('/getAllSantri', [AdminSabaController::class, 'getAllSantri']);

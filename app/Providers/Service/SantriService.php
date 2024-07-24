@@ -24,7 +24,7 @@ class SantriService extends ServiceProvider
     protected $request;
     // get santri by nis
     public static function get_santri_nis($nis){
-        $data = Saba::query()->firstWhere('nis',$nis);
+        $data = Saba::query()->firstWhere('nis',$nis)->first(['id','nama_lengkap','nis']);
         if ($data == null) {
             return response()->json(['message'=>'Data Tidak Ditemukan']);
         }

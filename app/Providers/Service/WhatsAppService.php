@@ -36,4 +36,28 @@ class WhatsAppService extends ServiceProvider
             return response()->json(['message' => 'gagal']);
         }
     }
+    // public static function sendNotif($targetNumber, $message){
+    //     $url = 'https://gateway.buku-tamu.com/send-message'; // Ganti dengan URL yang sesuai
+    //     $data = array(
+    //         'api_key' => 'oiKsUZ2ivo80bnqlkswiOFacC4FJhuYT',
+    //         'sender' => '6283873757064',
+    //         'number' => $targetNumber,
+    //         'message' => $message,
+    //     );
+
+    //     $payload = json_encode($data);
+
+    //     $ch = curl_init($url);
+    //     curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+    //     curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+    //     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+    //     $result = curl_exec($ch);
+
+    //     if ($result == true) {
+    //         return response()->json(['message' => 'berhasil',]);
+    //     }else{
+    //         return response()->json(['message' => 'gagal']);
+    //     }
+    // }
 }

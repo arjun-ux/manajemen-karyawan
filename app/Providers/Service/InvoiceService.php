@@ -4,23 +4,14 @@ namespace App\Providers\Service;
 
 use App\Http\Requests\InvoiceRequest;
 use App\Models\Invoice;
-use App\Models\Pembayaran;
-use App\Models\Saba;
-use App\Models\TahunAjaran;
 use App\Models\Transaksi;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
-use PhpParser\Node\Stmt\Return_;
-use PhpParser\Node\Stmt\Static_;
-
-use function PHPUnit\Framework\isType;
 
 class InvoiceService extends ServiceProvider
 {
     // get tagihan Santri
     public static function getTagihanSantri($id){
-        return Invoice::query()->firstWhere('id',$id);
+        return Invoice::query()->firstWhere('id',$id)->first(['id','saba_id','nama_tagihan','nominal_tagihan']);
     }
     // set active santri
     public static function set_active($id){

@@ -10,7 +10,7 @@
                         <table class="table">
                             <th class="col-md-8" style="background-color: rgb(233, 246, 232)">Transaksi</th>
                             <th class="col-md-3 text-end" style="background-color: rgb(233, 246, 232)">
-                                <select name="" id="pilihTransaksi" class="form-control-sm" style="outline: none">
+                                <select name="" id="pilihTransaksi" class="form-control form-control-sm" >
                                     <option value="">-- Pilih Transaksi --</option>
                                     <option value="PSB">PENDAFTARAN SANTRI BARU</option>
                                     <option value="SPP">SPP</option>
@@ -25,7 +25,11 @@
                     <div class="card card-outline">
                         <div class="card-header fw-medium">Buat Transaksi</div>
                         <div class="card-body">
+
                             <form id="formPendaftaran" style="display: none">
+                                @csrf
+                                <input type="hidden" name="sabaId" id="saba_id">
+                                <input type="hidden" name="tagihanId" id="tagihan_id">
                                 <div class="row g-3 align-items-center mb-2">
                                     <div class="col-md-4">
                                         <label for="nis" class="col-form-label">Masukan Nis</label>
@@ -35,7 +39,46 @@
                                         placeholder="Nis 6 Digit">
                                     </div>
                                 </div>
+                                <div class="row g-3 align-items-center mb-2">
+                                    <div class="col-md-4">
+                                        <label for="nama_lengkap" class="col-form-label fw-bold">Nama Santri</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" name="nama_lengkap" id="inputNama" class="form-control" readonly>
+                                    </div>
+                                </div>
+                                <div class="row g-3 align-items-center mb-2">
+                                    <div class="col-md-4">
+                                        <label for="nama_tagihan" class="col-form-label fw-bold">Nama Tagihan</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" name="nama_tagihan" id="inputTagihan" class="form-control" readonly>
+                                    </div>
+                                </div>
+                                <div class="row g-3 align-items-center mb-2">
+                                    <div class="col-md-4">
+                                        <label for="nominalTagihan" class="col-form-label fw-bold">Total Tagihan</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" name="nominalTagihan" id="nominalTagihan" class="form-control" readonly onkeyup="InputRupiah(this)">
+                                    </div>
+                                </div>
+                                <div class="row g-3 align-items-center mb-2">
+                                    <div class="col-md-4">
+                                        <label for="nominal" class="col-form-label fw-bold">Jumlah Dibayar</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" name="nominal" id="jumlahDibayar" class="form-control" onkeyup="InputRupiah(this)">
+                                    </div>
+                                </div>
+                                <div class="row g-3 align-items-center mb-2">
+                                    <button type="submit" class="form-control" style="background-color: green; color: white; outline:none;">Simpan</button>
+                                </div>
                             </form>
+
+
+
+
                             <form id="formSpp" style="display: none">
                                 <div>
                                     transaksi spp
@@ -80,7 +123,16 @@
                     type: 'GET',
                     dataType: 'json',
                     success: function(res){
-                        console.log(res)
+                        var nominal = res.tagihan.nominal_tagihan;
+                        var nominal_tagihan = formatRupiah(nominal);
+
+                        $('#saba_id').val(res.santri.id);
+                        $('#tagihan_id').val(res.tagihan.id);
+                        $('#inputNama').val(res.santri.nama_lengkap);
+                        $('#inputTagihan').val(res.tagihan.nama_tagihan);
+                        $('#nominalTagihan').val(nominal_tagihan);
+
+
                     },
                     error: function(xhr, error){
                         console.log(xhr)
@@ -89,6 +141,24 @@
                 });
             }
             return;
+        });
+
+        $('#formPendaftaran').submit(function(e){
+            e.preventDefault();
+
+            $.ajax({
+                url: '/store-transaksi-tagihan-psb',
+                type: 'POST',
+                data: $(this).serialize(),
+                dataType: 'json',
+                success: function(res){
+                    console.log(res);
+                },
+                error: function(xhr, error){
+                    console.log(xhr)
+                    console.log(error)
+                }
+            });
         });
     });
     // Fungsi untuk format rupiah

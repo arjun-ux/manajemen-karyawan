@@ -26,7 +26,16 @@ class TransaksiController extends Controller
     // cek tagihan pendaftaran
     public function cekTagihanPSB($nis){
         $santri = $this->Santri->get_santri_nis($nis);
-        return $santri;
+        $tagihan = $this->Invoice->getTagihanSantri($santri->id);
+        $data = [
+            'santri' => $santri,
+            'tagihan' => $tagihan
+        ];
+        return $data;
+    }
+    // store transaksi tagihan psb
+    public function storeTagihanPSB(Request $request){
+        return $this->Transaksi->store_tagihan_psb($request);
     }
     // cek tagihan spp
     public function cekTagihanSpp($nis){
