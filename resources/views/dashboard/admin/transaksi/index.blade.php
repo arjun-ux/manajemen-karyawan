@@ -76,12 +76,55 @@
                                 </div>
                             </form>
 
-
-
-
                             <form id="formSpp" style="display: none">
                                 <div>
-                                    transaksi spp
+                                    @csrf
+                                <input type="hidden" name="sabaId" id="IDSANTRI">
+                                <input type="hidden" name="tagihanId" id="IDTAGIHAN">
+                                <div class="row g-3 align-items-center mb-2">
+                                    <div class="col-md-4">
+                                        <label for="nis" class="col-form-label">Masukan Nis</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" name="nis" id="SppNIS" class="form-control"
+                                        placeholder="Nis 6 Digit">
+                                    </div>
+                                </div>
+                                <div class="row g-3 align-items-center mb-2">
+                                    <div class="col-md-4">
+                                        <label for="nama_lengkap" class="col-form-label fw-bold">Nama Santri</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" name="nama_lengkap" id="namaSantri" class="form-control" readonly>
+                                    </div>
+                                </div>
+                                <div class="row g-3 align-items-center mb-2">
+                                    <div class="col-md-4">
+                                        <label for="nama_tagihan" class="col-form-label fw-bold">Tagihan SPP</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" name="nama_tagihan" id="tagihanSpp" class="form-control" readonly>
+                                    </div>
+                                </div>
+                                <div class="row g-3 align-items-center mb-2">
+                                    <div class="col-md-4">
+                                        <label for="bulanTahun" class="col-form-label fw-bold">Bulan / Tahun</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" name="bulanTahun" id="bulanTahun" class="form-control" readonly>
+                                    </div>
+                                </div>
+                                <div class="row g-3 align-items-center mb-2">
+                                    <div class="col-md-4">
+                                        <label for="nominalTagihan" class="col-form-label fw-bold">Total Tagihan</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" name="nominalTagihan" id="nominalTagihanSpp" class="form-control" readonly onkeyup="InputRupiah(this)">
+                                    </div>
+                                </div>
+                                <div class="row g-3 align-items-center mb-2">
+                                    <button type="submit" class="form-control" style="background-color: green; color: white; outline:none;">Lunas</button>
+                                </div>
                                 </div>
                             </form>
                         </div>
@@ -142,6 +185,68 @@
             }
             return;
         });
+        $('#SppNIS').on('input',function(){
+            var nis = $(this).val();
+            if(nis.length === 6){
+                $.ajax({
+                    url: '/tagihan-spp-by-nis/'+nis,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(res){
+                        console.log(res)
+                        var nominal = res.tagihan.nominal_tagihan;
+                        var nominal_tagihan = formatRupiah(nominal);
+                        var bulan = res.tagihan.bulan_ajaran;
+                        var tahun = res.tagihan.tahun_ajaran;
+
+                        $('#IDSANTRI').val(res.tagihan.saba_id);
+                        $('#IDTAGIHAN').val(res.tagihan.id);
+                        $('#namaSantri').val(res.santri.nama_lengkap);
+                        $('#tagihanSpp').val(res.tagihan.nama_tagihan);
+                        $('#bulanTahun').val(bulan+' '+tahun);
+                        $('#nominalTagihanSpp').val(nominal_tagihan);
+                    },
+                    error: function(xhr, error){
+                        console.log(xhr)
+                        console.log(error)
+                    }
+                });
+            }
+            return;
+        });
+
+        $('#formSpp').submit(function(e){
+            e.preventDefault();
+
+            $.ajax({
+                url: '/store-transaksi-spp',
+                type: 'POST',
+                data: $(this).serialize(),
+                dataType: 'json',
+                success: function(res){
+                    console.log(res)
+                    Swal.fire({
+                        icon: "success",
+                        title: res.message,
+                        toast: true,
+                        position: "top-end",
+                        timer: 1500,
+                        showConfirmButton: false,
+                        timerProgressBar: true,
+                    }).then(()=>{
+                        $('#SppNIS').val(null);
+                        $('#namaSantri').val(null);
+                        $('#tagihanSpp').val(null);
+                        $('#nominalTagihanSpp').val(null);
+                        $('#bulanTahun').val(null);
+                    });
+                },
+                error: function(xhr, error){
+                    console.log(xhr)
+                    console.log(error)
+                }
+            })
+        })
 
         $('#formPendaftaran').submit(function(e){
             e.preventDefault();

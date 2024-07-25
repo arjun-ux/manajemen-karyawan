@@ -80,6 +80,8 @@ Route::middleware('role:admin', 'throttle:admin')->group(function(){
     Route::get('/transaksi', [TransaksiController::class, 'index'])->name('transaksi');
     Route::get('/tagihan-psb-by-nis/{nis}', [TransaksiController::class, 'cekTagihanPSB']);
     Route::post('/store-transaksi-tagihan-psb', [TransaksiController::class, 'storeTagihanPSB']);
+    Route::get('/tagihan-spp-by-nis/{nis}', [TransaksiController::class, 'cekTagihanSpp']);
+    Route::post('/store-transaksi-spp', [TransaksiController::class, 'storeTagihanSpp']);
     // daftar transaksi
     Route::get('/daftar-transaksi', [TransaksiController::class, 'listTransaksi'])->name('list.transaksi');
     Route::get('/data-transaksi', [TransaksiController::class, 'dataListTransaksi']);

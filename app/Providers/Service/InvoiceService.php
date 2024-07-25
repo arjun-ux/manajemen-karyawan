@@ -9,9 +9,18 @@ use Illuminate\Support\ServiceProvider;
 
 class InvoiceService extends ServiceProvider
 {
-    // get tagihan Santri
+    // get tagihan Santri psb
     public static function getTagihanSantri($id){
         return Invoice::query()->where('saba_id',$id)->first(['id','saba_id','nama_tagihan','nominal_tagihan']);
+    }
+    // get tagihan spp
+    public static function getTagihanSppSantri($id){
+        return Invoice::query()
+                ->where('saba_id',$id)
+                ->where('status_tagihan','Belum Lunas')
+                ->whereNot('jenis_tagihan', 'ALL')
+                ->orderBy('id', 'asc')
+                ->first();
     }
     // set active santri
     public static function set_active($id){

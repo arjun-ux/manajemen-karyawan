@@ -83,6 +83,15 @@ class TransaksiController extends Controller
     // cek tagihan spp
     public function cekTagihanSpp($nis){
         $santri = $this->Santri->get_santri_nis($nis);
-        return $santri;
+        $tagihan = $this->Invoice->getTagihanSppSantri($santri->id);
+        $data = [
+            'santri' => $santri,
+            'tagihan' => $tagihan
+        ];
+        return $data;
+    }
+    // store transaksi spp
+    public function storeTagihanSpp(Request $request){
+        return $this->Transaksi->storeTransaksiSpp($request);
     }
 }

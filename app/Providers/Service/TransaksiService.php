@@ -13,8 +13,23 @@ class TransaksiService extends ServiceProvider
     public static function dataListTransaksi(){
         $transaksi = Transaksi::query()
                             ->with('saba')
-                            ->with('invoice');
+                            ->with('invoice')
+                            ->orderBy('created_at', 'desc');
         return $transaksi;
+    }
+    // store transaksi tagihan spp
+    public static function storeTransaksiSpp(Request $request){
+        $data = InvoiceService::getTagihanSppSantri($request->sabaId);
+        Transaksi::create([
+            'kode_transaksi' => Str::random(10),
+            'saba_id' => $data->saba_id,
+            'tagihan_id' => $data->id,
+            'nominal' => $data->nominal_tagihan,
+            'tgl_transaksi' => now(),
+            'status' => 'Lunas'
+        ]);
+        $data->update(['status_tagihan'=>'Lunas']);
+        return response()->json(['message'=>'Transaksi Berhasil']);
     }
     // store transaksi tagihan psb
     public static function store_tagihan_psb(Request $request){
