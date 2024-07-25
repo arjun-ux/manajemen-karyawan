@@ -9,6 +9,13 @@ use Illuminate\Support\ServiceProvider;
 
 class TransaksiService extends ServiceProvider
 {
+    // data list transaksi
+    public static function dataListTransaksi(){
+        $transaksi = Transaksi::query()
+                            ->with('saba')
+                            ->with('invoice');
+        return $transaksi;
+    }
     // store transaksi tagihan psb
     public static function store_tagihan_psb(Request $request){
 
