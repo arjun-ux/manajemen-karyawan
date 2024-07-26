@@ -37,13 +37,13 @@ class AdminSabaController extends Controller
     public function getAllSantri()
     {
         try {
-            $data = $this->santri->getAll(); // Memanggil metode optimasi getAll() yang telah diperbaiki
+            $data = $this->santri->getAll();
 
             return DataTables::eloquent($data)
                 ->addColumn('action', function($row){
                     $btn = '<a href="/show-saba/'.routeParam::encode($row->id).'" class="btn_edit btn btn-outline-primary btn-sm mt-1"><i class="lni lni-pencil-alt"></i></a>';
                     $btn .= ' <a href="/lihat-santri/'.routeParam::encode($row->id).' " class="btn btn-outline-warning btn-sm mt-1"><i class="lni lni-empty-file"></i></a>';
-                    $btn .= ' <a href="#" class="btn-nonAktif btn btn-outline-danger btn-sm mt-1"><i class="lni lni-trash-can"></i></a>';
+                    $btn .= ' <a href="#" data-id="'.$row->id.'" class="btn-nonAktif btn btn-outline-danger btn-sm mt-1"><i class="lni lni-trash-can"></i></a>';
                     return $btn;
                 })
                 ->rawColumns(['action'])
@@ -124,5 +124,21 @@ class AdminSabaController extends Controller
     public function lihatBerkas($sid){
         $res = $this->santri->getBerkas($sid);
         return response()->json(['data'=>$res]);
+    }
+    // non aktifkan santri boyong
+    public function setNonActive($id){
+        $santri = Saba::where('id', $id)->first();
+        // return response()->json($santri);
+        $santri->update(['status'=>'Boyong']);
+        return response()->json(['message'=>"Berhasil Boyong"], 200);
+    }
+    public function alumni(){
+        return view('dashboard.admin.alumni.index');
+    }
+    public function DataAlumni(){
+        $data = Saba::query()->where('status', 'Boyong');
+        return DataTables::eloquent($data)
+                ->addIndexColumn()
+                ->toJson();
     }
 }

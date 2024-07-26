@@ -92,6 +92,9 @@ Route::middleware('role:admin', 'throttle:admin')->group(function(){
     Route::post('/store-santri', [AdminSabaController::class, 'store'])->name('store_santri');
     Route::get('/show-saba/{id}', [AdminSabaController::class, 'showSaba'])->name('showSaba');
     Route::post('/saba/{id}/update', [AdminSabaController::class, 'updateSaba'])->name('updateSaba');
+    Route::post('/set-boyong/{id}', [AdminSabaController::class, 'setNonActive']);
+    Route::get('/alumni', [AdminSabaController::class, 'alumni'])->name('alumni');
+    Route::get('/data-alumni', [AdminSabaController::class, 'DataAlumni']);
     // cek saudara kandung
     Route::post('/saudara-kandung/{nokk}', [AdminSabaController::class, 'cekSaudaraKandung']);
     Route::post('/updateSaudaraKandung', [AdminSabaController::class, 'updateSaudaraKandung']);

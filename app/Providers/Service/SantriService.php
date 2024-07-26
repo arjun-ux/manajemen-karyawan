@@ -58,7 +58,7 @@ class SantriService extends ServiceProvider
     // getAllData
     public static function getAll(){
         try {
-            $data = Saba::query(['id','nis','nama_lengkap'])->orderBy('id', "desc");
+            $data = Saba::query(['id','nis','nama_lengkap','status'])->whereNot('status','Boyong')->orderBy('id', "desc");
             if (!$data) {
                 throw new \Exception("Data Tidak ditemukan");
             }

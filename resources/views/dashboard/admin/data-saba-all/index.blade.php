@@ -72,6 +72,62 @@
             ]
         });
     });
+
+    $('body').on('click', '.btn-nonAktif', function(){
+        var id = $(this).data('id');
+        Swal.fire({
+            title: 'Apakah anda yakin?',
+            text: "Data akan di nonaktifkan",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, Nonaktifkan!'
+        }).then((value)=>{
+            if(value.isConfirmed){
+                setBoyong(id);
+            }
+        });
+    });
+    function setBoyong(id){
+        $.ajax({
+            url: '/set-boyong/'+id,
+            type: 'post',
+            data: {
+                _token: "{{ @csrf_token() }}"
+            },
+            success: function(res){
+                Swal.fire({
+                    title: res.message,
+                    icon: 'success',
+                    toast: true,
+                    timer: 1500,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timerProgressBar: true,
+                }).then(()=>{
+                    $('#tableSantri').DataTable().ajax.reload();
+                });
+            },
+            error: function(xhr, error){
+                $('#loader').hide();
+                if (xhr.status === 404) {
+                    toastr.error(xhr.responseJSON.message);
+                } else {
+                    let errorMessages = xhr.responseJSON.errors;
+                    if (errorMessages) {
+                        Object.keys(errorMessages).forEach((key) => {
+                            errorMessages[key].forEach((errorMessage) => {
+                                toastr.error(errorMessage);
+                            });
+                        });
+                    } else {
+                        toastr.error('Terjadi kesalahan: ' + xhr.status + ' ' + xhr.statusText);
+                    }
+                }
+            }
+        });
+    }
   </script>
 @endpush
 

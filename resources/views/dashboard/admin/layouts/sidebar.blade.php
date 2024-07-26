@@ -14,11 +14,27 @@
                 <span>Dashboard</span>
             </a>
         </li>
-        <li class="sidebar-item {{ Route::is('data_saba_all') ? 'active' : '' }}">
-            <a href="{{ route('data_saba_all') }}" class="sidebar-link">
+
+        <li class="sidebar-item ">
+            <a href="#" class="sidebar-link collapsed has-dropdown {{ Route::is('data_saba_all') ? 'active' : '' }}"
+            data-bs-toggle="collapse" data-bs-target="#santri" aria-expanded="false" aria-controls="santri">
                 <i class="lni lni-consulting"></i>
                 <span>Data Santri</span>
             </a>
+            <ul id="santri" class="sidebar-dropdown collapse" data-bs-parent="#sidebar">
+                <li class="sidebar-item">
+                    <a href="{{ route('data_saba_all') }}" class="sidebar-link">
+                        <i class="lni lni-checkmark-circle"></i>
+                        Aktif / Pending
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="{{ route('alumni') }}" class="sidebar-link">
+                        <i class="lni lni-checkmark-circle"></i>
+                        Alumni
+                    </a>
+                </li>
+            </ul>
         </li>
         <li class="sidebar-item ">
             <a href="#" class="sidebar-link collapsed has-dropdown {{ Route::is('index.invoice') ? 'active' : '' }}"

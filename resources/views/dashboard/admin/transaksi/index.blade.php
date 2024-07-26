@@ -227,14 +227,14 @@
                         $('#inputTagihan').val(res.tagihan.nama_tagihan);
                         $('#nominalTagihan').val(nominal_tagihan);
 
-                        $('#kode-transaksi').text('');
-                        $('#nama-santri').text('');
-                        $('#nis-santri').text('');
-                        $('#nama-tagihan').text('');
-                        $('#nominal-tagihan').text('');
-                        $('#nominal-bayar').text('');
-                        $('#status-transaksi').text('');
-                        $('#tgl-transaksi').text('');
+                        $('#kode-transaksi').empty();
+                        $('#nama-santri').empty();
+                        $('#nis-santri').empty();
+                        $('#nama-tagihan').empty();
+                        $('#nominal-tagihan').empty();
+                        $('#nominal-bayar').empty();
+                        $('#status-transaksi').empty();
+                        $('#tgl-transaksi').empty();
                     },
                     error: function(xhr, error){
                         $('#loader').hide();
