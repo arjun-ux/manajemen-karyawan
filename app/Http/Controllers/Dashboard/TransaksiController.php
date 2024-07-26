@@ -7,6 +7,7 @@ use App\Providers\Service\InvoiceService;
 use App\Providers\Service\SantriService;
 use App\Providers\Service\TransaksiService;
 use Illuminate\Http\Request;
+use Symfony\Component\Uid\NilUlid;
 use Yajra\DataTables\Facades\DataTables;
 
 class TransaksiController extends Controller
@@ -69,7 +70,15 @@ class TransaksiController extends Controller
     // cek tagihan pendaftaran
     public function cekTagihanPSB($nis){
         $santri = $this->Santri->get_santri_nis($nis);
+        if (!$santri) {
+            // Jika santri tidak ditemukan, tampilkan notifikasi error
+            return response()->json(['message'=>'Nis tidak Ditemukan'],404);
+        }
         $tagihan = $this->Invoice->getTagihanSantri($santri->id);
+        if ($tagihan == null) {
+            // Jika tagihan tidak ditemukan, tampilkan notifikasi error
+            return response()->json(['message'=>'Tagihan untuk santri ini tidak ditemukan.'],404);
+        }
         $data = [
             'santri' => $santri,
             'tagihan' => $tagihan
@@ -83,7 +92,13 @@ class TransaksiController extends Controller
     // cek tagihan spp
     public function cekTagihanSpp($nis){
         $santri = $this->Santri->get_santri_nis($nis);
+        if (!$santri) {
+            return response()->json(['message'=>'Nis Tidak Ditemukan'],404);
+        }
         $tagihan = $this->Invoice->getTagihanSppSantri($santri->id);
+        if ($tagihan == null) {
+            return response()->json(['message'=>'Tagihan untuk santri ini tidak ditemukan.'],404);
+        }
         $data = [
             'santri' => $santri,
             'tagihan' => $tagihan

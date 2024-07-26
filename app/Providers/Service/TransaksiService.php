@@ -20,7 +20,7 @@ class TransaksiService extends ServiceProvider
     // store transaksi tagihan spp
     public static function storeTransaksiSpp(Request $request){
         $data = InvoiceService::getTagihanSppSantri($request->sabaId);
-        Transaksi::create([
+        $transaksi = Transaksi::create([
             'kode_transaksi' => Str::random(10),
             'saba_id' => $data->saba_id,
             'tagihan_id' => $data->id,
@@ -29,7 +29,12 @@ class TransaksiService extends ServiceProvider
             'status' => 'Lunas'
         ]);
         $data->update(['status_tagihan'=>'Lunas']);
-        return response()->json(['message'=>'Transaksi Berhasil']);
+        $callback = [
+            'req' => $request->all(),
+            'transaksi' => $transaksi,
+            'data' => $data,
+        ];
+        return response()->json(['message'=>'Transaksi Berhasil','back'=>$callback]);
     }
     // store transaksi tagihan psb
     public static function store_tagihan_psb(Request $request){
@@ -61,7 +66,7 @@ class TransaksiService extends ServiceProvider
             // update status santri
             $santri->update(['status'=>'Pending']);
             // create transaksi
-            Transaksi::create([
+            $transaksi = Transaksi::create([
                 'kode_transaksi' => Str::random(10),
                 'saba_id' => $request->sabaId,
                 'tagihan_id' => $request->tagihanId,
@@ -70,7 +75,11 @@ class TransaksiService extends ServiceProvider
                 'status' => 'Cicilan',
             ]);
 
-            return response()->json(['message'=>'Transaksi Berhasil']);
+            $callback = [
+                'req' => $request->all(),
+                'transaksi' => $transaksi,
+            ];
+            return response()->json(['message'=>'Transaksi Berhasil','back'=>$callback]);
         }
         // jika tidak ada sisa maka
         else {
@@ -82,7 +91,7 @@ class TransaksiService extends ServiceProvider
             // update status santri
             $santri->update(['status'=>'Aktif']);
             // create transaksi
-            Transaksi::create([
+            $transaksi = Transaksi::create([
                 'kode_transaksi' => Str::random(10),
                 'saba_id' => $request->sabaId,
                 'tagihan_id' => $request->tagihanId,
@@ -90,7 +99,11 @@ class TransaksiService extends ServiceProvider
                 'tgl_transaksi' => now(),
                 'status' => 'Lunas',
             ]);
-            return response()->json(['message'=>'Transaksi Berhasil']);
+            $callback = [
+                'req' => $request->all(),
+                'transaksi' => $transaksi,
+            ];
+            return response()->json(['message'=>'Transaksi Berhasil','back'=>$callback]);
         }
 
     }

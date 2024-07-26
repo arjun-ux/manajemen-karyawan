@@ -1,5 +1,18 @@
 @extends('dashboard.admin.layouts.app')
 @section('content')
+<style>
+    .card-header {
+        background-color: #f8f9fa;
+        font-weight: bold;
+    }
+    .card-body {
+        font-size: 1.1rem;
+    }
+    .card-footer {
+        background-color: #f8f9fa;
+        text-align: right;
+    }
+</style>
 <div class="content-wrapper">
     <!-- Main content -->
     <section class="content">
@@ -130,9 +143,48 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="card card-outline">
-                        <div class="card-body">Bukti Transaksi</div>
+                <div class="col-md-4 mx-auto">
+                    <div class="card shadow-sm">
+                        <div class="card-header">
+                            Bukti Transaksi
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <strong>Kode Transaksi:</strong>
+                                <p class="mb-0" id="kode-transaksi"></p>
+                            </div>
+                            <div class="mb-3">
+                                <strong>Nama Santri:</strong>
+                                <p class="mb-0" id="nama-santri"></p>
+                            </div>
+                            <div class="mb-3">
+                                <strong>Nis Santri:</strong>
+                                <p class="mb-0" id="nis-santri"></p>
+                            </div>
+                            <div class="mb-3">
+                                <strong>Nama Tagihan:</strong>
+                                <p class="mb-0" id="nama-tagihan"></p>
+                            </div>
+                            <div class="mb-3">
+                                <strong>Nominal Tagihan:</strong>
+                                <p class="mb-0" id="nominal-tagihan"></p>
+                            </div>
+                            <div class="mb-3">
+                                <strong>Nominal Bayar:</strong>
+                                <p class="mb-0" id="nominal-bayar"></p>
+                            </div>
+                            <div class="mb-3">
+                                <strong>Status Transaksi:</strong>
+                                <p class="mb-0 text-success" id="status-transaksi"></p>
+                            </div>
+                            <div class="mb-3">
+                                <strong>Tanggal Transaksi:</strong>
+                                <p class="mb-0" id="tgl-transaksi"></p>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            Terima kasih atas transaksi Anda!
+                        </div>
                     </div>
                 </div>
             </div>
@@ -175,11 +227,31 @@
                         $('#inputTagihan').val(res.tagihan.nama_tagihan);
                         $('#nominalTagihan').val(nominal_tagihan);
 
-
+                        $('#kode-transaksi').text('');
+                        $('#nama-santri').text('');
+                        $('#nis-santri').text('');
+                        $('#nama-tagihan').text('');
+                        $('#nominal-tagihan').text('');
+                        $('#nominal-bayar').text('');
+                        $('#status-transaksi').text('');
+                        $('#tgl-transaksi').text('');
                     },
                     error: function(xhr, error){
-                        console.log(xhr)
-                        console.log(error)
+                        $('#loader').hide();
+                        if (xhr.status === 404) {
+                            toastr.error(xhr.responseJSON.message);
+                        } else {
+                            let errorMessages = xhr.responseJSON.errors;
+                            if (errorMessages) {
+                                Object.keys(errorMessages).forEach((key) => {
+                                    errorMessages[key].forEach((errorMessage) => {
+                                        toastr.error(errorMessage);
+                                    });
+                                });
+                            } else {
+                                toastr.error('Terjadi kesalahan: ' + xhr.status + ' ' + xhr.statusText);
+                            }
+                        }
                     }
                 });
             }
@@ -193,9 +265,9 @@
                     type: 'GET',
                     dataType: 'json',
                     success: function(res){
-                        console.log(res)
                         var nominal = res.tagihan.nominal_tagihan;
                         var nominal_tagihan = formatRupiah(nominal);
+
                         var bulan = res.tagihan.bulan_ajaran;
                         var tahun = res.tagihan.tahun_ajaran;
 
@@ -205,10 +277,24 @@
                         $('#tagihanSpp').val(res.tagihan.nama_tagihan);
                         $('#bulanTahun').val(bulan+' '+tahun);
                         $('#nominalTagihanSpp').val(nominal_tagihan);
+
                     },
                     error: function(xhr, error){
-                        console.log(xhr)
-                        console.log(error)
+                        $('#loader').hide();
+                        if (xhr.status === 404) {
+                            toastr.error(xhr.responseJSON.message);
+                        } else {
+                            let errorMessages = xhr.responseJSON.errors;
+                            if (errorMessages) {
+                                Object.keys(errorMessages).forEach((key) => {
+                                    errorMessages[key].forEach((errorMessage) => {
+                                        toastr.error(errorMessage);
+                                    });
+                                });
+                            } else {
+                                toastr.error('Terjadi kesalahan: ' + xhr.status + ' ' + xhr.statusText);
+                            }
+                        }
                     }
                 });
             }
@@ -230,7 +316,7 @@
                         title: res.message,
                         toast: true,
                         position: "top-end",
-                        timer: 1500,
+                        timer: 1000,
                         showConfirmButton: false,
                         timerProgressBar: true,
                     }).then(()=>{
@@ -239,11 +325,37 @@
                         $('#tagihanSpp').val(null);
                         $('#nominalTagihanSpp').val(null);
                         $('#bulanTahun').val(null);
+
+
+                        var isoDateTime = res.back.transaksi.tgl_transaksi;
+                        var readableDate = convertIsoToReadableDate(isoDateTime);
+
+                        $('#kode-transaksi').text(res.back.transaksi.kode_transaksi);
+                        $('#nama-santri').text(res.back.req.nama_lengkap);
+                        $('#nis-santri').text(res.back.req.nis);
+                        $('#nama-tagihan').text(res.back.data.nama_tagihan);
+                        $('#nominal-tagihan').text(res.back.req.nominalTagihan);
+                        $('#nominal-bayar').text(res.back.req.nominalTagihan);
+                        $('#status-transaksi').text(res.back.transaksi.status);
+                        $('#tgl-transaksi').text(readableDate);
                     });
                 },
                 error: function(xhr, error){
-                    console.log(xhr)
-                    console.log(error)
+                    $('#loader').hide();
+                    if (xhr.status === 404) {
+                        toastr.error(xhr.responseJSON.message);
+                    } else {
+                        let errorMessages = xhr.responseJSON.errors;
+                        if (errorMessages) {
+                            Object.keys(errorMessages).forEach((key) => {
+                                errorMessages[key].forEach((errorMessage) => {
+                                    toastr.error(errorMessage);
+                                });
+                            });
+                        } else {
+                            toastr.error('Terjadi kesalahan: ' + xhr.status + ' ' + xhr.statusText);
+                        }
+                    }
                 }
             })
         })
@@ -257,6 +369,7 @@
                 data: $(this).serialize(),
                 dataType: 'json',
                 success: function(res){
+                    console.log(res)
                     Swal.fire({
                         icon: "success",
                         title: res.message,
@@ -271,6 +384,18 @@
                         $('#inputTagihan').val(null);
                         $('#nominalTagihan').val(null);
                         $('#jumlahDibayar').val(null);
+
+                        var isoDateTime = res.back.transaksi.tgl_transaksi;
+                        var readableDate = convertIsoToReadableDate(isoDateTime);
+
+                        $('#kode-transaksi').text(res.back.transaksi.kode_transaksi);
+                        $('#nama-santri').text(res.back.req.nama_lengkap);
+                        $('#nis-santri').text(res.back.req.nis);
+                        $('#nama-tagihan').text(res.back.req.nama_tagihan);
+                        $('#nominal-tagihan').text(res.back.req.nominalTagihan);
+                        $('#nominal-bayar').text(res.back.req.nominal);
+                        $('#status-transaksi').text(res.back.transaksi.status);
+                        $('#tgl-transaksi').text(readableDate);
                     });
                 },
                 error: function(xhr, error){
@@ -309,6 +434,14 @@
     }
     function formatNumber(num) {
         return 'Rp ' + num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
+    }
+    // Fungsi untuk mengubah format ISO 8601 ke format tanggal yang diinginkan
+    function convertIsoToReadableDate(isoDateTime) {
+        var dateObj = new Date(isoDateTime); // Ubah string ISO 8601 menjadi objek Date JavaScript
+        var year = dateObj.getFullYear();
+        var month = ('0' + (dateObj.getMonth() + 1)).slice(-2); // Tambahkan '0' jika bulan kurang dari 10
+        var date = ('0' + dateObj.getDate()).slice(-2); // Tambahkan '0' jika tanggal kurang dari 10
+        return year + '-' + month + '-' + date;
     }
   </script>
 @endpush
