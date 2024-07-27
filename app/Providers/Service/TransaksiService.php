@@ -17,10 +17,28 @@ class TransaksiService extends ServiceProvider
     public static function traksaksiBulanIni($request){
         $startOfMonth = $request->awal;
         $endOfMonth = $request->akhir;
-        // return response()->json($request->all());
-        // Query untuk mendapatkan transaksi dalam bulan ini
+        $kamar_id = $request->kamar_id;
+        $jenis_tagihan = $request->jenis_tagihan;
+
+        // Query dasar untuk mendapatkan transaksi dalam rentang tanggal yang ditentukan
         $transaksi = Transaksi::query()
-                ->whereBetween('tgl_transaksi', [$startOfMonth, $endOfMonth]);
+            ->with('saba')
+            ->with('invoice')
+            ->whereBetween('tgl_transaksi', [$startOfMonth, $endOfMonth]);
+
+        // Jika parameter kamar ada, tambahkan filter untuk kamar
+        if ($kamar_id) {
+            $transaksi->whereHas('saba', function ($query) use ($kamar_id) {
+                $query->where('kamar_id', $kamar_id);
+            });
+        }
+
+        // Jika parameter jenis_tagihan ada, tambahkan filter untuk jenis_tagihan
+        if ($jenis_tagihan) {
+            $transaksi->whereHas('invoice', function ($query) use ($jenis_tagihan) {
+                $query->where('jenis_tagihan', $jenis_tagihan);
+            });
+        }
         return $transaksi;
     }
     // data list transaksi

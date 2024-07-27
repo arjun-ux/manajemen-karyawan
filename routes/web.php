@@ -88,7 +88,6 @@ Route::middleware('role:admin', 'throttle:admin')->group(function(){
     // Report
     Route::get('/report-bulanan', [ReportController::class, 'ReportBulanan'])->name('report.bulanan');
     Route::post('/data-report-bulanan', [ReportController::class, 'dataBulanan']);
-    Route::get('/report-tahunan', [ReportController::class, 'ReportTahunan'])->name('report.tahunan');
     // data santri
     Route::get('/saba-all', [AdminSabaController::class,'index'])->name('data_saba_all');
     Route::get('/getAllSantri', [AdminSabaController::class, 'getAllSantri']);

@@ -19,4 +19,8 @@ class Invoice extends Model
     {
         return $this->belongsTo(Saba::class);
     }
+    public function invoice():HasMany
+    {
+        return $this->hasMany(Invoice::class);
+    }
 }

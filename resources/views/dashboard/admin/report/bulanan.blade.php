@@ -11,7 +11,7 @@
                 <div class="col-md-12">
                     <div class="table-responsive">
                         <table class="table">
-                            <th style="background-color: rgb(233, 246, 232)">Report Bulanan</th>
+                            <th style="background-color: rgb(233, 246, 232)">Report</th>
                         </table>
                     </div>
                 </div>
@@ -19,13 +19,31 @@
                     <form id="filter">
                         @csrf
                         <div class="row">
-                            <div class="col-md-5">
+                            <div class="col-md-2">
                                 <label for="firstRange">Pilih Awal</label>
                                 <input type="date" id="firstRange" name="awal" class="form-control">
                             </div>
-                            <div class="col-md-5">
+                            <div class="col-md-2">
                                 <label for="endRange">Pilih Akhir</label>
                                 <input type="date" id="endRange" name="akhir" class="form-control">
+                            </div>
+                            <div class="col-md-2">
+                                <label for="endRange">Pilih Kamar</label>
+                                <select name="kamar_id" id="kamar" class="form-select">
+                                    <option value="">--Pilih Kamar--</option>
+                                    @foreach ($kamar as $val)
+                                        <option value="{{ $val->id }}">{{ $val->nama_kamar }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label for="endRange">Jenis Tagihan</label>
+                                <select name="jenis_tagihan" id="jenis_tagihan" class="form-select">
+                                    <option value="">--Pilih Tagihan--</option>
+                                    @foreach ($jenis_tagihan as $val)
+                                        <option value="{{ $val->jenis_pembayaran }}">{{ $val->jenis_pembayaran }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="col-md-2">
                                 <label for=""></label>
@@ -40,7 +58,8 @@
                             <thead>
                                 <tr>
                                     <th>NO</th>
-                                    <th>Kode Transaksi</th>
+                                    <th>Nama Santri</th>
+                                    <th>Nama Tagihan</th>
                                     <th>Nominal</th>
                                     <th>Status</th>
                                 </tr>
@@ -68,19 +87,31 @@
     $('#tableReport').DataTable();
     $('#filter').submit(function(e){
         e.preventDefault();
-        var awal = $('#firstRange').val();
-        var akhir = $('#endRange').val();
+
         $.ajax({
             url: '/data-report-bulanan',
             type: 'POST',
             data: $('#filter').serialize(),
             success: function(res){
-                console.log(res);
+                console.log(res)
                 tableTransaksi(res)
             },
             error: function(xhr, error){
-                console.log(xhr)
-                console.log(error)
+                $('#loader').hide();
+                if (xhr.status === 404) {
+                    toastr.error(xhr.responseJSON.message);
+                } else {
+                    let errorMessages = xhr.responseJSON.errors;
+                    if (errorMessages) {
+                        Object.keys(errorMessages).forEach((key) => {
+                            errorMessages[key].forEach((errorMessage) => {
+                                toastr.error(errorMessage);
+                            });
+                        });
+                    } else {
+                        toastr.error('Terjadi kesalahan: ' + xhr.status + ' ' + xhr.statusText);
+                    }
+                }
             }
         });
     });
@@ -94,8 +125,14 @@
             data: data,
             columns: [
                 {data: 'id'},
-                {data: 'kode_transaksi'},
-                {data: 'nominal'},
+                {data: 'nama_lengkap'},
+                {data: 'nama_tagihan'},
+                {
+                    data: 'nominal',
+                    render: function(data){
+                        return formatNumber(data)
+                    }
+                },
                 {data: 'status'},
             ],
             layout: {
@@ -106,6 +143,23 @@
                 }
             }
         })
+    }
+     // Fungsi untuk format rupiah
+     function formatRupiah(angka) {
+        var reverse = angka.toString().split('').reverse().join('');
+        var ribuan = reverse.match(/\d{1,3}/g);
+        var formatted = ribuan.join('.').split('').reverse().join('');
+        return 'Rp ' + formatted;
+    }
+    // input rupiah
+    function InputRupiah(el) {
+        // Menghilangkan format rupiah sebelum disubmit
+        var value = el.value.replace(/\D/g, '');
+        // Menambahkan format rupiah
+        el.value = formatNumber(value);
+    }
+    function formatNumber(num) {
+        return 'Rp ' + num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
     }
   </script>
 @endpush

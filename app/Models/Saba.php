@@ -44,4 +44,10 @@ class Saba extends Model
     public function Desa(){
         return $this->belongsTo(Village::class,'desa', 'id');
     }
+
+    public function transaksi()
+    {
+        return $this->hasMany(Transaksi::class);
+    }
+
 }
