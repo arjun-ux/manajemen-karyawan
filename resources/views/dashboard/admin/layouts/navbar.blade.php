@@ -21,10 +21,25 @@
                         </a>
                     </li>
                     <li class="li_pro">
-                        <a class="pro" href="{{ route('data_saba_all') }}">
-                            <i class="lni lni-consulting"></i>
-                            <span>Data Santri</span>
+                        <a class="pro" href="#" class="collapsed has-dropdown {{ Route::is('data_saba_all') ? 'active' : '' }}"
+                        data-bs-toggle="collapse" data-bs-target="#santri" aria-expanded="false" aria-controls="santri">
+                            <i class="lni lni-files"></i>
+                            <span>Santri</span>
                         </a>
+                        <ul id="santri" class="sidebar-dropdown collapse" data-bs-parent="#sidebar">
+                            <li class="li_pro">
+                                <a class="pro" href="{{ route('data_saba_all') }}">
+                                    <i class="lni lni-checkmark-circle"></i>
+                                    Aktif / Pending
+                                </a>
+                            </li>
+                            <li class="li_pro">
+                                <a class="pro" href="{{ route('alumni') }}">
+                                    <i class="lni lni-checkmark-circle"></i>
+                                    Alumni
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                     <li class="li_pro">
                         <a class="pro" href="#" class="collapsed has-dropdown" data-bs-toggle="collapse"
@@ -40,7 +55,13 @@
                                 </a>
                             </li>
                             <li class="li_pro">
-                                <a class="pro" href="#">
+                                <a class="pro" href="{{ route('transaksi') }}">
+                                    <i class="lni lni-checkmark-circle"></i>
+                                    Transaksi
+                                </a>
+                            </li>
+                            <li class="li_pro">
+                                <a class="pro" href="{{ route('list.transaksi') }}">
                                     <i class="lni lni-checkmark-circle"></i>
                                     Daftar Transaksi
                                 </a>
@@ -55,13 +76,13 @@
                         </a>
                         <ul id="report" class="sidebar-dropdown collapse" data-bs-parent="#sidebar">
                             <li class="li_pro">
-                                <a class="pro" href="#">
+                                <a class="pro" href="{{ route('report.bulanan') }}">
                                     <i class="lni lni-calendar"></i>
                                     Report Bulanan
                                 </a>
                             </li>
                             <li class="li_pro">
-                                <a class="pro" href="#">
+                                <a class="pro" href="{{ route('report.tahunan') }}">
                                     <i class="lni lni-calendar"></i>
                                     Report Tahunan
                                 </a>
