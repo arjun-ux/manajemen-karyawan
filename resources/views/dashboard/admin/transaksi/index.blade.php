@@ -145,46 +145,57 @@
                 </div>
                 <div class="col-md-4 mx-auto">
                     <div class="card shadow-sm">
-                        <div class="card-header">
-                            Bukti Transaksi
-                        </div>
-                        <div class="card-body">
-                            <div class="mb-3">
-                                <strong>Kode Transaksi:</strong>
-                                <p class="mb-0" id="kode-transaksi"></p>
+                        <form id="buktiTransaksi">
+                            @csrf
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <span>Bukti Transaksi</span>
+                                <!-- Tombol WhatsApp -->
+                                <button type="submit" class="btn btn-success">
+                                    <i class="lni lni-whatsapp"></i>
+                                </button>
                             </div>
-                            <div class="mb-3">
-                                <strong>Nama Santri:</strong>
-                                <p class="mb-0" id="nama-santri"></p>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <strong>Kode Transaksi:</strong>
+                                    <p class="mb-0" id="kode-transaksi" ></p>
+                                </div>
+                                <div class="mb-3">
+                                    <strong>Nama Santri:</strong>
+                                    <p class="mb-0" id="nama-santri"></p>
+                                </div>
+                                <div class="mb-3">
+                                    <strong>Nis Santri:</strong>
+                                    <p class="mb-0" id="nis-santri"></p>
+                                </div>
+                                <div class="mb-3">
+                                    <strong>Nama Tagihan:</strong>
+                                    <p class="mb-0" id="nama-tagihan"></p>
+                                </div>
+                                <div class="mb-3">
+                                    <strong>Bulan / Tahun:</strong>
+                                    <p class="mb-0" id="bulan-tahun"></p>
+                                </div>
+                                <div class="mb-3">
+                                    <strong>Nominal Tagihan:</strong>
+                                    <p class="mb-0" id="nominal-tagihan"></p>
+                                </div>
+                                <div class="mb-3">
+                                    <strong>Nominal Bayar:</strong>
+                                    <p class="mb-0" id="nominal-bayar"></p>
+                                </div>
+                                <div class="mb-3">
+                                    <strong>Status Transaksi:</strong>
+                                    <p class="mb-0 text-success" id="status-transaksi"></p>
+                                </div>
+                                <div class="mb-3">
+                                    <strong>Tanggal Transaksi:</strong>
+                                    <p class="mb-0" id="tgl-transaksi"></p>
+                                </div>
                             </div>
-                            <div class="mb-3">
-                                <strong>Nis Santri:</strong>
-                                <p class="mb-0" id="nis-santri"></p>
+                            <div class="card-footer">
+                                Terima kasih atas transaksi Anda!
                             </div>
-                            <div class="mb-3">
-                                <strong>Nama Tagihan:</strong>
-                                <p class="mb-0" id="nama-tagihan"></p>
-                            </div>
-                            <div class="mb-3">
-                                <strong>Nominal Tagihan:</strong>
-                                <p class="mb-0" id="nominal-tagihan"></p>
-                            </div>
-                            <div class="mb-3">
-                                <strong>Nominal Bayar:</strong>
-                                <p class="mb-0" id="nominal-bayar"></p>
-                            </div>
-                            <div class="mb-3">
-                                <strong>Status Transaksi:</strong>
-                                <p class="mb-0 text-success" id="status-transaksi"></p>
-                            </div>
-                            <div class="mb-3">
-                                <strong>Tanggal Transaksi:</strong>
-                                <p class="mb-0" id="tgl-transaksi"></p>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            Terima kasih atas transaksi Anda!
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -210,6 +221,80 @@
             }
         });
 
+        $('#buktiTransaksi').submit(function(e){
+            e.preventDefault();
+
+            var kodeTransaksi = $('#kode-transaksi').text();
+            var namaSantri = $('#nama-santri').text();
+            var nisSantri = $('#nis-santri').text();
+            var namaTagihan = $('#nama-tagihan').text();
+            var bulanTahun = $('#bulan-tahun').text();
+            var nominalTagihan = $('#nominal-tagihan').text();
+            var nominalBayar = $('#nominal-bayar').text();
+            var statusTransaksi = $('#status-transaksi').text();
+            var tglTransaksi = $('#tgl-transaksi').text();
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+            $.ajax({
+                url: '/send-wa-bukti-transaksi',
+                type: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken
+                },
+                data: {
+                    kode_transaksi: kodeTransaksi,
+                    nama_santri: namaSantri,
+                    nis_santri: nisSantri,
+                    nama_tagihan: namaTagihan,
+                    nominal_tagihan: nominalTagihan,
+                    nominal_bayar: nominalBayar,
+                    status_transaksi: statusTransaksi,
+                    tgl_transaksi: tglTransaksi,
+                    bulan_tahun:  bulanTahun,
+
+                },
+                success: function(res){
+                    Swal.fire({
+                        icon: "success",
+                        title: res.message,
+                        toast: true,
+                        position: "top-end",
+                        timer: 1000,
+                        showConfirmButton: false,
+                        timerProgressBar: true,
+                    }).then(()=>{
+                        $('#kode-transaksi').empty();
+                        $('#nama-santri').empty();
+                        $('#nis-santri').empty();
+                        $('#nama-tagihan').empty();
+                        $('#bulan-tahun').empty();
+                        $('#nominal-tagihan').empty();
+                        $('#nominal-bayar').empty();
+                        $('#status-transaksi').empty();
+                        $('#tgl-transaksi').empty();
+                    })
+                },
+                error: function(xhr, error){
+                    $('#loader').hide();
+                    if (xhr.status === 404) {
+                        toastr.error(xhr.responseJSON.message);
+                    } else {
+                        let errorMessages = xhr.responseJSON.errors;
+                        if (errorMessages) {
+                            Object.keys(errorMessages).forEach((key) => {
+                                errorMessages[key].forEach((errorMessage) => {
+                                    toastr.error(errorMessage);
+                                });
+                            });
+                        } else {
+                            toastr.error('Terjadi kesalahan: ' + xhr.status + ' ' + xhr.statusText);
+                        }
+                    }
+                }
+            });
+        })
+
+
         $('#inputNis').on('input',function(){
             var nis = $(this).val();
             if(nis.length === 6){
@@ -226,15 +311,6 @@
                         $('#inputNama').val(res.santri.nama_lengkap);
                         $('#inputTagihan').val(res.tagihan.nama_tagihan);
                         $('#nominalTagihan').val(nominal_tagihan);
-
-                        $('#kode-transaksi').empty();
-                        $('#nama-santri').empty();
-                        $('#nis-santri').empty();
-                        $('#nama-tagihan').empty();
-                        $('#nominal-tagihan').empty();
-                        $('#nominal-bayar').empty();
-                        $('#status-transaksi').empty();
-                        $('#tgl-transaksi').empty();
                     },
                     error: function(xhr, error){
                         $('#loader').hide();
@@ -334,6 +410,7 @@
                         $('#nama-santri').text(res.back.req.nama_lengkap);
                         $('#nis-santri').text(res.back.req.nis);
                         $('#nama-tagihan').text(res.back.data.nama_tagihan);
+                        $('#bulan-tahun').text(res.back.req.bulanTahun);
                         $('#nominal-tagihan').text(res.back.req.nominalTagihan);
                         $('#nominal-bayar').text(res.back.req.nominalTagihan);
                         $('#status-transaksi').text(res.back.transaksi.status);

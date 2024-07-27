@@ -4,12 +4,20 @@ namespace App\Providers\Service;
 
 use Illuminate\Support\Str;
 use App\Models\Transaksi;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\ServiceProvider;
 
 class TransaksiService extends ServiceProvider
 {
+    // send notif wa
+    public static function sendNotifWa(Request $request){
+        $user = User::query()->where('username', $request->nis_santri)->first();
+        $message = 'Pembayaran SPP ' .$request->bulan_tahun. ' Atas Nama ' . $user->name. ' Telah Lunas';
+        WhatsAppService::sendNotif($user->no_wa, $message);
+        return response()->json(['message'=>'Berhasil Send Notif Wa']);
+    }
     // all traksaksi
     public static function getAll(){
         return Transaksi::all();

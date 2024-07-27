@@ -25,47 +25,8 @@ class TransaksiController extends Controller
     public function index(){
         return view('dashboard.admin.transaksi.index');
     }
-    // list transaksi
-    public function listTransaksi(){
-        return view('dashboard.admin.transaksi.daftar_transaksi');
-    }
-    // data list
-    public function dataListTransaksi(Request $request){
-        $data = $this->Transaksi->dataListTransaksi();
-        return DataTables::eloquent($data)
-                ->addColumn('nis', function ($data) {
-                      return $data->saba->nis;
-                })
-                ->addColumn('nama_lengkap', function ($data) {
-                      return $data->saba->nama_lengkap;
-                })
-                ->addColumn('tagihan', function ($data) {
-                      return $data->invoice->nama_tagihan;
-                })
-                ->addColumn('action', function($row){
-                    $btn = '<a href="#" data-id="'.$row->id.'" class="btn_edit btn btn-outline-primary btn-sm mt-1"><i class="lni lni-pencil-alt"></i></a>';
-                    return $btn;
-                })
-                ->addIndexColumn()
-                ->filter(function ($query) use ($request) {
-                    // Implementasi pencarian manual untuk kolom-kolom yang menggunakan relasi
-                    if ($request->has('search.value')) {
-                        $value = $request->input('search.value');
-                        $query->where(function ($query) use ($value) {
-                            $query->whereHas('saba', function ($query) use ($value) {
-                                $query->where('nis', 'like', '%' . $value . '%')
-                                      ->orWhere('nama_lengkap', 'like', '%' . $value . '%');
-                            })
-                            ->orWhere('kode_transaksi', 'like', '%' . $value . '%')
-                            ->orWhere('nominal', 'like', '%' . $value . '%')
-                            ->orWhere('status', 'like', '%' . $value . '%');
-                            $query->whereHas('invoice', function($query) use ($value){
-                                $query->where('nama_tagihan', 'like', '%' . $value . '%');
-                            });
-                        });
-                    }
-                })
-                ->toJson();
+    public function sendWa(Request $request){
+        return $this->Transaksi->sendNotifWa($request);
     }
     // cek tagihan pendaftaran
     public function cekTagihanPSB($nis){
