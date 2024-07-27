@@ -55,12 +55,12 @@
                         Transaksi
                     </a>
                 </li>
-                <li class="sidebar-item">
+                {{--  <li class="sidebar-item">
                     <a href="{{ route('list.transaksi') }}" class="sidebar-link">
                         <i class="lni lni-checkmark-circle"></i>
                         Daftar Transaksi
                     </a>
-                </li>
+                </li>  --}}
             </ul>
         </li>
         <li class="sidebar-item ">
@@ -76,12 +76,12 @@
                         Report Bulanan
                     </a>
                 </li>
-                <li class="sidebar-item">
+                {{--  <li class="sidebar-item">
                     <a href="{{ route('report.tahunan') }}" class="sidebar-link">
                         <i class="lni lni-calendar"></i>
                         Report Tahunan
                     </a>
-                </li>
+                </li>  --}}
             </ul>
         </li>
         <li class="sidebar-item">

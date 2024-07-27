@@ -14,8 +14,9 @@ class ReportController extends Controller
     public function ReportBulanan(){
         return view('dashboard.admin.report.bulanan');
     }
-    public function dataBulanan(){
-        $bulanIni =  TransaksiService::traksaksiBulanIni();
+    public function dataBulanan(Request $request){
+        $bulanIni =  TransaksiService::traksaksiBulanIni($request);
+        // return $bulanIni;
         return DataTables::eloquent($bulanIni)
                     ->addIndexColumn()
                     ->toJson();

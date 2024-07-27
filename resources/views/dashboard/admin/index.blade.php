@@ -7,7 +7,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow effect */
   transition: box-shadow 0.3s ease-in-out; /* Smooth shadow transition */
   /* Background gradient */
-  background: linear-gradient(45deg, #bafff8e8, #82a4ce);
+  background: linear-gradient(45deg, #eeffbae8, #92ce82);
   color: #ffffff; /* Text color */
 }
 .card:hover {
@@ -62,7 +62,7 @@
                             <div class="col mr-2">
                                 <div class="text-md fw-bold text-black text-uppercase mb-1">
                                     Pembayaran</div>
-                                <div class="h6 mb-0 font-weight-bold"style="color:rgb(126, 126, 126)">Rp. 2000000000000</div>
+                                <div class="h6 mb-0 font-weight-bold"style="color:rgb(126, 126, 126)">{{ $JUMLAH['transaksi'] }}</div>
                             </div>
                             <div class="col-auto">
                                  <i class="lni lni-credit-cards" style="font-size: 50px"></i>
@@ -109,7 +109,7 @@
           </div>
       </div><!-- /.container-fluid -->
     </section>
-    <!-- /.content -->
+
 </div>
 @endsection
 

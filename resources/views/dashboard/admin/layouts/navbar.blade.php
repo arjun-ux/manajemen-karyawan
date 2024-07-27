@@ -60,12 +60,12 @@
                                     Transaksi
                                 </a>
                             </li>
-                            <li class="li_pro">
+                            {{--  <li class="li_pro">
                                 <a class="pro" href="{{ route('list.transaksi') }}">
                                     <i class="lni lni-checkmark-circle"></i>
                                     Daftar Transaksi
                                 </a>
-                            </li>
+                            </li>  --}}
                         </ul>
                     </li>
                     <li class="li_pro">
@@ -81,12 +81,12 @@
                                     Report Bulanan
                                 </a>
                             </li>
-                            <li class="li_pro">
+                            {{--  <li class="li_pro">
                                 <a class="pro" href="{{ route('report.tahunan') }}">
                                     <i class="lni lni-calendar"></i>
                                     Report Tahunan
                                 </a>
-                            </li>
+                            </li>  --}}
                         </ul>
                     </li>
                     <li class="li_pro">

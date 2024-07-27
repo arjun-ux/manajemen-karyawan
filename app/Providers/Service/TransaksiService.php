@@ -10,9 +10,14 @@ use Illuminate\Support\ServiceProvider;
 
 class TransaksiService extends ServiceProvider
 {
-    public static function traksaksiBulanIni(){
-        $startOfMonth = Carbon::now()->startOfMonth();
-        $endOfMonth = Carbon::now()->endOfMonth();
+    // all traksaksi
+    public static function getAll(){
+        return Transaksi::all();
+    }
+    public static function traksaksiBulanIni($request){
+        $startOfMonth = $request->awal;
+        $endOfMonth = $request->akhir;
+        // return response()->json($request->all());
         // Query untuk mendapatkan transaksi dalam bulan ini
         $transaksi = Transaksi::query()
                 ->whereBetween('tgl_transaksi', [$startOfMonth, $endOfMonth]);
