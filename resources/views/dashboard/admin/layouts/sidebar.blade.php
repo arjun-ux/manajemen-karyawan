@@ -64,20 +64,20 @@
             </ul>
         </li>
         <li class="sidebar-item ">
-            <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-                data-bs-target="#report" aria-expanded="false" aria-controls="report">
+            <a href="#" class="sidebar-link collapsed has-dropdown {{ Route::is('report.bulanan') || Route::is('report.tahunan') ? 'active' : '' }}"
+            data-bs-toggle="collapse" data-bs-target="#report" aria-expanded="false" aria-controls="report">
                 <i class="lni lni-files"></i>
                 <span>Report</span>
             </a>
             <ul id="report" class="sidebar-dropdown collapse" data-bs-parent="#sidebar">
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
+                    <a href="{{ route('report.bulanan') }}" class="sidebar-link">
                         <i class="lni lni-calendar"></i>
                         Report Bulanan
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
+                    <a href="{{ route('report.tahunan') }}" class="sidebar-link">
                         <i class="lni lni-calendar"></i>
                         Report Tahunan
                     </a>

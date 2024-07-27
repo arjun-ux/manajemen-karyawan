@@ -4,11 +4,20 @@ namespace App\Providers\Service;
 
 use Illuminate\Support\Str;
 use App\Models\Transaksi;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\ServiceProvider;
 
 class TransaksiService extends ServiceProvider
 {
+    public static function traksaksiBulanIni(){
+        $startOfMonth = Carbon::now()->startOfMonth();
+        $endOfMonth = Carbon::now()->endOfMonth();
+        // Query untuk mendapatkan transaksi dalam bulan ini
+        $transaksi = Transaksi::query()
+                ->whereBetween('tgl_transaksi', [$startOfMonth, $endOfMonth]);
+        return $transaksi;
+    }
     // data list transaksi
     public static function dataListTransaksi(){
         $transaksi = Transaksi::query()

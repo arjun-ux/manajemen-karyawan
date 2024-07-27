@@ -9,6 +9,7 @@ use App\Http\Controllers\Dashboard\InvoiceController;
 use App\Http\Controllers\Dashboard\KamarController;
 use App\Http\Controllers\Dashboard\PdfController;
 use App\Http\Controllers\Dashboard\PembayaranController;
+use App\Http\Controllers\Dashboard\ReportController;
 use App\Http\Controllers\Dashboard\Saba\AsalSekolahController;
 use App\Http\Controllers\Dashboard\Saba\BerkasController;
 use App\Http\Controllers\Dashboard\Saba\OrtuController;
@@ -17,7 +18,6 @@ use App\Http\Controllers\Dashboard\TransaksiController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PekerjaanController;
 use App\Http\Controllers\PendidikanController;
-use App\Http\Controllers\TahunAjaranController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -85,6 +85,10 @@ Route::middleware('role:admin', 'throttle:admin')->group(function(){
     // daftar transaksi
     Route::get('/daftar-transaksi', [TransaksiController::class, 'listTransaksi'])->name('list.transaksi');
     Route::get('/data-transaksi', [TransaksiController::class, 'dataListTransaksi']);
+    // Report
+    Route::get('/report-bulanan', [ReportController::class, 'ReportBulanan'])->name('report.bulanan');
+    Route::get('/data-report-bulanan', [ReportController::class, 'dataBulanan']);
+    Route::get('/report-tahunan', [ReportController::class, 'ReportTahunan'])->name('report.tahunan');
     // data santri
     Route::get('/saba-all', [AdminSabaController::class,'index'])->name('data_saba_all');
     Route::get('/getAllSantri', [AdminSabaController::class, 'getAllSantri']);
