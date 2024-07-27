@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="{{ asset('dist/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/mystyle.css') }}">
     <link rel="stylesheet" href="{{ asset('dist/css/loader.css') }}">
+
+    @laravelPWA
+
 </head>
 <style>
     .bg-body{

@@ -13,6 +13,10 @@
     <link rel="stylesheet" href="{{ asset('dist/css/loader.css') }}">
     <link rel="stylesheet" href="{{ asset('dist/css/toastr.min.css') }}">
     <link rel="stylesheet" href="{{ asset('dist/css/main.css') }}">
+
+    @laravelPWA
+
+
 </head>
 <style>
 .btn {
