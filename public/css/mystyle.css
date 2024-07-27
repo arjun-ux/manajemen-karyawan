@@ -1,4 +1,22 @@
 /* Reset CSS */
+/* Gaya umum untuk desktop */
+body {
+    font-size: 16px;
+}
+
+/* Gaya untuk layar dengan lebar maksimum 768px (tablet) */
+@media (max-width: 768px) {
+    body {
+        font-size: 14px;
+    }
+}
+
+/* Gaya untuk layar dengan lebar maksimum 480px (ponsel) */
+@media (max-width: 480px) {
+    body {
+        font-size: 12px;
+    }
+}
 * {
     margin: 0;
     padding: 0;
