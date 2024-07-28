@@ -16,10 +16,16 @@ class ReportController extends Controller
     public function ReportBulanan(){
         $kamar = Kamar::query()->get(['id','nama_kamar','pembimbing']);
         $jenis_tagihan = Pembayaran::query()->get();
-        // dd($jenis_tagihan);
         return view('dashboard.admin.report.bulanan', compact('kamar','jenis_tagihan'));
     }
     public function dataBulanan(Request $request){
+        $request->validate([
+            'awal' => 'required',
+            'akhir' => 'required',
+        ],[
+            'awal.required' => 'Select Start Of Range',
+            'akhir.required' => 'Select End Of Range'
+        ]);
         $bulanIni =  TransaksiService::traksaksiBulanIni($request);
         // return response()->json($bulanIni);
         return DataTables::eloquent($bulanIni)
@@ -28,6 +34,12 @@ class ReportController extends Controller
                     })
                     ->addColumn('nama_tagihan', function($data){
                         return $data->invoice->nama_tagihan;
+                    })
+                    ->addColumn('bulan', function($data){
+                        return $data->invoice->bulan_ajaran;
+                    })
+                    ->addColumn('tahun', function($data){
+                        return $data->invoice->tahun_ajaran;
                     })
                     ->addIndexColumn()
                     ->toJson();

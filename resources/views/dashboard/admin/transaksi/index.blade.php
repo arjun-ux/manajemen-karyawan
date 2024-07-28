@@ -143,7 +143,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 mx-auto">
+                <div class="col-md-4 mx-auto mb-2">
                     <div class="card shadow-sm">
                         <form id="buktiTransaksi">
                             @csrf

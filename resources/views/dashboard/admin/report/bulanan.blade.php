@@ -16,41 +16,45 @@
                     </div>
                 </div>
                 <div class="col-md-12 mb-2">
-                    <form id="filter">
-                        @csrf
-                        <div class="row">
-                            <div class="col-md-2">
-                                <label for="firstRange">Pilih Awal</label>
-                                <input type="date" id="firstRange" name="awal" class="form-control">
-                            </div>
-                            <div class="col-md-2">
-                                <label for="endRange">Pilih Akhir</label>
-                                <input type="date" id="endRange" name="akhir" class="form-control">
-                            </div>
-                            <div class="col-md-2">
-                                <label for="endRange">Pilih Kamar</label>
-                                <select name="kamar_id" id="kamar" class="form-select">
-                                    <option value="">--Pilih Kamar--</option>
-                                    @foreach ($kamar as $val)
-                                        <option value="{{ $val->id }}">{{ $val->nama_kamar }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-md-2">
-                                <label for="endRange">Jenis Tagihan</label>
-                                <select name="jenis_tagihan" id="jenis_tagihan" class="form-select">
-                                    <option value="">--Pilih Tagihan--</option>
-                                    @foreach ($jenis_tagihan as $val)
-                                        <option value="{{ $val->jenis_pembayaran }}">{{ $val->jenis_pembayaran }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-md-2">
-                                <label for=""></label>
-                                <button type="submit" class="form-control" style="background-color: green; color: #ffff">Cari</button>
-                            </div>
+                    <div class="card card-outline">
+                        <div class="card-body">
+                            <form id="filter">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label for="firstRange">Pilih Awal</label>
+                                        <input type="date" id="firstRange" name="awal" class="form-control">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="endRange">Pilih Akhir</label>
+                                        <input type="date" id="endRange" name="akhir" class="form-control">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label for="endRange">Pilih Kamar</label>
+                                        <select name="kamar_id" id="kamar" class="form-select">
+                                            <option value="">--Pilih Kamar--</option>
+                                            @foreach ($kamar as $val)
+                                                <option value="{{ $val->id }}">{{ $val->nama_kamar }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label for="endRange">Jenis Tagihan</label>
+                                        <select name="jenis_tagihan" id="jenis_tagihan" class="form-select">
+                                            <option value="">--Pilih Tagihan--</option>
+                                            @foreach ($jenis_tagihan as $val)
+                                                <option value="{{ $val->jenis_pembayaran }}">{{ $val->jenis_pembayaran }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label for=""></label>
+                                        <button type="submit" class="form-control" style="background-color: green; color: #ffff">Cari</button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                    </form>
+                    </div>
                 </div>
                 <div class="col-md-12">
                     <div class="table-responsive">
@@ -60,6 +64,8 @@
                                     <th>NO</th>
                                     <th>Nama Santri</th>
                                     <th>Nama Tagihan</th>
+                                    <th>Bulan</th>
+                                    <th>Tahun</th>
                                     <th>Nominal</th>
                                     <th>Status</th>
                                 </tr>
@@ -127,6 +133,8 @@
                 {data: 'id'},
                 {data: 'nama_lengkap'},
                 {data: 'nama_tagihan'},
+                {data: 'bulan'},
+                {data: 'tahun'},
                 {
                     data: 'nominal',
                     render: function(data){
