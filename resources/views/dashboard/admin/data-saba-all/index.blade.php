@@ -44,6 +44,9 @@
 @endsection
 @push('script')
   <script>
+    @php
+        use App\Providers\RouteParamService as routeParam;
+    @endphp
     var table = $('#tableSantri').DataTable({
         "processing": true,
         "serverSide": true,
@@ -81,6 +84,8 @@
     $('#customSearchInput').on('keyup', function() {
         table.search(this.value).draw();
     });
+
+
     // Function to convert table data to card view
     function convertTableToCardView() {
         const data = table.rows().data().toArray();
@@ -90,8 +95,10 @@
         cardView.empty();
         // Iterate over each row of data
         data.forEach(row => {
+
+
             // Assuming row data order: [NO, NIS, NAMA, STATUS, ACTIOn
-            const id = row['id'];
+            var id = row.id;
             const nis = row['nis'];
             const nama = row['nama_lengkap'];
             const status = row['status'];

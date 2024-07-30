@@ -102,9 +102,13 @@ class AdminSabaController extends Controller
     }
     // detail Saba
     public function showSaba($id){
-        $id = routeParam::decode($id);
-        $results = $this->santri->getById($id);
-        // dd($results);
+        $decodeId = routeParam::decode($id);
+        if ($decodeId) {
+            $results = $this->santri->getById($decodeId);
+        }else{
+            $results = $this->santri->getById($id);
+        }
+
         $provinsi = $this->indo->Provinsi();
         return view('dashboard.admin.data-saba-all.edit', compact('provinsi', 'results'));
     }
@@ -116,8 +120,12 @@ class AdminSabaController extends Controller
     }
     // hanya lihat dan akan export pdf data diri santri
     public function lihatSantri($id){
-        $id = routeParam::decode($id);
-        $datas = $this->santri->lihatSantri($id);
+        $decodeId = routeParam::decode($id);
+        if ($decodeId) {
+            $datas = $this->santri->lihatSantri($decodeId);
+        }else{
+            $datas = $this->santri->lihatSantri($id);
+        }
         return view('dashboard.admin.data-saba-all.lihat_santri', compact('datas'));
     }
     // get berkas
