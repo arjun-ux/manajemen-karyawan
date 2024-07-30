@@ -24,6 +24,9 @@ class SabaFactory extends Factory
             'nik' => fake()->numberBetween(1000000000000000, 9000000000000000),
             'nokk' => fake()->numberBetween(1000000000000000, 9000000000000000),
             'nama_lengkap' => fake()->name(),
+            'saudara_kandung' => fake()->boolean ? 'YA' : 'TIDAK',
+            'status' => fake()->boolean ? 'Pending' : 'Aktif',
+
         ];
     }
 }

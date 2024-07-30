@@ -15,7 +15,10 @@
                         </table>
                     </div>
                 </div>
-                <div class="col-md-12">
+                <div id="searchWrapper" class="mb-3">
+                    <input type="text" id="customSearchInput" placeholder="Search" class="form-control">
+                </div>
+                <div class="col-md-12" id="tableWrapper">
                     <div class="table-responsive">
                         <table class="table table-bordered table-stripped" id="tableSantri" style="width: 100%; height: 50%">
                             <thead class="bg-dark">
@@ -32,6 +35,7 @@
                         </table>
                     </div>
                 </div>
+                <div class="col-md-12" id="cardView" ></div>
             </div>
       </div><!-- /.container-fluid -->
     </section>
@@ -40,38 +44,81 @@
 @endsection
 @push('script')
   <script>
-    $(document).ready(function(){
-        $('#tableSantri').DataTable({
-            "processing": false,
-            "serverSide": true,
-            "ajax": {
-                "url": '/getAllSantri',
-                "type": 'GET',
-            },
-            "columns": [
-                {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
-                {data: 'nis', name: 'nis'},
-                {data: 'nama_lengkap', name: 'nama_lengkap'},
-                {
-                    data: 'status',
-                    name: 'status',
-                    render: function(data, type, full, meta) {
-                        if (data === 'Register') {
-                            return '<span class="btn btn-sm btn-danger">Register</span>';
-                        } else if (data === 'Pending') {
-                            return '<span class="btn btn-sm btn-warning">Pending</span>';
-                        } else if (data === 'Aktif') {
-                            return '<span class="btn btn-sm btn-success">Aktif</span>';
-                        } else {
-                            return data; // Handle other cases or return data as-is
-                        }
+    var table = $('#tableSantri').DataTable({
+        "processing": true,
+        "serverSide": true,
+        "ajax": {
+            "url": '/getAllSantri',
+            "type": 'GET',
+        },
+        drawCallback: function(settings) {
+            // Call function to populate card view
+            convertTableToCardView();
+        },
+        "columns": [
+            {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
+            {data: 'nis', name: 'nis'},
+            {data: 'nama_lengkap', name: 'nama_lengkap'},
+            {
+                data: 'status',
+                name: 'status',
+                render: function(data, type, full, meta) {
+                    if (data === 'Register') {
+                        return '<span class="btn btn-sm btn-danger">Register</span>';
+                    } else if (data === 'Pending') {
+                        return '<span class="btn btn-sm btn-warning">Pending</span>';
+                    } else if (data === 'Aktif') {
+                        return '<span class="btn btn-sm btn-success">Aktif</span>';
+                    } else {
+                        return data; // Handle other cases or return data as-is
                     }
-                },
-                {data: 'action', orderable: false, searchable: false}
-
-            ]
-        });
+                }
+            },
+            {data: 'action', orderable: false, searchable: false}
+        ]
     });
+    // Custom search input event
+    $('#customSearchInput').on('keyup', function() {
+        table.search(this.value).draw();
+    });
+    // Function to convert table data to card view
+    function convertTableToCardView() {
+        const data = table.rows().data().toArray();
+        const cardView = $('#cardView');
+        $('#searchWrapper').show()
+        // Clear card view content
+        cardView.empty();
+        // Iterate over each row of data
+        data.forEach(row => {
+            // Assuming row data order: [NO, NIS, NAMA, STATUS, ACTIOn
+            const id = row['id'];
+            const nis = row['nis'];
+            const nama = row['nama_lengkap'];
+            const status = row['status'];
+
+            // Create card elements
+            const card = $('<div class="card card-outline mb-3"></div>');
+
+            card.html(`
+                <div class="card-body d-flex">
+                    <div class="col-md-6" style="flex: 1 1 50%;">
+                        <div class="fw-medium">NIS: ${nis}</div>
+                        <div class="fw-medium">NAMA: ${nama}</div>
+                        <div class="fw-medium">STATUS: ${status}</div>
+                    </div>
+                    <div class="col-md-6 d-flex justify-content-center align-items-center" >
+                        <a href="/show-saba/${id}" class="btn_edit btn btn-outline-primary btn-sm mt-1"><i class="lni lni-pencil-alt"></i></a>
+                        <a href="/lihat-santri/${id}" class="btn btn-outline-warning btn-sm mt-1"><i class="lni lni-empty-file"></i></a>
+                        <a href="#" data-id="${id}" class="btn-nonAktif btn btn-outline-danger btn-sm m-1"><i class="lni lni-trash-can"></i></a>
+                    </div>
+                </div>
+            `);
+
+            cardView.append(card);
+        });
+    }
+    // Call the function to populate card view
+    convertTableToCardView();
 
     $('body').on('click', '.btn-nonAktif', function(){
         var id = $(this).data('id');
