@@ -74,7 +74,6 @@
         // Cek apakah event.persisted adalah true, menunjukkan bahwa halaman dimuat kembali dari cache browser
         if (event.persisted) {
             // Tampilkan loader atau lakukan tindakan lain sesuai kebutuhan Anda
-            console.log('kembali ke halaman sebelum');
             document.getElementById('loader').style.display = 'none';
             document.getElementById('loader-container').style.display = 'none';
         }
