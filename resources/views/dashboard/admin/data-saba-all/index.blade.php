@@ -1,5 +1,52 @@
 @extends('dashboard.admin.layouts.app')
 @section('content')
+<style>
+.custom-card {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0; /* Border utama di sekitar card */
+    border-top: 4px solid green; /* Border atas dengan warna yang menonjol */
+    max-height: 180px; /* Atur tinggi maksimum card di sini */
+    overflow-y: auto;
+}
+
+.custom-card ul li {
+    padding: 5px 0; /* Sesuaikan padding untuk mengurangi tinggi item list */
+    border-bottom: 1px solid #e0e0e0;
+    font-size: 14px; /* Sesuaikan ukuran font jika perlu */
+    font-family: "Poppins"
+}
+
+.custom-card ul li:last-child {
+    border-bottom: none;
+}
+
+.custom-card .btn {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    padding: 2px 6px; /* Sesuaikan padding tombol untuk tinggi yang lebih baik */
+}
+
+.custom-card .btn:hover {
+    background-color: #f0f0f0;
+    color: #333;
+    border-color: #ddd;
+}
+
+.custom-card .btn-outline-primary:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.custom-card .btn-outline-warning:hover {
+    background-color: #ffc107;
+    color: #fff;
+}
+
+.custom-card .btn-outline-danger:hover {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+</style>
 <div class="content-wrapper">
     <!-- Main content -->
     <section class="content">
@@ -49,7 +96,7 @@
         use App\Providers\RouteParamService as routeParam;
     @endphp
     var table = $('#tableSantri').DataTable({
-        "processing": true,
+        "processing": false,
         "serverSide": true,
         "paging": true,
         "ajax": {
@@ -98,8 +145,6 @@
         cardView.empty();
         // Iterate over each row of data
         data.forEach(row => {
-
-
             // Assuming row data order: [NO, NIS, NAMA, STATUS, ACTIOn
             var id = row.id;
             const nis = row['nis'];
@@ -107,19 +152,27 @@
             const status = row['status'];
 
             // Create card elements
-            const card = $('<div class="card card-outline mb-3"></div>');
+            const card = $('<div class="card custom-card p-3 rounded shadow-sm mb-1"></div>');
 
             card.html(`
-                <div class="card-body d-flex">
-                    <div class="col-md-6" style="flex: 1 1 50%;">
-                        <div class="fw-medium">NIS: ${nis}</div>
-                        <div class="fw-medium">NAMA: ${nama}</div>
-                        <div class="fw-medium">STATUS: ${status}</div>
+                <div class="d-flex justify-content-between align-items-start">
+                    <div class="flex-fill pe-3">
+                        <ul class="list-unstyled mb-0">
+                            <li>NIS : <strong>${nis}</strong> </li>
+                            <li>NAMA : <strong>${nama}</strong> </li>
+                            <li>STATUS : <strong>${status}</strong> </li>
+                        </ul>
                     </div>
-                    <div class="col-md-6 d-flex justify-content-center align-items-center" >
-                        <a href="/show-saba/${id}" class="btn_edit btn btn-outline-primary btn-sm mt-1"><i class="lni lni-pencil-alt"></i></a>
-                        <a href="/lihat-santri/${id}" class="btn btn-outline-warning btn-sm mt-1"><i class="lni lni-empty-file"></i></a>
-                        <a href="#" data-id="${id}" class="btn-nonAktif btn btn-outline-danger btn-sm m-1"><i class="lni lni-trash-can"></i></a>
+                    <div class="d-flex flex-column justify-content-center align-items-center">
+                        <a href="/show-saba/${id}" class="btn btn-outline-primary btn-sm mb-2 rounded-pill">
+                            <i class="lni lni-pencil-alt"></i>
+                        </a>
+                        <a href="/lihat-santri/${id}" class="btn btn-outline-warning btn-sm mb-2 rounded-pill">
+                            <i class="lni lni-empty-file"></i>
+                        </a>
+                        <a href="#" data-id="${id}" class="btn-nonAktif btn btn-outline-danger btn-sm rounded-pill">
+                            <i class="lni lni-trash-can"></i>
+                        </a>
                     </div>
                 </div>
             `);
