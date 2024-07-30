@@ -36,6 +36,7 @@
                     </div>
                 </div>
                 <div class="col-md-12" id="cardView" ></div>
+                <div class="col-md-12" id="pagination">Pgian</div>
             </div>
       </div><!-- /.container-fluid -->
     </section>
@@ -50,11 +51,13 @@
     var table = $('#tableSantri').DataTable({
         "processing": true,
         "serverSide": true,
+        "paging": true,
         "ajax": {
             "url": '/getAllSantri',
             "type": 'GET',
         },
         drawCallback: function(settings) {
+            $('#pagination').text('Total Of Data '+settings.json.recordsTotal);
             // Call function to populate card view
             convertTableToCardView();
         },
@@ -85,10 +88,10 @@
         table.search(this.value).draw();
     });
 
-
     // Function to convert table data to card view
     function convertTableToCardView() {
         const data = table.rows().data().toArray();
+
         const cardView = $('#cardView');
         $('#searchWrapper').show()
         // Clear card view content
