@@ -21,10 +21,8 @@ class ReportController extends Controller
     public function dataBulanan(Request $request){
         $request->validate([
             'awal' => 'required',
-            'akhir' => 'required',
         ],[
             'awal.required' => 'Select Start Of Range',
-            'akhir.required' => 'Select End Of Range'
         ]);
         $bulanIni =  TransaksiService::traksaksiBulanIni($request);
         // return response()->json($bulanIni);
@@ -32,15 +30,15 @@ class ReportController extends Controller
                     ->addColumn('nama_lengkap', function($data){
                         return $data->saba->nama_lengkap;
                     })
-                    ->addColumn('nama_tagihan', function($data){
-                        return $data->invoice->nama_tagihan;
-                    })
-                    ->addColumn('bulan', function($data){
-                        return $data->invoice->bulan_ajaran;
-                    })
-                    ->addColumn('tahun', function($data){
-                        return $data->invoice->tahun_ajaran;
-                    })
+                    // ->addColumn('nama_tagihan', function($data){
+                    //     return $data->invoice->nama_tagihan;
+                    // })
+                    // ->addColumn('bulan', function($data){
+                    //     return $data->invoice->bulan_ajaran;
+                    // })
+                    // ->addColumn('tahun', function($data){
+                    //     return $data->invoice->tahun_ajaran;
+                    // })
                     ->addIndexColumn()
                     ->toJson();
     }

@@ -2,6 +2,7 @@
 
 namespace App\Providers\Service;
 
+use App\Models\Invoice;
 use Illuminate\Support\Str;
 use App\Models\Transaksi;
 use App\Models\User;
@@ -24,16 +25,35 @@ class TransaksiService extends ServiceProvider
     }
     public static function traksaksiBulanIni($request){
         $startOfMonth = $request->awal;
-        $endOfMonth = $request->akhir;
+        $tahunAjaran = date('Y', strtotime($startOfMonth));
+        $bulanAjaran = date('m', strtotime($startOfMonth));
         $kamar_id = $request->kamar_id;
         $jenis_tagihan = $request->jenis_tagihan;
 
+        // Array untuk memetakan angka bulan ke nama bulan
+        $angkaBulanKeNama = [
+            '01' => 'Januari',
+            '02' => 'Februari',
+            '03' => 'Maret',
+            '04' => 'April',
+            '05' => 'Mei',
+            '06' => 'Juni',
+            '07' => 'Juli',
+            '08' => 'Agustus',
+            '09' => 'September',
+            '10' => 'Oktober',
+            '11' => 'November',
+            '12' => 'Desember',
+        ];
+        $namaBulan = $angkaBulanKeNama[$bulanAjaran];
+        // return $namaBulan;
         // Query dasar untuk mendapatkan transaksi dalam rentang tanggal yang ditentukan
-        $transaksi = Transaksi::query()
+        $transaksi = Invoice::query()
             ->with('saba')
-            ->with('invoice')
-            ->whereBetween('tgl_transaksi', [$startOfMonth, $endOfMonth]);
-
+            // ->with('invoice')
+            // ->whereBetween('tgl_transaksi', [$startOfMonth, $endOfMonth]);
+            ->where('bulan_ajaran', $namaBulan)
+            ->where('tahun_ajaran', $tahunAjaran);
         // Jika parameter kamar ada, tambahkan filter untuk kamar
         if ($kamar_id) {
             $transaksi->whereHas('saba', function ($query) use ($kamar_id) {
@@ -43,9 +63,8 @@ class TransaksiService extends ServiceProvider
 
         // Jika parameter jenis_tagihan ada, tambahkan filter untuk jenis_tagihan
         if ($jenis_tagihan) {
-            $transaksi->whereHas('invoice', function ($query) use ($jenis_tagihan) {
-                $query->where('jenis_tagihan', $jenis_tagihan);
-            });
+            $transaksi->where('jenis_tagihan', $jenis_tagihan);
+
         }
         return $transaksi;
     }

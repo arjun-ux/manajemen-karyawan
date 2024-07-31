@@ -22,15 +22,11 @@
                                 @csrf
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <label for="firstRange">Pilih Awal</label>
-                                        <input type="date" id="firstRange" name="awal" class="form-control">
+                                        <label for="firstRange">Pilih Bulan</label>
+                                        <input type="month" id="firstRange" name="awal" class="form-control">
                                     </div>
                                     <div class="col-md-3">
-                                        <label for="endRange">Pilih Akhir</label>
-                                        <input type="date" id="endRange" name="akhir" class="form-control">
-                                    </div>
-                                    <div class="col-md-2">
-                                        <label for="endRange">Pilih Kamar</label>
+                                        <label for="kamar">Pilih Kamar</label>
                                         <select name="kamar_id" id="kamar" class="form-select">
                                             <option value="">--Pilih Kamar--</option>
                                             @foreach ($kamar as $val)
@@ -38,7 +34,7 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-3">
                                         <label for="endRange">Jenis Tagihan</label>
                                         <select name="jenis_tagihan" id="jenis_tagihan" class="form-select">
                                             <option value="">--Pilih Tagihan--</option>
@@ -47,7 +43,7 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-3">
                                         <label for=""></label>
                                         <button type="submit" class="form-control" style="background-color: green; color: #ffff">Cari</button>
                                     </div>
@@ -133,15 +129,15 @@
                 {data: 'id'},
                 {data: 'nama_lengkap'},
                 {data: 'nama_tagihan'},
-                {data: 'bulan'},
-                {data: 'tahun'},
+                {data: 'bulan_ajaran'},
+                {data: 'tahun_ajaran'},
                 {
-                    data: 'nominal',
+                    data: 'nominal_tagihan',
                     render: function(data){
                         return formatNumber(data)
                     }
                 },
-                {data: 'status'},
+                {data: 'status_tagihan'},
             ],
             layout: {
                 topStart: {
