@@ -1,5 +1,51 @@
 @extends('dashboard.admin.layouts.app')
 @section('content')
+<style>
+    .custom-card {
+        background-color: #ffffff;
+        border: 1px solid #e0e0e0; /* Border utama di sekitar card */
+        border-top: 4px solid green; /* Border atas dengan warna yang menonjol */
+        max-height: 180px; /* Atur tinggi maksimum card di sini */
+        overflow-y: auto;
+    }
+
+    .custom-card ul li {
+        padding: 5px 0; /* Sesuaikan padding untuk mengurangi tinggi item list */
+        border-bottom: 1px solid #e0e0e0;
+        font-size: 14px; /* Sesuaikan ukuran font jika perlu */
+        font-family: "Poppins"
+    }
+
+    .custom-card ul li:last-child {
+        border-bottom: none;
+    }
+
+    .custom-card .btn {
+        transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        padding: 2px 6px; /* Sesuaikan padding tombol untuk tinggi yang lebih baik */
+    }
+
+    .custom-card .btn:hover {
+        background-color: #f0f0f0;
+        color: #333;
+        border-color: #ddd;
+    }
+
+    .custom-card .btn-outline-primary:hover {
+        background-color: #007bff;
+        color: #fff;
+    }
+
+    .custom-card .btn-outline-warning:hover {
+        background-color: #ffc107;
+        color: #fff;
+    }
+
+    .custom-card .btn-outline-danger:hover {
+        background-color: #dc3545;
+        color: #fff;
+    }
+</style>
 <div class="content-wrapper">
     <!-- Main content -->
     <section class="content">
@@ -15,7 +61,10 @@
                         </table>
                     </div>
                 </div>
-                <div class="col-md-12">
+                <div id="searchWrapper" class="mb-3">
+                    <input type="text" id="customSearchInput" placeholder="Search" class="form-control">
+                </div>
+                <div class="col-md-12" id="tableWrapper">
                     <div class="table-responsive">
                         <table class="table table-bordered table-stripped" id="tableUserAdmin" style="width: 100%; height: 50%">
                             <thead class="bg-dark">
@@ -32,6 +81,8 @@
                         </table>
                     </div>
                 </div>
+                <div class="col-md-12" id="cardView" ></div>
+                <div class="col-md-12" id="pagination"></div>
             </div>
       </div><!-- /.container-fluid -->
     </section>
@@ -142,12 +193,17 @@
   <script>
 
     $(document).ready(function(){
-        $('#tableUserAdmin').DataTable({
+        var table = $('#tableUserAdmin').DataTable({
             "processing": false,
             "serverSide": true,
             "ajax": {
                 "url": '/getUserAdmin',
                 "type": 'GET',
+            },
+            drawCallback: function(settings) {
+                $('#pagination').text('Total Of Data '+settings.json.recordsTotal);
+                // Call function to populate card view
+                convertTableToCardView();
             },
             "columns": [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
@@ -157,7 +213,53 @@
                 {data: 'action', name: 'action', orderable: false, searchable: false},
             ],
         });
+
+        // Function to convert table data to card view
+        function convertTableToCardView() {
+            const data = table.rows().data().toArray();
+
+            const cardView = $('#cardView');
+            $('#searchWrapper').show()
+            // Clear card view content
+            cardView.empty();
+            // Iterate over each row of data
+            data.forEach(row => {
+                // Assuming row data order: [NO, NIS, NAMA, STATUS, ACTIOn
+                var id = row['id'];
+                const username = row['username'];
+                const nama = row['name'];
+                const no_wa = row['no_wa'];
+
+                // Create card elements
+                const card = $('<div class="card custom-card p-3 rounded shadow-sm mb-1"></div>');
+
+                card.html(`
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div class="flex-fill pe-3">
+                            <ul class="list-unstyled mb-0">
+                                <li>NIS : <strong>${username}</strong> </li>
+                                <li>NAMA : <strong>${nama}</strong> </li>
+                                <li>STATUS : <strong>${no_wa}</strong> </li>
+                            </ul>
+                        </div>
+                        <div class="d-flex flex-column justify-content-center align-items-center">
+                            <a href="#" data-id="${id}" class="btn_edit btn btn-outline-primary btn-sm mb-2 rounded-pill">
+                                <i class="lni lni-pencil-alt"></i>
+                            </a>
+                            <a href="#" data-id="${id}" class="btn_delete btn btn-outline-danger btn-sm rounded-pill">
+                                <i class="lni lni-trash-can"></i>
+                            </a>
+                        </div>
+                    </div>
+                `);
+
+                cardView.append(card);
+            });
+        }
+        // Call the function to populate card view
+        convertTableToCardView();
     });
+
 
     $('#btn-add').click(function(){
         $('#modalAddUser').modal('show');
