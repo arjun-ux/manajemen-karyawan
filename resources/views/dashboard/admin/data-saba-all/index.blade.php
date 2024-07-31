@@ -1,51 +1,50 @@
 @extends('dashboard.admin.layouts.app')
 @section('content')
 <style>
-.custom-card {
-    background-color: #ffffff;
-    border: 1px solid #e0e0e0; /* Border utama di sekitar card */
-    border-top: 4px solid green; /* Border atas dengan warna yang menonjol */
-    max-height: 180px; /* Atur tinggi maksimum card di sini */
-    overflow-y: auto;
-}
+    .custom-card {
+        background-color: #ffffff;
+        border: 1px solid #e0e0e0; /* Border utama di sekitar card */
+        border-top: 4px solid green; /* Border atas dengan warna yang menonjol */
+        max-height: 180px; /* Atur tinggi maksimum card di sini */
+        overflow-y: auto;
+    }
 
-.custom-card ul li {
-    padding: 5px 0; /* Sesuaikan padding untuk mengurangi tinggi item list */
-    border-bottom: 1px solid #e0e0e0;
-    font-size: 14px; /* Sesuaikan ukuran font jika perlu */
-    font-family: "Poppins"
-}
+    .custom-card ul li {
+        padding: 5px 0; /* Sesuaikan padding untuk mengurangi tinggi item list */
+        border-bottom: 1px solid #e0e0e0;
+        font-size: 14px; /* Sesuaikan ukuran font jika perlu */
+        font-family: "Poppins"
+    }
 
-.custom-card ul li:last-child {
-    border-bottom: none;
-}
+    .custom-card ul li:last-child {
+        border-bottom: none;
+    }
 
-.custom-card .btn {
-    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-    padding: 2px 6px; /* Sesuaikan padding tombol untuk tinggi yang lebih baik */
-}
+    .custom-card .btn {
+        transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        padding: 2px 6px; /* Sesuaikan padding tombol untuk tinggi yang lebih baik */
+    }
 
-.custom-card .btn:hover {
-    background-color: #f0f0f0;
-    color: #333;
-    border-color: #ddd;
-}
+    .custom-card .btn:hover {
+        background-color: #f0f0f0;
+        color: #333;
+        border-color: #ddd;
+    }
 
-.custom-card .btn-outline-primary:hover {
-    background-color: #007bff;
-    color: #fff;
-}
+    .custom-card .btn-outline-primary:hover {
+        background-color: #007bff;
+        color: #fff;
+    }
 
-.custom-card .btn-outline-warning:hover {
-    background-color: #ffc107;
-    color: #fff;
-}
+    .custom-card .btn-outline-warning:hover {
+        background-color: #ffc107;
+        color: #fff;
+    }
 
-.custom-card .btn-outline-danger:hover {
-    background-color: #dc3545;
-    color: #fff;
-}
-
+    .custom-card .btn-outline-danger:hover {
+        background-color: #dc3545;
+        color: #fff;
+    }
 </style>
 <div class="content-wrapper">
     <!-- Main content -->
@@ -83,7 +82,7 @@
                     </div>
                 </div>
                 <div class="col-md-12" id="cardView" ></div>
-                <div class="col-md-12" id="pagination">Pgian</div>
+                <div class="col-md-12" id="pagination"></div>
             </div>
       </div><!-- /.container-fluid -->
     </section>
