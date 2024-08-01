@@ -14,8 +14,9 @@ class TransaksiService extends ServiceProvider
 {
     // send notif wa
     public static function sendNotifWa(Request $request){
+        // return response()->json($request->all());
         $user = User::query()->where('username', $request->nis_santri)->first();
-        $message = 'Pembayaran SPP ' .$request->bulan_tahun. ' Atas Nama ' . $user->name. ' Telah Lunas';
+        $message = 'Pembayaran '.$request->nama_tagihan. ' ' .$request->bulan_tahun. ' Atas Nama ' . $user->name. ' Telah Di Input Ke Sistem';
         WhatsAppService::sendNotif($user->no_wa, $message);
         return response()->json(['message'=>'Berhasil Send Notif Wa']);
     }
