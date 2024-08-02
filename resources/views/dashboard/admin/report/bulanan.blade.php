@@ -27,7 +27,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <label for="kamar">Pilih Kamar</label>
-                                        <select name="kamar_id" id="kamar" class="form-select">
+                                        <select name="kamar_id" id="kamar" class="form-control">
                                             <option value="">--Pilih Kamar--</option>
                                             @foreach ($kamar as $val)
                                                 <option value="{{ $val->id }}">{{ $val->nama_kamar }}</option>
@@ -36,7 +36,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         <label for="endRange">Jenis Tagihan</label>
-                                        <select name="jenis_tagihan" id="jenis_tagihan" class="form-select">
+                                        <select name="jenis_tagihan" id="jenis_tagihan" class="form-control">
                                             <option value="">--Pilih Tagihan--</option>
                                             @foreach ($jenis_tagihan as $val)
                                                 <option value="{{ $val->jenis_pembayaran }}">{{ $val->jenis_pembayaran }}</option>

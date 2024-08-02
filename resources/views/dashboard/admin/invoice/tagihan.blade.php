@@ -69,7 +69,7 @@
                                 @csrf
                                 <div class="row">
                                     <div class="col-md-3 mb-1 mt-1">
-                                        <select name="nama_tagihan" id="nama_tagihan" class="form-select">
+                                        <select name="nama_tagihan" id="nama_tagihan" class="form-control">
                                             <option value="">Pilih Tagihan</option>
                                             @foreach ($pembayaran as $val)
                                                 <option value="{{ $val->id }}">{{ $val->nama_pembayaran }}</option>
