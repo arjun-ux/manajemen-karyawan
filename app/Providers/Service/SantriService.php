@@ -229,12 +229,20 @@ class SantriService extends ServiceProvider
                 'diterima_dikelas' => $request->diterima_dikelas,
                 'no_surat_pindah' => $request->no_surat_pindah,
             ]);
-            if ($request->wali === 'Ayah' || $request->wali === 'Ibu') {
+            if ($request->wali === 'Ayah') {
                 WaliSaba::create([
                     'saba_id' => $ortu->saba_id,
                     'nama_wali' => $ortu->nama_ayah,
                     'no_hp_wali' => $ortu->no_hp_ayah,
                     'kedudukan_dalam_keluarga' => "Ayah",
+                    'alamat_wali' => 'Sama Dengan Anak'
+                ]);
+            }elseif($request->wali === 'Ibu'){
+                WaliSaba::create([
+                    'saba_id' => $ortu->saba_id,
+                    'nama_wali' => $ortu->nama_ibu,
+                    'no_hp_wali' => $ortu->no_hp_ibu,
+                    'kedudukan_dalam_keluarga' => "Ibu",
                     'alamat_wali' => 'Sama Dengan Anak'
                 ]);
             }elseif ($request->wali === 'Wali') {

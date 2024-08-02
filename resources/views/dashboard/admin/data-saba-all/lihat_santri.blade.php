@@ -383,8 +383,13 @@ use App\Providers\RouteParamService as routeParam;
                                 $('#kk').attr('src', kk);
                                 $('#ktp_ortu').attr('src', ktp_ortu);
                                 $('#ktp_wali').attr('src', ktp_wali);
-                                if(res.data.kk == null || res.data.ktp_ortu == null || res.data.ktp_wali == null){
+                                if(res.data.kk == null){
+                                    $('#kk').attr('src', '{{ asset('img/preview-image.png') }}');
+                                }
+                                if (res.data.ktp_ortu == null) {
                                     $('#ktp_ortu').attr('src', '{{ asset('img/preview-image.png') }}');
+                                }
+                                if (res.data.ktp_wali == null) {
                                     $('#ktp_wali').attr('src', '{{ asset('img/preview-image.png') }}');
                                 }
                                 loaded = true; // Set flag loaded menjadi true
