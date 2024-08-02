@@ -8,6 +8,7 @@ use App\Models\Kamar;
 use App\Models\Saba;
 use App\Models\Pembayaran;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
 
 class SettingsService extends ServiceProvider
@@ -50,6 +51,17 @@ class SettingsService extends ServiceProvider
         $santri = Saba::query()->firstWhere('id',$id);
         $santri->update(['kamar_id'=>$request->kamar_id]);
         return response()->json(['message'=>'Berhasil Memilih Kamar Santri']);
+    }
+
+    // jumlah penghuni kamar
+    public static function penghuniKamar(){
+        $data = DB::table('sabas as saba')
+                ->join('kamars as kamar', 'saba.kamar_id', '=', 'kamar.id')
+                ->select('kamar.id', 'kamar.nama_kamar', DB::raw('COUNT(*) as jumlah_saba'))
+                ->groupBy('kamar.id', 'kamar.nama_kamar')
+                ->get();
+        // dd($data);
+        return $data;
     }
 
     // setting pembayaran -------------------------------------------------------------------------

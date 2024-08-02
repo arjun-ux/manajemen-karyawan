@@ -375,7 +375,7 @@ use App\Providers\RouteParamService as routeParam;
                         url: "/load-berkas/" + sid,
                         type: "GET",
                         success: function(res) {
-                            if (res.data && res.data.kk && res.data.ktp_ortu) {
+                            if (res.data) {
                                 cardBody.show(); // Tampilkan card-body setelah berhasil memuat gambar
                                 var kk = '{{ asset('storage/') }}' + '/' + res.data.kk;
                                 var ktp_ortu = '{{ asset('storage/') }}' + '/' + res.data.ktp_ortu;
@@ -383,7 +383,8 @@ use App\Providers\RouteParamService as routeParam;
                                 $('#kk').attr('src', kk);
                                 $('#ktp_ortu').attr('src', ktp_ortu);
                                 $('#ktp_wali').attr('src', ktp_wali);
-                                if(res.data.ktp_wali == null){
+                                if(res.data.kk == null || res.data.ktp_ortu == null || res.data.ktp_wali == null){
+                                    $('#ktp_ortu').attr('src', '{{ asset('img/preview-image.png') }}');
                                     $('#ktp_wali').attr('src', '{{ asset('img/preview-image.png') }}');
                                 }
                                 loaded = true; // Set flag loaded menjadi true

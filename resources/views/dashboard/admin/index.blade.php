@@ -1,7 +1,7 @@
 @extends('dashboard.admin.layouts.app')
 @section('content')
 <style>
-.card {
+.card-custom {
   border: none;
   border-radius: 10px; /* Rounded border */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow effect */
@@ -10,38 +10,25 @@
   background: linear-gradient(45deg, #eeffbae8, #92ce82);
   color: #ffffff; /* Text color */
 }
-.card:hover {
+.card-custom:hover {
   box-shadow: 0 10px 18px rgba(0, 0, 0, 0.2); /* Larger shadow on hover */
 }
-.card-body {
+.card-body-custom {
   padding: 1.25rem; /* Padding inside the card body */
 }
-.card-title {
-  font-size: 1.25rem; /* Title font size */
-  margin-bottom: 0.75rem; /* Bottom margin for title */
-}
-.card-text {
-  line-height: 1.6; /* Line height for text */
-}
-.card-footer {
-  background-color: rgba(0, 0, 0, 0.03); /* Footer background */
-  border-top: none; /* No top border for footer */
-  padding: 1rem; /* Padding for footer */
-  border-bottom-left-radius: 10px; /* Rounded bottom left corner */
-  border-bottom-right-radius: 10px; /* Rounded bottom right corner */
-}
+
 </style>
 <div class="content-wrapper">
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-          <div class="row p-0">
-            {{--  <div class="alert alert-warning fw-bold">
-                Aplikasi Dalam Pengembangan
-            </div>  --}}
+          <div class="row">
+            <div class="alert alert-warning fw-bold">
+                * Aplikasi Dalam Pengembangan akan tetapi sudah bisa digunakan
+            </div>
             <div class="col-xl-3 col-md-6 mb-4 ">
-                <div class="card py-2">
-                    <div class="card-body">
+                <div class="card-custom py-2">
+                    <div class="card-body-custom">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
                                 <div class="text-sm fw-bold text-black text-uppercase mb-1">
@@ -56,8 +43,8 @@
                 </div>
             </div>
             <div class="col-xl-3 col-md-6 mb-4 ">
-                <div class="card py-2">
-                    <div class="card-body">
+                <div class="card-custom py-2">
+                    <div class="card-body-custom">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
                                 <div class="text-md fw-bold text-black text-uppercase mb-1">
@@ -72,8 +59,8 @@
                 </div>
             </div>
             <div class="col-xl-3 col-md-6 mb-4 ">
-                <div class="card py-2">
-                    <div class="card-body">
+                <div class="card-custom py-2">
+                    <div class="card-body-custom">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
                                 <div class="text-md fw-bold text-black text-uppercase mb-1">
@@ -90,8 +77,8 @@
                 </div>
             </div>
             <div class="col-xl-3 col-md-6 mb-4 ">
-                <div class="card py-2">
-                    <div class="card-body">
+                <div class="card-custom py-2">
+                    <div class="card-body-custom">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
                                 <div class="text-md fw-bold text-black text-uppercase mb-1">
@@ -105,13 +92,72 @@
                     </div>
                 </div>
             </div>
-
+            <div class="col-md-6 mb-4 ">
+                <div class="card">
+                    <div class="card-header">
+                        Grafik Santri
+                    </div>
+                    <div class="card-body">
+                        <div id="chart"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4 ">
+                <div class="card">
+                    <div class="card-header">
+                        Data Kamar
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table  table-stripped" id="tableSantri" style="width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Nama</th>
+                                        <th>Jumlah</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($JUMLAH['kamar'] as $val)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $val->nama_kamar }}</td>
+                                            <td>{{ $val->jumlah_saba }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
           </div>
       </div><!-- /.container-fluid -->
     </section>
 
 </div>
 @endsection
+@push('script')
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script>
+    var options = {
+        chart: {
+        type: 'line'
+        },
+        series: [{
+        name: 'sales',
+        data: [30,40,35,50,49,60,70,91,125]
+        }],
+        xaxis: {
+        categories: [1991,1992,1993,1994,1995,1996,1997, 1998,1999]
+        }
+    }
 
+    var chart = new ApexCharts(document.querySelector("#chart"), options);
+
+    chart.render();
+
+</script>
+@endpush
 
 

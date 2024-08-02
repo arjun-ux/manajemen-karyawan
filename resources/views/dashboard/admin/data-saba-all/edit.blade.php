@@ -600,8 +600,7 @@
                     url: "/load-berkas/" + sid,
                     type: "GET",
                     success: function(res) {
-                        if (res.data && res.data.foto && res.data.kk && res.data.ktp_ortu) {
-
+                        if (res.data) {
                             var foto = '{{ asset('storage/') }}' + '/' + res.data.foto;
                             var kk = '{{ asset('storage/') }}' + '/' + res.data.kk;
                             var ktp_ortu = '{{ asset('storage/') }}' + '/' + res.data.ktp_ortu;
@@ -610,7 +609,9 @@
                             $('#previewFoto2').attr('src', kk);
                             $('#previewFoto3').attr('src', ktp_ortu);
                             $('#previewFoto4').attr('src', ktp_wali);
-                            if(res.data.ktp_wali == null){
+                            if(res.data.kk == null || res.data.ktp_ortu == null){
+                                $('#previewFoto2').attr('src', '{{ asset('img/preview-image.png') }}');
+                                $('#previewFoto3').attr('src', '{{ asset('img/preview-image.png') }}');
                                 $('#previewFoto4').attr('src', '{{ asset('img/preview-image.png') }}');
                             }
                             loaded = true; // Set flag loaded menjadi true
