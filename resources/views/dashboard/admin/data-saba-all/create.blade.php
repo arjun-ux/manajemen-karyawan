@@ -341,14 +341,6 @@
                             </div>
                             <div class="row g-3 align-items-center mb-2">
                                 <div class="col-md-4">
-                                    <label for="kedudukan_dalam_keluarga" class="col-form-label">Kedudukan Dalam Keluarga</label>
-                                </div>
-                                <div class="col-md-8">
-                                    <input type="text" id="kedudukan_dalam_keluarga" class="form-control" name="kedudukan_dalam_keluarga">
-                                </div>
-                            </div>
-                            <div class="row g-3 align-items-center mb-2">
-                                <div class="col-md-4">
                                     <label for="alamat_wali" class="col-form-label">Alamat Wali</label>
                                 </div>
                                 <div class="col-md-8">

@@ -497,15 +497,15 @@
                             <div class="card-body">
                                 <div class="row g-3 align-items-center text-center mb-2">
                                     <div class="col-md-4">
-                                        <input type="radio" name="kedudukan_dalam_keluarga" id="waliAyah" value="Ayah">
+                                        <input type="radio" name="kedudukan_dalam_keluarga" id="waliAyah" value="Ayah" {{ $results['wali']->kedudukan_dalam_keluarga == 'Ayah' ? 'checked' : '' }}>
                                         <label for="waliAyah" class="col-form-label">Ayah</label>
                                     </div>
                                     <div class="col-md-4">
-                                        <input type="radio" name="kedudukan_dalam_keluarga" id="waliIbu" value="Ibu">
+                                        <input type="radio" name="kedudukan_dalam_keluarga" id="waliIbu" value="Ibu" {{ $results['wali']->kedudukan_dalam_keluarga == 'Ibu' ? 'checked' : '' }}>
                                         <label for="waliIbu" class="col-form-label">Ibu</label>
                                     </div>
                                     <div class="col-md-4">
-                                        <input type="radio" name="kedudukan_dalam_keluarga" id="inputWali" value="Wali">
+                                        <input type="radio" name="kedudukan_dalam_keluarga" id="inputWali" value="Wali" {{ $results['wali']->kedudukan_dalam_keluarga == 'Wali' ? 'checked' : '' }}>
                                         <label for="inputWali" class="col-form-label">Wali</label>
                                     </div>
                                 </div>
@@ -516,8 +516,37 @@
                                     <div class="alert alert-warning" id="ayahWali" style="display: none">
                                         <strong>Ayah Dipilih Sebagai Wali</strong>
                                     </div>
-                                    <div class="alert alert-info" id="waliInput" style="display: none">
-                                        <strong>Wali Orang Lain</strong>
+
+                                    {{--  form wali  --}}
+                                    <div id="waliInput" style="display: none">
+                                        <div class="alert alert-info">
+                                            <strong>Wali Bukan Dari Ayah Atau Ibu</strong>
+                                        </div>
+                                        <input type="hidden" name="wali" id="wali">
+                                        <div class="row g-3 align-items-center mb-2">
+                                            <div class="col-md-4">
+                                                <label for="nama_wali" class="col-form-label">Nama Wali</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" id="nama_wali" class="form-control" name="nama_wali" value="{{ $results['wali']->nama_wali }}">
+                                            </div>
+                                        </div>
+                                        <div class="row g-3 align-items-center mb-2">
+                                            <div class="col-md-4">
+                                                <label for="alamat_wali" class="col-form-label">Alamat Wali</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" id="alamat_wali" class="form-control" name="alamat_wali" value="{{ $results['wali']->alamat_wali }}">
+                                            </div>
+                                        </div>
+                                        <div class="row g-3 align-items-center mb-2">
+                                            <div class="col-md-4">
+                                                <label for="no_hp_wali" class="col-form-label">No HP Wali</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input type="text" id="no_hp_wali" class="form-control" name="no_hp_wali" value="{{ $results['wali']->no_hp_wali }}">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -760,10 +789,12 @@
 
         $('#data-santri').click(function(){
             $('#form-santri').show();
+            $('#kamarPesantren').show();
             $('#form-ortu').hide();
             $('#form-wali').hide();
             $('#ayahIbu').hide();
             $('#formAsalSekolah').hide();
+            $('#file_berkas').hide()
         });
         $('#data-ortu').click(function(){
             $('#form-ortu').show();
@@ -771,6 +802,8 @@
             $('#form-wali').hide();
             $('#ayahIbu').hide();
             $('#formAsalSekolah').hide();
+            $('#file_berkas').hide()
+            $('#kamarPesantren').hide()
         });
         $('#data-asal-sekolah').click(function(){
             $('#formAsalSekolah').show();
@@ -778,29 +811,45 @@
             $('#form-santri').hide();
             $('#form-wali').hide();
             $('#ayahIbu').hide();
+            $('#file_berkas').hide()
+            $('#kamarPesantren').hide()
         });
         $('#data-wali').click(function(){
             $('#ayahIbu').show();
             $('#form-ortu').hide();
             $('#form-santri').hide();
             $('#formAsalSekolah').hide();
+            $('#file_berkas').hide()
+            $('#kamarPesantren').hide()
+            const radioButtons = document.querySelectorAll('input[name="kedudukan_dalam_keluarga"]');
+            radioButtons.forEach((radio)=>{
+                if(radio.checked == true){
+                    $('#waliInput').show();
+                }else{
+                    $('#waliInput').hide();
+                }
+            });
         });
         $('#waliAyah').click(function(){
             $('#ayahWali').show();
             $('#ibuWali').hide();
             $('#waliInput').hide();
+            $('#file_berkas').hide()
+            $('#kamarPesantren').hide()
         });
         $('#waliIbu').click(function(){
             $('#ibuWali').show();
             $('#ayahWali').hide();
             $('#waliInput').hide();
+            $('#file_berkas').hide()
+            $('#kamarPesantren').hide()
         });
         $('#inputWali').click(function(){
             $('#waliInput').show();
             $('#ibuWali').hide();
             $('#ayahWali').hide();
+            $('#kamarPesantren').hide();
         });
-
 
         $('#selectKamar').change(function() {
             if ($(this).val() !== '') {

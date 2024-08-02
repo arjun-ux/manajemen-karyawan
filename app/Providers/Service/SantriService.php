@@ -106,6 +106,8 @@ class SantriService extends ServiceProvider
                 'kamar' => $kamar,
                 'kamarsaba' => $kamarsaba,
             ];
+            // echo json_encode($results);
+            // exit();
             return $results;
         } catch (\Throwable $th) {
             throw $th;
@@ -249,7 +251,7 @@ class SantriService extends ServiceProvider
                 WaliSaba::create([
                     'saba_id' => $santri->id,
                     'nama_wali' => $request->nama_wali,
-                    'kedudukan_dalam_keluarga' => $request->kedudukan_dalam_keluarga,
+                    'kedudukan_dalam_keluarga' => 'Wali',
                     'alamat_wali' => $request->alamat_wali,
                     'no_hp_wali' => $request->no_hp_wali,
                 ]);
@@ -364,11 +366,35 @@ class SantriService extends ServiceProvider
                 'diterima_dikelas' => $request->diterima_dikelas,
                 'no_surat_pindah' => $request->no_surat_pindah,
             ]);
+            $wali = WaliSaba::query()->where('saba_id', $saba->id)->first();
 
-        return response()->json([
-            'status' => 201,
-            'message' => 'Data Berhasil di Ubah',
-        ]);
+            if ($request->kedudukan_dalam_keluarga === 'Ayah') {
+                $wali->update([
+                    'saba_id' => $saba->id,
+                    'nama_wali' => $ortu->nama_ayah,
+                    'no_hp_wali' => $ortu->no_hp_ayah,
+                    'kedudukan_dalam_keluarga' => "Ayah",
+                    'alamat_wali' => 'Sama Dengan Anak'
+                ]);
+            }elseif($request->kedudukan_dalam_keluarga === 'Ibu'){
+                $wali->update([
+                    'saba_id' => $saba->id,
+                    'nama_wali' => $ortu->nama_ibu,
+                    'no_hp_wali' => $ortu->no_hp_ibu,
+                    'kedudukan_dalam_keluarga' => "Ibu",
+                    'alamat_wali' => 'Sama Dengan Anak'
+                ]);
+            }elseif ($request->kedudukan_dalam_keluarga === 'Wali') {
+                $wali->update([
+                    'saba_id' => $saba->id,
+                    'nama_wali' => $request->nama_wali,
+                    'kedudukan_dalam_keluarga' => 'Wali',
+                    'alamat_wali' => $request->alamat_wali,
+                    'no_hp_wali' => $request->no_hp_wali,
+                ]);
+            }
+
+        return response()->json(['status' => 201,'message' => 'Data Berhasil di Ubah',]);
         } catch (\Throwable $th) {
             throw $th;
         }
