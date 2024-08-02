@@ -99,6 +99,8 @@ Route::middleware('role:admin', 'throttle:admin')->group(function(){
     // cek saudara kandung
     Route::post('/saudara-kandung/{nokk}', [AdminSabaController::class, 'cekSaudaraKandung']);
     Route::post('/updateSaudaraKandung', [AdminSabaController::class, 'updateSaudaraKandung']);
+    // update berkas
+    Route::post('/update-berkas/{sid}', [AdminSabaController::class, 'updateBerkas'])->name('update.berkas');
     // berkas
     Route::get('/berkas', [AdminSabaController::class, 'createBerkas'])->name('berkas.index');
     Route::post('/berkas', [AdminSabaController::class, 'store_berkas'])->name('store.berkas');

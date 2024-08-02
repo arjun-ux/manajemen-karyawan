@@ -12,7 +12,7 @@
         @csrf
         <div class="title">LOGIN</div>
         <div class="form-group">
-            <input type="text" id="username" name="username" required placeholder="Username">
+            <input type="text" id="username" name="username" required placeholder="Username" autofocus>
         </div>
         <div class="form-group">
             <input type="password" id="password" name="password" required placeholder="Password">

@@ -18,6 +18,8 @@ use App\Providers\Service\WhatsAppService;
 use Illuminate\Support\Facades\Hash;
 use App\Providers\Service\IndoRegionService;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class SantriService extends ServiceProvider
 {
@@ -157,7 +159,7 @@ class SantriService extends ServiceProvider
     // get berkas
     public static function getBerkas($sid){
         try {
-            $berkas = Berkas::query(['kk','ktp_ortu','ktp_wali'])->where('saba_id',$sid)->first();
+            $berkas = Berkas::query(['foto','kk','ktp_ortu','ktp_wali'])->where('saba_id',$sid)->first();
             if (!$berkas) {
                 throw new \Exception("Data Berkas Milik santri ID $sid Tidak ditemukan");
             }
@@ -166,6 +168,7 @@ class SantriService extends ServiceProvider
             throw $th;
         }
     }
+
     // create saba
     public static function StoreSantri(SantriRequest $request){
         try {
@@ -246,11 +249,11 @@ class SantriService extends ServiceProvider
                 throw new \Exception("Ada Kesalahan Dalam Menyimpan Data Wali");
             }
             // send notif by wa
-            if ($request->no_wa) {
-                $numberTarget = $request->no_wa;
-                $message = 'Berikut Username Untuk Login Anda '.$santri->nis.', atas nama '.$santri->nama_lengkap.'.';
-                WhatsAppService::sendNotif($numberTarget, $message);
-            }
+            // if ($request->no_wa) {
+            //     $numberTarget = $request->no_wa;
+            //     $message = 'Berikut Username Untuk Login Anda '.$santri->nis.', atas nama '.$santri->nama_lengkap.'.';
+            //     WhatsAppService::sendNotif($numberTarget, $message);
+            // }
             DB::commit();
             return response()->json([
                 'status' => 200,
@@ -265,29 +268,6 @@ class SantriService extends ServiceProvider
     }
     // berkas store
     public static function storeBerkas($request){
-        $request->validate([
-            'foto' => 'required|file|mimes:jpeg,jpg,png|max:2048',
-            'kk' => 'required|file|mimes:jpeg,jpg,png|max:2048',
-            'ktp_ortu' => 'required|file|mimes:jpeg,jpg,png|max:2048',
-            'ktp_wali' => 'file|mimes:jpeg,jpg,png|max:2048',
-        ],[
-            'foto.required' => 'Foto wajib diisi.',
-            'foto.file' => 'Foto harus berupa file.',
-            'foto.mimes' => 'Foto harus dalam format jpeg, jpg, atau png.',
-            'foto.max' => 'Foto maksimal 2 MB.',
-            'kk.required' => 'KK wajib diisi.',
-            'kk.file' => 'KK harus berupa file.',
-            'kk.mimes' => 'KK harus dalam format jpeg, jpg, atau png.',
-            'kk.max' => 'KK maksimal 2 MB.',
-            'ktp_ortu.required' => 'KTP Orang Tua wajib diisi.',
-            'ktp_ortu.file' => 'KTP Orang Tua harus berupa file.',
-            'ktp_ortu.mimes' => 'KTP Orang Tua harus dalam format jpeg, jpg, atau png.',
-            'ktp_ortu.max' => 'KTP Orang Tua maksimal 2 MB.',
-            'ktp_wali.file' => 'KTP Wali harus berupa file.',
-            'ktp_wali.mimes' => 'KTP Wali harus dalam format jpeg, jpg, atau png.',
-            'ktp_wali.max' => 'KTP Wali maksimal 2 MB.',
-        ]);
-
         $data = Saba::where('id', $request->idSaba)->first(['nama_lengkap']);
         $nama_lengkap = $data->nama_lengkap;
         $replace_name = str_replace(' ','_', $nama_lengkap);
@@ -298,30 +278,30 @@ class SantriService extends ServiceProvider
         $ktp_wali = null;
 
         if ($request->hasFile('foto')) {
-           $file = $request->file('foto');
-           $name = 'FOTO'.'_'. $replace_name .'.'. $file->getClientOriginalExtension();
-           $foto = $file->storeAs('fotos', $name, 'public');
+            $file = $request->file('foto');
+            $name = 'FOTO'.'_'. $replace_name .'.'. $file->getClientOriginalExtension();
+            $foto = $file->storeAs('fotos', $name, 'public');
         }else{
             $foto = $request->foto;
         }
         if ($request->hasFile('kk')) {
-           $file = $request->file('kk');
-           $name = 'KK'.'_'. $replace_name .'.'. $file->getClientOriginalExtension();
-           $kk = $file->storeAs('kks', $name, 'public');
+            $file = $request->file('kk');
+            $name = 'KK'.'_'. $replace_name .'.'. $file->getClientOriginalExtension();
+            $kk = $file->storeAs('kks', $name, 'public');
         }else{
             $kk = $request->kk;
         }
         if ($request->hasFile('ktp_ortu')) {
-           $file = $request->file('ktp_ortu');
-           $name = 'KTP_ORTU'.'_'. $replace_name .'.'. $file->getClientOriginalExtension();
-           $ktp_ortu = $file->storeAs('ktp_ortus', $name, 'public');
+            $file = $request->file('ktp_ortu');
+            $name = 'KTP_ORTU'.'_'. $replace_name .'.'. $file->getClientOriginalExtension();
+            $ktp_ortu = $file->storeAs('ktp_ortus', $name, 'public');
         }else{
             $ktp_ortu = $request->ktp_ortu;
         }
         if ($request->hasFile('ktp_wali')) {
-           $file = $request->file('ktp_wali');
-           $name = 'KTP_WALI'.'_'. $replace_name .'.'. $file->getClientOriginalExtension();
-           $ktp_wali = $file->storeAs('ktp_walis', $name, 'public');
+            $file = $request->file('ktp_wali');
+            $name = 'KTP_WALI'.'_'. $replace_name .'.'. $file->getClientOriginalExtension();
+            $ktp_wali = $file->storeAs('ktp_walis', $name, 'public');
         }else{
             $ktp_wali = $request->ktp_wali;
         }
@@ -386,7 +366,65 @@ class SantriService extends ServiceProvider
         }
     }
     // update berkas
-    public static function getBerkasByid($saba_id){
-        //
+    public static function update_berkas(Request $request){
+
+        $berkasAda = Berkas::where('saba_id', $request->sid)->first();
+        if ($berkasAda) {
+            $path_foto = $berkasAda->foto;
+            $path_kk = $berkasAda->kk;
+            $path_ktp_ortu = $berkasAda->ktp_ortu;
+            $path_ktp_wali = $berkasAda->ktp_wali;
+        }
+        $foto=$path_foto;
+        $kk=$path_kk;
+        $ktp_ortu=$path_ktp_ortu;
+        $ktp_wali=$path_ktp_wali;
+
+        if ($request->hasFile('foto')) {
+            if ($path_foto) {
+                Storage::delete('public/' . $path_foto);
+                $file = $request->file('foto');
+                $foto = $file->store($path_foto, 'public');
+            }
+        }else{
+            $foto = $path_foto;
+        }
+        if ($request->hasFile('kk')) {
+            if ($path_kk) {
+                Storage::delete('public/' . $path_kk);
+                $file = $request->file('kk');
+                $kk = $file->store($path_kk, 'public');
+            }
+        }else{
+            $kk = $path_kk;
+        }
+        if ($request->hasFile('ktp_ortu')) {
+            if ($path_ktp_ortu) {
+                Storage::delete('public/' . $path_ktp_ortu);
+                $file = $request->file('ktp_ortu');
+                $ktp_ortu = $file->store($path_ktp_ortu, 'public');
+            }
+        }else{
+            $ktp_ortu = $path_ktp_ortu;
+        }
+        if ($request->hasFile('ktp_wali')) {
+            if ($path_ktp_wali) {
+                Storage::delete('public/' . $path_ktp_wali);
+                $file = $request->file('ktp_wali');
+                $ktp_wali = $file->store($path_ktp_wali,'public');
+            }
+        }else{
+            $ktp_wali = $path_ktp_wali;
+        }
+
+        // update berkas
+        $berkasAda->update([
+            'foto' => $foto,
+            'kk' => $kk,
+            'ktp_ortu' => $ktp_ortu,
+            'ktp_wali' => $ktp_wali,
+        ]);
+
+        return response()->json(['message'=>'Berhasil Update Berkas']);
     }
 }

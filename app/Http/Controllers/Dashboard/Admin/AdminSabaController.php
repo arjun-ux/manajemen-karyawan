@@ -97,8 +97,29 @@ class AdminSabaController extends Controller
     }
     // store berkas
     public function store_berkas(Request $request){
-        $data = $this->santri->storeBerkas($request);
-        return $data;
+        $request->validate([
+            'foto' => 'required|file|mimes:jpeg,jpg,png|max:2048',
+            // 'kk' => 'required|file|mimes:jpeg,jpg,png|max:2048',
+            // 'ktp_ortu' => 'required|file|mimes:jpeg,jpg,png|max:2048',
+            // 'ktp_wali' => 'file|mimes:jpeg,jpg,png|max:2048',
+        ],[
+            'foto.required' => 'Foto wajib diisi.',
+            'foto.file' => 'Foto harus berupa file.',
+            'foto.mimes' => 'Foto harus dalam format jpeg, jpg, atau png.',
+            'foto.max' => 'Foto maksimal 2 MB.',
+            // 'kk.required' => 'KK wajib diisi.',
+            // 'kk.file' => 'KK harus berupa file.',
+            // 'kk.mimes' => 'KK harus dalam format jpeg, jpg, atau png.',
+            // 'kk.max' => 'KK maksimal 2 MB.',
+            // 'ktp_ortu.required' => 'KTP Orang Tua wajib diisi.',
+            // 'ktp_ortu.file' => 'KTP Orang Tua harus berupa file.',
+            // 'ktp_ortu.mimes' => 'KTP Orang Tua harus dalam format jpeg, jpg, atau png.',
+            // 'ktp_ortu.max' => 'KTP Orang Tua maksimal 2 MB.',
+            // 'ktp_wali.file' => 'KTP Wali harus berupa file.',
+            // 'ktp_wali.mimes' => 'KTP Wali harus dalam format jpeg, jpg, atau png.',
+            // 'ktp_wali.max' => 'KTP Wali maksimal 2 MB.',
+        ]);
+        return $this->santri->storeBerkas($request);
     }
     // detail Saba
     public function showSaba($id){
@@ -132,6 +153,18 @@ class AdminSabaController extends Controller
     public function lihatBerkas($sid){
         $res = $this->santri->getBerkas($sid);
         return response()->json(['data'=>$res]);
+    }
+    // update berkas
+    public function updateBerkas(Request $request){
+        $request->validate([
+            'foto' => 'required|file|mimes:jpeg,jpg,png|max:2048',
+        ],[
+            'foto.required' => 'Foto wajib diisi.',
+            'foto.file' => 'Foto harus berupa file.',
+            'foto.mimes' => 'Foto harus dalam format jpeg, jpg, atau png.',
+            'foto.max' => 'Foto maksimal 2 MB.',
+        ]);
+        return $this->santri->update_berkas($request);
     }
     // non aktifkan santri boyong
     public function setNonActive($id){

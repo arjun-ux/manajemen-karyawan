@@ -90,15 +90,19 @@
     $('#filter').submit(function(e){
         e.preventDefault();
 
+        $('#loader-container').show();
+        $('#loader').show();
         $.ajax({
             url: '/data-report-bulanan',
             type: 'POST',
             data: $('#filter').serialize(),
             success: function(res){
-                console.log(res)
+                $('#loader-container').hide();
+                $('#loader').hide();
                 tableTransaksi(res)
             },
             error: function(xhr, error){
+                $('#loader-container').hide();
                 $('#loader').hide();
                 if (xhr.status === 404) {
                     toastr.error(xhr.responseJSON.message);
