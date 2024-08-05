@@ -289,29 +289,29 @@ class SantriService extends ServiceProvider
 
         if ($request->hasFile('foto')) {
             $file = $request->file('foto');
-            $name = 'FOTO'.'_'. $replace_name .'.'. $file->getClientOriginalExtension();
-            $foto = $file->storeAs('fotos', $name, 'public');
+            $name = 'fotos/'.'FOTO'.'_'. $replace_name .'.'. $file->getClientOriginalExtension();
+            $foto = $file->store($name, 'public');
         }else{
             $foto = $request->foto;
         }
         if ($request->hasFile('kk')) {
             $file = $request->file('kk');
-            $name = 'KK'.'_'. $replace_name .'.'. $file->getClientOriginalExtension();
-            $kk = $file->storeAs('kks', $name, 'public');
+            $name = 'kks/'.'KK'.'_'. $replace_name .'.'. $file->getClientOriginalExtension();
+            $kk = $file->store($name, 'public');
         }else{
             $kk = $request->kk;
         }
         if ($request->hasFile('ktp_ortu')) {
             $file = $request->file('ktp_ortu');
-            $name = 'KTP_ORTU'.'_'. $replace_name .'.'. $file->getClientOriginalExtension();
-            $ktp_ortu = $file->storeAs('ktp_ortus', $name, 'public');
+            $name = 'ktp_ortus/'.'KTP_ORTU'.'_'. $replace_name .'.'. $file->getClientOriginalExtension();
+            $ktp_ortu = $file->store($name, 'public');
         }else{
             $ktp_ortu = $request->ktp_ortu;
         }
         if ($request->hasFile('ktp_wali')) {
             $file = $request->file('ktp_wali');
-            $name = 'KTP_WALI'.'_'. $replace_name .'.'. $file->getClientOriginalExtension();
-            $ktp_wali = $file->storeAs('ktp_walis', $name, 'public');
+            $name = 'ktp_walis/'.'KTP_WALI'.'_'. $replace_name .'.'. $file->getClientOriginalExtension();
+            $ktp_wali = $file->store($name, 'public');
         }else{
             $ktp_wali = $request->ktp_wali;
         }

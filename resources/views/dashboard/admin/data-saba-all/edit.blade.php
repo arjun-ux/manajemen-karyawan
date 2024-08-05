@@ -638,9 +638,13 @@
                             $('#previewFoto2').attr('src', kk);
                             $('#previewFoto3').attr('src', ktp_ortu);
                             $('#previewFoto4').attr('src', ktp_wali);
-                            if(res.data.kk == null || res.data.ktp_ortu == null){
+                            if(res.data.kk == null){
                                 $('#previewFoto2').attr('src', '{{ asset('img/preview-image.png') }}');
+                            }
+                            if(res.data.ktp_ortu == null){
                                 $('#previewFoto3').attr('src', '{{ asset('img/preview-image.png') }}');
+                            }
+                            if(res.data.ktp_wali == null){
                                 $('#previewFoto4').attr('src', '{{ asset('img/preview-image.png') }}');
                             }
                             loaded = true; // Set flag loaded menjadi true
