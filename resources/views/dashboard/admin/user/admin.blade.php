@@ -213,7 +213,10 @@
                 {data: 'action', name: 'action', orderable: false, searchable: false},
             ],
         });
-
+        // Custom search input event
+        $('#customSearchInput').on('keyup', function() {
+            table.search(this.value).draw();
+        });
         // Function to convert table data to card view
         function convertTableToCardView() {
             const data = table.rows().data().toArray();
@@ -224,7 +227,7 @@
             cardView.empty();
             // Iterate over each row of data
             data.forEach(row => {
-                // Assuming row data order: [NO, NIS, NAMA, STATUS, ACTIOn
+                // Assuming row data order: username, nama, no wa
                 var id = row['id'];
                 const username = row['username'];
                 const nama = row['name'];
@@ -237,9 +240,9 @@
                     <div class="d-flex justify-content-between align-items-start">
                         <div class="flex-fill pe-3">
                             <ul class="list-unstyled mb-0">
-                                <li>NIS : <strong>${username}</strong> </li>
+                                <li>USERNAME : <strong>${username}</strong> </li>
                                 <li>NAMA : <strong>${nama}</strong> </li>
-                                <li>STATUS : <strong>${no_wa}</strong> </li>
+                                <li>NO WA : <strong>${no_wa}</strong> </li>
                             </ul>
                         </div>
                         <div class="d-flex flex-column justify-content-center align-items-center">
