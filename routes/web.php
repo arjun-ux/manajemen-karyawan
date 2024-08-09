@@ -6,7 +6,9 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KaryawanController;
 use Illuminate\Support\Facades\Route;
 
-
+Route::get('/', function () {
+    return redirect()->route('login');
+});
 Route::get('/unauthorize', function() {
     return view('auth.unathorize');
 })->name('unauthorized-page');
