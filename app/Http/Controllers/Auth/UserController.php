@@ -3,51 +3,29 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Providers\Service\UserService;
+use App\Models\User;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    protected $userService;
-    public function __construct(UserService $userService)
-    {
-        $this->userService = $userService;
-    }
-    // user santri
-    public function santri(){
-        return view('dashboard.admin.user.santri');
-    }
-    // data user santri
-    public function userSantri(){
-        $results = $this->userService->getUserSantri();
-        return DataTables::of($results)
-                ->addColumn('action', function($row){
-                    $btn = '<a href="#" data-id="'.$row->id.'" class="btn_edit btn btn-outline-primary btn-sm mt-1"><i class="lni lni-pencil-alt"></i></a>';
-                    return $btn;
-                })
-                ->addIndexColumn()
-                ->toJson();
-    }
-    // get user santri id
-    public function get_santri_by_id($id){
-        $results = $this->userService->getUserSantriById($id);
-        return $results;
-    }
-    // upadate password user santri
-    public function update_password_santri(Request $request, $uid){
-        $results = $this->userService->updatePasswordSantri($request,$uid);
-        return $results;
-    }
+
     // user admin
-    public function admin(){
-        return view('dashboard.admin.user.admin');
+    public function index(){
+        return view('pages.user.index');
     }
     // data user admin
-    public function userAdmin(){
-        $results = $this->userService->getUserAdmin();
-        return DataTables::eloquent($results)
+    public function data(){
+        $data = User::query();
+        return DataTables::eloquent($data)
                     ->addColumn('action', function($row){
+                        if ($row->role == 'superadmin') {
+                            $btn = '<a href="#" data-id="'.$row->id.'" class="btn_edit btn btn-outline-primary btn-sm mt-1"><i class="lni lni-pencil-alt"></i></a>';
+                            return $btn;
+                        }
                         $btn = '<a href="#" data-id="'.$row->id.'" class="btn_edit btn btn-outline-primary btn-sm mt-1"><i class="lni lni-pencil-alt"></i></a>';
                         $btn .= ' <a href="#" data-id="'.$row->id.'" class="btn_delete btn btn-outline-danger btn-sm mt-1"><i class="lni lni-trash-can"></i></a>';
                         return $btn;
@@ -56,24 +34,75 @@ class UserController extends Controller
                     ->addIndexColumn()
                     ->toJson();
     }
+
     // store admin
-    public function store_admin(Request $request){
-        $results = $this->userService->storeAdmin($request);
-        return $results;
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|unique:users,email',
+            'password' => 'required|min:8',
+            'role' => 'required'
+        ],[
+            'name.required' => 'Nama wajib diisi',
+            'email.required' => 'Email wajib diisi',
+            'email.unique' => 'Email sudah digunakan',
+            'password.required' => 'Password wajib diisi',
+            'password.min' => 'Password minimal 8 karakter',
+            'role.required' => 'Role wajib diisi'
+        ]);
+
+        $users = DB::table('users')
+            ->insert([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'role' => $request->role,
+                'status' => 'aktif',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ]);
+
+        if ($users) {
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Data disimpan',
+                'title' => 'Berhasil'
+            ]);
+        }
     }
     // get admin by id
-    public function getIdAdmin($uid){
-        $results = $this->userService->getAdminById($uid);
-        return response()->json(['data'=>$results]);
+    public function userId($id){
+        $user = User::where('id', $id)->first();
+        return response()->json($user);
     }
-    // update admin
-    public function update_admin(Request $request){
-        $results = $this->userService->UpdateAdmin($request);
-        return $results;
+    // update user
+    public function update(Request $request){
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|unique:users,email,'.$request->id,
+            'password' => 'required',
+            'role' => 'required'
+        ]);
+        $user = User::where('id', $request->id)->first();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->role = $request->role;
+        $user->save();
+        return response()->json(['message'=>'Data Berhasil Di Update']);
     }
-    // delete admin
-    public function delete_admin($uid){
-        $results = $this->userService->deleteAdmin($uid);
-        return $results;
+
+    // delete
+    public function delete(Request $request)
+    {
+        $data = User::where('id', $request->id)->delete();
+        if ($data) {
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Data dihapus',
+                'title' => 'Berhasil'
+            ]);
+        }
     }
 }

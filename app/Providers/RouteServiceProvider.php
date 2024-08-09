@@ -17,7 +17,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/';
+    public const HOME = "{{ route('dashboard') }}";
 
     /**
      * Define your route model bindings, pattern filters, and other route configuration.
@@ -28,23 +28,9 @@ class RouteServiceProvider extends ServiceProvider
             return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
         });
         RateLimiter::for('login', function (Request $request) {
-            return Limit::perMinute(10)
+            return Limit::perMinute(60)
             ->by($request->user()?->id ?: $request->ip());
         });
-        RateLimiter::for('home', function (Request $request) {
-            return Limit::perMinute(20)->by($request->ip());
-        });
-        RateLimiter::for('register', function (Request $request) {
-            return Limit::perMinute(10)->by($request->ip());
-        });
-        RateLimiter::for('saba', function (Request $request) {
-            return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
-        });
-        RateLimiter::for('admin', function (Request $request) {
-            return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
-        });
-
-
         $this->routes(function () {
             Route::middleware('api')
                 ->prefix('api')

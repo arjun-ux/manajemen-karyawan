@@ -14,23 +14,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-
-        $roles = [
-            [
-                'name' => 'admin',
-            ],
-            [
-                'name' => 'saba',
-                ]
-            ];
-            DB::table('roles')->insert($roles);
-            $this->call(IndoRegionProvinceSeeder::class);
-            $this->call(IndoRegionRegencySeeder::class);
-            $this->call(IndoRegionDistrictSeeder::class);
-            $this->call(IndoRegionVillageSeeder::class);
-            $this->call(PekerjaanSeeder::class);
-            $this->call(PendidikanSeeder::class);
-            $this->call(PembayaranSeeder::class);
-            $this->call(UserSeeder::class);
+        $this->call(UserSeeder::class);
     }
 }

@@ -18,16 +18,12 @@ class LoginController extends Controller
     public function doLogin(Request $request)
     {
         $credential = $request->validate([
-            'username' => 'required',
+            'email' => 'required',
             'password' => 'required',
         ]);
         if (auth()->attempt($credential)) {
-            if (auth()->user()->role === 'admin') {
-                $request->session()->regenerate();
-                return redirect()->route('dashmin');
-            }
             $request->session()->regenerate();
-            return redirect()->route('dashba');
+            return redirect()->route('dashboard');
         }
         return redirect()->back()->withInput()->withErrors([
             'errors' => 'Username Atau Password Salah.',

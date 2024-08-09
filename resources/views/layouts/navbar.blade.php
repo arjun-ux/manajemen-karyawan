@@ -1,49 +1,84 @@
-<div class="container-fluid">
-    <div class="row justify-content-center">
-        <div class="navbar">
-            <div class="navbar-logo">
-                <a href="{{ route('home') }}">
-                    <img src="img/log.png" alt="Logo" height="40">
-                </a>
+<nav class="navbar navbar-expand px-4 py-3">
+    <!-- Button trigger modal -->
+    <button type="button" id="btn_modalSidebar" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#modalMobile">
+    &#9776;
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalMobile" tabindex="-1">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">SISTEM MANAJEMEN KARYAWAN</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <li class="li_pro">
+                        <a class="pro" href="">
+                            <i class="lni lni-dashboard"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+
+                    <li class="li_pro">
+                        <a class="pro" href="#" class="collapsed has-dropdown" data-bs-toggle="collapse"
+                            data-bs-target="#auth" aria-expanded="false" aria-controls="auth">
+                            <i class="lni lni-users"></i>
+                            <span>User</span>
+                        </a>
+                        <ul id="auth" class="sidebar-dropdown collapse" data-bs-parent="#sidebar">
+                            <li class="li_pro">
+                                <a class="pro" href="">
+                                    <i class="lni lni-user"></i>
+                                    Admin
+                                </a>
+                            </li>
+                            <li class="li_pro">
+                                <a class="pro" href="">
+                                    <i class="lni lni-user"></i>
+                                    Santri
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li class="li_pro">
+                        <a class="pro" href="#" class="collapsed has-dropdown" data-bs-toggle="collapse"
+                            data-bs-target="#settings" aria-expanded="false" aria-controls="settings">
+                            <i class="lni lni-cog"></i>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+                </div>
             </div>
-            @guest
-                <div class="toggle-button" onclick="toggleMenu()">
-                    <a href="#">&#9776;</a>
-                </div>
-                <div class="navbar-actions" id="navbarAction">
-                    <a href="{{ route('register') }}">Daftar</a>
-                    <a href="{{ route('login') }}">Masuk</a>
-                </div>
-            @else
-                <div class="toggle-drop" onclick="toggleDrop()">
-                    <a href="#">
-                        {{ Auth::user()->name }}
-                        <img src="img/pp.png" alt="pp" height="40">
-                    </a>
-                </div>
-                <div class="dropdown-action" id="dropdownAction">
-                    @if (Auth::user()->role === 'saba')
-                    <a href="/dashba">My Profile</a>
-                    <a href="#" id="logout">Log Out</a>
-                    @elseif (Auth::user()->role === 'admin')
-                    <a href="/dashmin">Dashboard</a>
-                    <a href="#" id="logout">Log Out</a>
-                    @endif
-                </div>
-            @endguest
         </div>
     </div>
-</div>
+
+
+    <div class="navbar-collapse collapse">
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                    Selamat Datang, <strong>{{ Auth::user()->name }}</strong>
+                    <img class="avatar img-fluid"
+                        src="{{ asset('img/users.png') }}">
+                </a>
+                <!-- Dropdown - User Information -->
+                <div class="dropdown-menu dropdown-menu-end border-0"
+                    aria-labelledby="userDropdown">
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" id="logout" href="#">
+                        <i class="lni lni-power-switch"></i>
+                        <span>Logout</span>
+                    </a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
 @push('script')
     <script>
-        function toggleMenu() {
-            var navbarActions = document.getElementById('navbarAction');
-            navbarActions.classList.toggle('show');
-        }
-        function toggleDrop(){
-            var dropdownAction = document.getElementById('dropdownAction');
-            dropdownAction.classList.toggle('show');
-        }
         $('#logout').click(function(e){
             e.preventDefault();
             Swal.fire({
@@ -60,7 +95,7 @@
         });
         function logout(){
             $.ajax({
-                url: '/logout',
+                url: '{{ route('logout') }}',
                 type: 'GET',
                 success: function(res){
                     Swal.fire({
@@ -72,8 +107,7 @@
                         position: 'top-end',
                         timerProgressBar: true,
                     }).then(()=>{
-                        location.reload();
-                        window.location.href = '/'
+                        window.location.href = '{{ route('login') }}'
                     });
                 }
             });
