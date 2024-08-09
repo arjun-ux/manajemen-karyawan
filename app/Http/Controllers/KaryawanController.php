@@ -28,6 +28,7 @@ class KaryawanController extends Controller
                     return $btn;
                 }
                 $btn = '<a id="enable" href="' . route('karyawan.edit', $row->id) . '" class="btn_edit btn btn-outline-primary btn-sm mt-1"><i class="lni lni-pencil-alt"></i></a>';
+                $btn .= ' <a href="#" id="detail" data-id="' . $row->id . '" class="btn btn-outline-warning btn-sm mt-1"><i class="lni lni-empty-file"></i></a>';
                 $btn .= ' <a href="#" id="hapus" data-id="' . $row->id . '" class="btn-nonAktif btn btn-outline-danger btn-sm mt-1"><i class="lni lni-trash-can"></i></a>';
                 return $btn;
             })
