@@ -9,7 +9,8 @@
         <div class="modal-body">
             <div class="d-flex mb-2">
                 <div class="col-md-3">
-                    <img class="img-thumbnail" src="{{ asset('img/preview-image.png') }}" alt="foto" width="250px">
+                    <img  id="foto" class="img-thumbnail" src="" alt="foto" width="250px">
+
                 </div>
                 <div class="col-md-9">
                     <div class="row">

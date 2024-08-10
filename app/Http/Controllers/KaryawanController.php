@@ -6,6 +6,7 @@ use App\Models\Karyawan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
 class KaryawanController extends Controller
@@ -45,6 +46,14 @@ class KaryawanController extends Controller
     // store data
     public function store(Request $request)
     {
+        $replace_name = str_replace(' ','', $request->nama_lengkap);
+        if ($request->hasFile('foto')) {
+            $file = $request->file('foto');
+            $path = 'fotos/'.$replace_name.'.'. $file->getClientOriginalExtension();
+            $foto = $file->store($path, 'public');
+        }else{
+            $foto = null;
+        }
         // $request->validate();
         $karyawan = DB::table('karyawans')
             ->insert([
@@ -64,7 +73,7 @@ class KaryawanController extends Controller
                 'tanggal_masuk_kerja' => $request->tanggal_masuk_kerja,
                 'status_kerja' =>  $request->status_kerja,
                 'status_aktif' => 'aktif',
-                'foto' => '-',
+                'foto' => $foto,
                 'email' => $request->email
             ]);
 
@@ -86,6 +95,7 @@ class KaryawanController extends Controller
     public function edit($id)
     {
         $karyawan = DB::table('karyawans')->select('karyawans.*')->where('id', $id)->first();
+        // dd($karyawan);
         return view('pages.karyawan.edit', [
             'karyawan' => $karyawan
         ]);
@@ -93,6 +103,20 @@ class KaryawanController extends Controller
     // update
     public function update(Request $request)
     {
+        $berkasAda = Karyawan::where('id', $request->id)->first();
+        if ($berkasAda) {
+            $path_foto = $berkasAda->foto;
+        }
+        $foto= $path_foto;
+        if ($request->hasFile('foto')) {
+            if ($path_foto) {
+                Storage::delete('public/' . $path_foto);
+                $file = $request->file('foto');
+                $foto = $file->store($path_foto, 'public');
+            }
+        }else{
+            $foto = $path_foto;
+        }
         $karyawan = DB::table('karyawans')
             ->where('id', $request->id)
             ->update([
@@ -112,7 +136,7 @@ class KaryawanController extends Controller
                 'tanggal_masuk_kerja' => $request->tanggal_masuk_kerja,
                 'status_kerja' =>  $request->status_kerja,
                 'status_aktif' => 'aktif',
-                'foto' => '-',
+                'foto' => $foto,
                 'email' => $request->email
             ]);
 

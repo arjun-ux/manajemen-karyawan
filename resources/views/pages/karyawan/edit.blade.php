@@ -1,6 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+    #previewFoto img {
+        max-width: 100%;
+        max-height: 200px;
+    }
+    #fotoKaryawn img {
+        max-width: 100%;
+        max-height: 200px;
+    }
+</style>
     <div class="container-fluid">
 
         <!-- Page Heading -->
@@ -168,20 +178,24 @@
                                 </select>
                             </div>
                         </div>
-
-                        <div class="col-md-4 mb-2">
-                            <div class="form-group">
-                                <label for="">Foto:</label>
-                                <input type="file" name="foto" class="form-control">
-                            </div>
-                        </div>
-
                         <div class="col-md-4 mb-2">
                             <div class="form-group">
                                 <label for="">Email:</label>
                                 <input type="email" class="form-control" name="email" placeholder="Masukan email"
                                     value="{{ $karyawan->email }}">
                             </div>
+                        </div>
+                        <div class="col-md-6 mb-2">
+                            <div class="form-group">
+                                <label for="inputFoto">Foto:</label>
+                                <input type="file" name="foto" id="inputFoto" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-6" id="previewContainer" style="display: none">
+                            <div id="previewFoto"></div>
+                        </div>
+                        <div class="col-md-6" id="fotoKaryawn">
+                            <img src="{{ asset('storage/'. $karyawan->foto) }}" alt="foto karyawan">
                         </div>
                     </div>
 
@@ -198,6 +212,30 @@
 
 @push('script')
     <script>
+        document.getElementById('inputFoto').addEventListener('change', function(event) {
+            $('#fotoKaryawn').hide();
+            const previewContainer = document.getElementById('previewContainer');
+            const previewFoto = document.getElementById('previewFoto');
+            const file = event.target.files[0];
+
+            // Clear previous preview
+            previewFoto.innerHTML = '';
+
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    previewFoto.appendChild(img);
+                    previewContainer.style.display = 'block';
+                };
+
+                reader.readAsDataURL(file);
+            } else {
+                previewContainer.style.display = 'none';
+            }
+        });
         $(document).ready(function() {
             $("#form_simpan").submit(function(e) {
                 e.preventDefault();

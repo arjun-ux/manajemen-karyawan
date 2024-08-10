@@ -142,6 +142,13 @@
                 type: 'GET',
                 success: function(res){
                     console.log(res);
+                    if(res.foto == null){
+                        $('#foto').attr('src', '{{ asset('img/preview-image.png') }}');
+                    }
+                    var foto = '{{ asset('storage/') }}' + '/' + res.foto;
+                    $('#foto').attr('src', foto);
+
+
                     $('#no_ktp').val(res.no_ktp);
                     $('#nama_lengkap').val(res.nama_lengkap);
                     $('#alamat_tempat_tinggal').val(res.alamat_tempat_tinggal);
